@@ -14,15 +14,14 @@
   ],
   "excluded_unverified_modules": [
     "DHH/Cubical/DayHomComposition.agda",
-    "DHH/Cubical/DayHomCompositionMaps.agda",
     "DHH/Cubical/DayHomCompositionNaturality.agda",
+    "DHH/Cubical/DayHomCompositionParameter.agda",
     "DHH/Enrichment/NerveFunctorCoherence.agda",
     "DHH/Enrichment/NerveFunctorComposition.agda",
     "DHH/Enrichment/NerveFunctorUnit.agda",
     "DHH/Enrichment/StableCompositionAssociativity.agda",
     "DHH/Enrichment/StableCompositionCoherence.agda",
     "DHH/Enrichment/StableCompositionDayUnits.agda",
-    "DHH/Enrichment/StableCompositionMergeUnits.agda",
     "DHH/Enrichment/StableCompositionUnits.agda"
   ],
   "drafts_preserved": "research-drafts/unverified/*.agda.txt (published separately, excluded from formal source tree and proof claims)",
@@ -438,5 +437,407 @@
       ]
     }
   ],
-  "boundary": "Compiler timeouts and diagnosed errors are not successful checks. Ordinary IsKan retains truncation. Raw-to-stable anodyne/topological weak comparison and complete enriched/coherent/localization models remain incomplete."
+  "boundary": "Compiler timeouts and diagnosed errors are not successful checks. Ordinary IsKan retains truncation. Raw-to-stable anodyne/topological weak comparison and complete enriched/coherent/localization models remain incomplete.",
+  "current_checked_module_count": 206,
+  "latest_successful_additions": [
+    "DHH/Cubical/DayHomCompositionCore.agda",
+    "DHH/Cubical/DayHomCompositionMaps.agda",
+    "DHH/Enrichment/StableCompositionMergeCore.agda",
+    "DHH/Enrichment/StableCompositionMergeUnits.agda",
+    "DHH/Enrichment/StableCompositionUnitStages.agda"
+  ],
+  "published_unverified_draft_files": [
+    "research-drafts/unverified/Cubical/DayHomComposition.agda.txt",
+    "research-drafts/unverified/Cubical/DayHomCompositionNaturality-ParameterAttempt.agda.txt",
+    "research-drafts/unverified/Cubical/DayHomCompositionNaturality.agda.txt",
+    "research-drafts/unverified/Cubical/DayHomCompositionParameter.agda.txt",
+    "research-drafts/unverified/Enrichment/NerveFunctorCoherence.agda.txt",
+    "research-drafts/unverified/Enrichment/NerveFunctorComposition.agda.txt",
+    "research-drafts/unverified/Enrichment/NerveFunctorUnit.agda.txt",
+    "research-drafts/unverified/Enrichment/StableCompositionAssociativity.agda.txt",
+    "research-drafts/unverified/Enrichment/StableCompositionCoherence.agda.txt",
+    "research-drafts/unverified/Enrichment/StableCompositionDayUnits.agda.txt",
+    "research-drafts/unverified/Enrichment/StableCompositionMergeCore-DayMapAttempt.agda.txt",
+    "research-drafts/unverified/Enrichment/StableCompositionUnits.agda.txt"
+  ],
+  "latest_research_receipts": [
+    {
+      "record": "day-hom-maps-default.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomCompositionMaps.agda",
+        "exit_code": null,
+        "timeout": true,
+        "elapsed_seconds": 180.302,
+        "checked_at_utc": "2026-10-13T07:57:59.247884+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Cubical/DayHomCompositionMaps.agda"
+        ]
+      }
+    },
+    {
+      "record": "day-hom-maps-opaque.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomCompositionMaps.agda",
+        "exit_code": null,
+        "timeout": true,
+        "elapsed_seconds": 80.257,
+        "checked_at_utc": "2026-10-13T08:04:14.804473+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Cubical/DayHomCompositionMaps.agda"
+        ]
+      }
+    },
+    {
+      "record": "day-hom-prefixes.json",
+      "result": [
+        {
+          "prefix": 1,
+          "exit_code": 0,
+          "elapsed": 1.976
+        },
+        {
+          "prefix": 2,
+          "exit_code": 0,
+          "elapsed": 1.806
+        },
+        {
+          "prefix": 3,
+          "timeout": 35,
+          "exit_code": null,
+          "elapsed": 35.179
+        }
+      ]
+    },
+    {
+      "record": "day-hom-maps-core.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomCompositionMaps.agda",
+        "exit_code": 0,
+        "timeout": false,
+        "elapsed_seconds": 4.002,
+        "checked_at_utc": "2026-10-13T08:07:18.935394+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Cubical/DayHomCompositionMaps.agda"
+        ]
+      }
+    },
+    {
+      "record": "day-hom-composition-core.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomComposition.agda",
+        "exit_code": null,
+        "timeout": true,
+        "elapsed_seconds": 100.013,
+        "checked_at_utc": "2026-10-13T08:10:06.427983+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Cubical/DayHomComposition.agda"
+        ]
+      }
+    },
+    {
+      "record": "day-hom-composition-curry-equation.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomComposition.agda",
+        "exit_code": null,
+        "timeout": true,
+        "elapsed_seconds": 90.02,
+        "checked_at_utc": "2026-10-13T08:28:14.908275+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Cubical/DayHomComposition.agda"
+        ]
+      }
+    },
+    {
+      "record": "hom-composition-and-identity-beta-repaired.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomCompositionMaps.agda",
+        "exit_code": 0,
+        "timeout": false,
+        "elapsed_seconds": 2.609,
+        "checked_at_utc": "2026-10-13T08:35:26.261710+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Cubical/DayHomCompositionMaps.agda"
+        ],
+        "source_sha256": "6a0b5c438eb725e6b76604d7d116ac5676d8c0085ae362f60c29ee835554411a"
+      }
+    },
+    {
+      "record": "hom-composition-parameter-import.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomComposition.agda",
+        "exit_code": null,
+        "timeout": 90,
+        "elapsed_seconds": 90.159,
+        "checked_at_utc": "2026-10-13T08:40:42.520996+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Cubical/DayHomComposition.agda"
+        ],
+        "source_sha256": "b3d13a387b0871ebfbe757bc7798811e9009e33f9c5550ef65e80abb691aecfa"
+      }
+    },
+    {
+      "record": "original-stable-merge-core.json",
+      "result": {
+        "module": "DHH/Enrichment/StableCompositionMergeCore.agda",
+        "exit_code": 0,
+        "timeout": false,
+        "elapsed_seconds": 1.924,
+        "checked_at_utc": "2026-10-13T08:36:25.281710+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Enrichment/StableCompositionMergeCore.agda"
+        ],
+        "source_sha256": "dfbc3489717093de50fc106b88cc0e824ce242fc246eeca17a22033fc178c588"
+      }
+    },
+    {
+      "record": "stable-unit-stage-prefixes.json",
+      "result": [
+        {
+          "prefix": 2,
+          "exit_code": 0,
+          "elapsed": 2.228
+        },
+        {
+          "prefix": 3,
+          "exit_code": 0,
+          "elapsed": 1.745
+        },
+        {
+          "prefix": 4,
+          "exit_code": 0,
+          "elapsed": 1.758
+        },
+        {
+          "prefix": 5,
+          "exit_code": 0,
+          "elapsed": 1.81
+        }
+      ]
+    },
+    {
+      "record": "original-stable-merge-unit-laws.json",
+      "result": {
+        "module": "DHH/Enrichment/StableCompositionMergeUnits.agda",
+        "exit_code": 0,
+        "timeout": false,
+        "elapsed_seconds": 54.577,
+        "checked_at_utc": "2026-10-13T08:44:56.263158+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Enrichment/StableCompositionMergeUnits.agda"
+        ],
+        "source_sha256": "4e6f0bc71a500fd784abf93369465e85f6ce42a3d877163d70209f459ad13532"
+      }
+    },
+    {
+      "record": "stable-day-unit-diagrams.json",
+      "result": {
+        "module": "DHH/Enrichment/StableCompositionUnits.agda",
+        "exit_code": null,
+        "timeout": 90,
+        "elapsed_seconds": 90.022,
+        "checked_at_utc": "2026-10-13T08:47:43.580124+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Enrichment/StableCompositionUnits.agda"
+        ],
+        "source_sha256": "e9ed1909f459c0b5f981816f04c40a903eb234450b648467c3f6fe72cd5c697c"
+      }
+    },
+    {
+      "record": "stable-day-units-original-equation.json",
+      "result": {
+        "module": "DHH/Enrichment/StableCompositionUnits.agda",
+        "exit_code": null,
+        "timeout": 110,
+        "elapsed_seconds": 110.027,
+        "checked_at_utc": "2026-10-13T08:52:26.221120+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Enrichment/StableCompositionUnits.agda"
+        ],
+        "source_sha256": "e9ed1909f459c0b5f981816f04c40a903eb234450b648467c3f6fe72cd5c697c"
+      }
+    },
+    {
+      "record": "stable-day-units-imported-map.json",
+      "result": {
+        "module": "DHH/Enrichment/StableCompositionUnits.agda",
+        "exit_code": null,
+        "timeout": 140,
+        "elapsed_seconds": 140.022,
+        "checked_at_utc": "2026-10-13T08:56:14.423094+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Enrichment/StableCompositionUnits.agda"
+        ],
+        "source_sha256": "e9ed1909f459c0b5f981816f04c40a903eb234450b648467c3f6fe72cd5c697c"
+      }
+    },
+    {
+      "record": "stable-day-core-explicit-graphs.json",
+      "result": {
+        "module": "DHH/Enrichment/StableCompositionMergeCore.agda",
+        "exit_code": null,
+        "timeout": 35,
+        "elapsed_seconds": 35.022,
+        "checked_at_utc": "2026-10-13T08:58:24.955816+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Enrichment/StableCompositionMergeCore.agda"
+        ],
+        "source_sha256": "97857ef3016a4bbfafa0ab7e1bf54aa34b7dfc386ec6bb7aa5766cf21bc84c58"
+      }
+    },
+    {
+      "record": "stable-day-core-both-operations-opaque.json",
+      "result": {
+        "module": "DHH/Enrichment/StableCompositionMergeCore.agda",
+        "exit_code": null,
+        "timeout": 40,
+        "elapsed_seconds": 40.016,
+        "checked_at_utc": "2026-10-13T09:00:14.421322+00:00",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "DHH/Enrichment/StableCompositionMergeCore.agda"
+        ],
+        "source_sha256": "beaa842d6c08a55c8c9b68486982d0da5999f0b6d952f2760513576221f61073"
+      }
+    }
+  ],
+  "diagnostic_scope_note": "Prefix probes checked shortened temporary modules only; they are not whole-module acceptance. Formal acceptance and source hashes are solely checks/verification.json. Failed/timed-out Core extensions are preserved separately and not included in the checked Core."
 }

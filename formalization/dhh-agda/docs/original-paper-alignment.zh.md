@@ -2,7 +2,7 @@
 
 这里的“原论文”指 Carranza–Kapulkin–Lindsey 的 [Calculus of Fractions for Quasicategories，2306.02218v1](https://arxiv.org/pdf/2306.02218v1)，特别是 §12、§14 和 Conjecture 14.3。稳定图 nerve 的定义和比较另见 Carranza–Kapulkin 的 [2202.03516v3，§3–4](https://arxiv.org/html/2202.03516v3)。两篇论文的同号定义不能混引。
 
-**当前已有闭合的候选 `Concrete.DHH : Type₃`；原论文版本还没有全部闭合。** 之前把剩余工作概括为“一个比较定理”过于简略：这包含稳定 nerve、富集、相干 nerve、标记局部化以及基础对象编码几个不同的接口。整数稳定 nerve 的自然比较已证明；后续又补出整个 horn 的有限阶段因子化、图 coend 伴随，以及几何张量的三角形和五边形相容。历史验收回执为 **176 个模块，退出码 0，2026-10-12 13:55:35 UTC**，对应当时新增的 30 个模块。本次续接的 `HornFilling` 提供实际 `N∞-Kan` 证明项。前一轮190模块验收时间为2026-10-13 11:30:51（北京时间），回执保存在 `checks/verification-before-comparison.json`。本轮整库验收为 **201 个模块，退出码 0，2026-10-13 13:13:24（北京时间）**，耗时 13.78 秒，复用已检查依赖缓存；逐文件哈希见 `checks/verification.json`。`DayMonoidal`、`DayMonoidalLift` 因转换检查超时保留为未验收的历史草稿，未包含在本次迁移交付中，也不计入正式源码验收。
+**当前已有闭合的候选 `Concrete.DHH : Type₃`；原论文版本还没有全部闭合。** 之前把剩余工作概括为“一个比较定理”过于简略：这包含稳定 nerve、富集、相干 nerve、标记局部化以及基础对象编码几个不同的接口。整数稳定 nerve 的自然比较已证明；后续又补出整个 horn 的有限阶段因子化、图 coend 伴随，以及几何张量的三角形和五边形相容。历史验收回执为 **176 个模块，退出码 0，2026-10-12 13:55:35 UTC**，对应当时新增的 30 个模块。本次续接的 `HornFilling` 提供实际 `N∞-Kan` 证明项。前一轮190模块验收时间为2026-10-13 11:30:51（北京时间），回执保存在 `checks/verification-before-comparison.json`。最新整库验收为 **206 个模块，退出码 0，2026-10-13 17:02:52（北京时间）**，耗时 7.106 秒，复用已检查依赖缓存；逐文件哈希见 `checks/verification.json`。前一版201模块回执保存在 `checks/verification-before-composition.json`。`DayMonoidal`、`DayMonoidalLift` 因转换检查超时保留为未验收的历史草稿，未包含在本次迁移交付中，也不计入正式源码验收。
 
 ## 1. 原论文的目标到底是哪条箭头
 

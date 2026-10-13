@@ -1,7 +1,9 @@
 # 未验收的研究草稿
 
-这里保存本轮已写出但尚未通过完整检查的11个相容律草稿，使用`.agda.txt`以避免误计入正式Agda入口。正式验收仍是`../../Everything.agda`覆盖的201模块，见`../../checks/verification.json`。
+当前正式入口 `../../Everything.agda` 覆盖206个模块，全部通过安全检查，逐文件哈希见 `../../checks/verification.json`。此目录单独保存12份未验收研究源码，扩展名为 `.agda.txt`；其中10份当前候选和2份替代实现，不计入正式模块。
 
-这些文件不能作为已证明结论：稳定富集的完整单位与结合律、nerve作用保持式，以及Day内部Hom复合包装仍待验证。转换检查超时不是通过；具体诊断见`../../checks/comparison-development-diagnostics.json`。没有提供完整DHH、原始N₁→N∞弱等价或完整局部化模型的证明。
+已通过的内部Hom构造与求值β、原稳定合并操作左右单位律已移入正式树。这里仍保留完整Day单位自然变换等式、稳定结合律、nerve函子保持式及参数相容律等未验收尝试。转换超时不是通过，诊断见 `../../checks/comparison-development-diagnostics.json`。
 
-后续恢复时把需要检查的模块复制到工作目录，逐模块检查所有依赖后再纳入正式DHH树。不要仅把扩展名改为`.agda`就宣称完成。
+`StableCompositionMergeCore-DayMapAttempt.agda.txt` 是在正式Core之上扩展Day复合包装的未验收尝试，当前DayUnits草稿需要这些扩展。`DayHomCompositionNaturality-ParameterAttempt.agda.txt` 是采用参数包装的替代证明，需要同目录的Parameter草稿。它们不能替换正式模块并声称已经证明。
+
+继续时将候选和所需依赖复制到工作目录，实际检查成功后才能纳入正式入口。当前内容不提供原始N₁→N∞弱等价、完整模型识别或DHH证明。

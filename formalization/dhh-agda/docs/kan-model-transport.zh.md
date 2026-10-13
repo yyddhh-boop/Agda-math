@@ -1,4 +1,4 @@
-> 本文涉及的Kan运输模块已纳入本轮201模块整库安全验收；权威回执见 `checks/verification.json`。
+> 本文涉及的Kan运输模块已纳入最新206模块整库安全验收；权威回执见 `checks/verification.json`。
 
 # 稳定 Kan 性的模型运输与局部实例
 

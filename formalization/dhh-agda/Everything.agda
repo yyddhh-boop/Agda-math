@@ -10,6 +10,8 @@ import DHH.Cubical.DayAssociatorHelpers
 import DHH.Cubical.DayClosed
 import DHH.Cubical.DayClosedParameter
 import DHH.Cubical.DayCoherence
+import DHH.Cubical.DayHomCompositionCore
+import DHH.Cubical.DayHomCompositionMaps
 import DHH.Cubical.DayHomEvaluation
 import DHH.Cubical.DayHomNestedEvaluation
 import DHH.Cubical.DayPentagon
@@ -34,9 +36,9 @@ import DHH.Cubical.KanComposition
 import DHH.Cubical.KanTransport
 import DHH.Cubical.SelectedFinitePresentation
 import DHH.Cubical.SelectedGraphPresentation
-import DHH.Cubical.TensorCategory
 import DHH.Cubical.TensorCategory.Coordinates
 import DHH.Cubical.TensorCategory.Words
+import DHH.Cubical.TensorCategory
 import DHH.Cubical.TensorCoherence
 import DHH.CubicalBridge
 import DHH.CubicalNerve
@@ -52,7 +54,10 @@ import DHH.Enrichment.OrderedCubicalCodes
 import DHH.Enrichment.OrderedGraphCodes
 import DHH.Enrichment.StableComposition
 import DHH.Enrichment.StableCompositionIdentity
+import DHH.Enrichment.StableCompositionMergeCore
+import DHH.Enrichment.StableCompositionMergeUnits
 import DHH.Enrichment.StableCompositionStageLaws
+import DHH.Enrichment.StableCompositionUnitStages
 import DHH.Enrichment.StableKan
 import DHH.Examples
 import DHH.FiniteInterval

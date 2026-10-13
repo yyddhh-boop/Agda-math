@@ -1,4 +1,4 @@
-> 本文记录树外未验收相容律草稿的精确接口与开发审查；不计入正式201模块验收。当前正式结果见 `stable-enrichment-and-transition-progress.zh.md`，编译回执见 `checks/verification.json`。
+> 本文记录树外未验收相容律草稿的精确接口与开发审查；不计入正式206模块验收。当前正式结果见 `stable-enrichment-and-transition-progress.zh.md`，编译回执见 `checks/verification.json`。
 
 # 稳定图富集与 nerve Hom 作用的相干性接口
 

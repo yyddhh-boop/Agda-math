@@ -99,15 +99,22 @@ module _ (G H K L : Graph ℓ) where
     mergeN∞-associativity : (p q r : ℕ)
       (a : Cell A p) (b : Cell B q) (c : Cell C r)
       → leftMerge p q r a b c ≡ rightMerge p q r a b c
-    mergeN∞-associativity p q r = SQ.elimProp3 (λ _ _ _ → SQ.squash/ _ _)
+    mergeN∞-associativity p q r = SQ.elimProp3
+      {A = Stable.Tagged A₀ p} {R = Stable.Step A₀ p}
+      {B = Stable.Tagged B₀ q} {S = Stable.Step B₀ q}
+      {C = Stable.Tagged C₀ r} {T = Stable.Step C₀ r}
+      {P = λ a b c → leftMerge p q r a b c ≡ rightMerge p q r a b c}
+      (λ _ _ _ → snd (cells D ((p + q) + r)) _ _)
       λ { (k , a) (l , b) (m , c) →
         let commonStage = max k (max l m)
             ha : k ≤ commonStage
-            ha = left-≤-max
+            ha = left-≤-max {m = k} {n = max l m}
             hb : l ≤ commonStage
-            hb = ≤-trans left-≤-max right-≤-max
+            hb = ≤-trans (left-≤-max {m = l} {n = m})
+              (right-≤-max {m = k} {n = max l m})
             hc : m ≤ commonStage
-            hc = ≤-trans right-≤-max right-≤-max
+            hc = ≤-trans (right-≤-max {m = l} {n = m})
+              (right-≤-max {m = k} {n = max l m})
             ea = AS.point-advance ha p a
             eb = BS.point-advance hb q b
             ec = CS.point-advance hc r c
@@ -123,8 +130,8 @@ module _ (G H K L : Graph ℓ) where
     stableComposition-associativity :
       dayMap (stableComposition H K L) (cubicalId C) ⋆n stableComposition G H L
         ≡ dayAssociator A B C
-          ⋆n dayMap (cubicalId A) (stableComposition G H K)
-          ⋆n stableComposition G K L
+          ⋆n (dayMap (cubicalId A) (stableComposition G H K)
+            ⋆n stableComposition G K L)
     stableComposition-associativity = TripleExt.leftTripleExt A B C D
       associateLeftRoute associateRightRoute λ p q r a b c →
       let abc : Cell TRight (p + (q + r))

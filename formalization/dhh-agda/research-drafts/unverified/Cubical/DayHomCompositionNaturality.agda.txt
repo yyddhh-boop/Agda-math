@@ -134,7 +134,10 @@ abstract
       uncurried = TripleExt.leftTripleExt X Y A C uncurriedRoute nestedRoute β
       e1 : _⋆n_ {A = P} {B = Q} {C = DayHom A C} parameter (homComposition A B C)
         ≡ curryDay {C = P} {A = A} {B = C} uncurriedRoute
-      e1 = curryDay-precomposeHom Q P A C parameter compositionEvaluation
+      e1 = cong (λ (f : CubicalNatural Q (DayHom A C)) →
+          _⋆n_ {A = P} {B = Q} {C = DayHom A C} parameter f)
+          (homComposition-curry A B C)
+        ∙ curryDay-precomposeHom Q P A C parameter compositionEvaluation
       e2 : curryDay {C = P} {A = A} {B = C} uncurriedRoute
         ≡ curryDay {C = P} {A = A} {B = C} nestedRoute
       e2 = cong (curryDay {C = P} {A = A} {B = C}) uncurried

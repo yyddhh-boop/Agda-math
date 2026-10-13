@@ -1,6 +1,6 @@
 # 稳定模型、阶段过渡与闭伴随：本轮验收
 
-当前正式入口 `Everything.agda` 覆盖201个模块，全部通过 `--cubical --safe`。逐文件哈希、编译器与时间见 `checks/verification.json`；历史190模块回执保存在 `checks/verification-before-comparison.json`。所有图大小及全部维数保留，没有加入 postulate、证明洞或不安全绕过。
+当前正式入口 `Everything.agda` 覆盖206个模块，全部通过 `--cubical --safe`。逐文件哈希、编译器与时间见 `checks/verification.json`；历史190模块回执保存在 `checks/verification-before-comparison.json`。所有图大小及全部维数保留，没有加入 postulate、证明洞或不安全绕过。
 
 ## 本轮新增的已验收模块
 
@@ -18,11 +18,23 @@
 | `Enrichment/StableCompositionIdentity` | 从提升的Day单位出发构造稳定恒等族，并证明常值恒等网格在所有原交替阶段保持恒等。 |
 | `Enrichment/StableCompositionStageLaws` | 原已检同阶段复合等式的精确abstract别名；不改变原复合构造或定理。 |
 
-Kan结论都是普通 `IsKan`；没有为任意稳定horn选择全局阶段或 `ChosenKanFillings`。`DayHom`的cell是整个 `RepresentableCube n ⊗ A → B` 自然变换，不是逐度笛卡尔指数。稳定恒等族和有限网格单位式不等于稳定富集的完整单位定理。
+Kan结论都是普通 `IsKan`；没有为任意稳定horn选择全局阶段或 `ChosenKanFillings`。`DayHom`的cell是整个 `RepresentableCube n ⊗ A → B` 自然变换，不是逐度笛卡尔指数。原稳定合并操作的左右单位律已经验收，但完整Day单位自然变换等式、稳定结合律仍待验收。
+
+## 授权同步后新增的已验收模块
+
+| 模块 | 已验收内容 |
+| --- | --- |
+| `Cubical/DayHomCompositionCore` | 实际内部Hom恒等自然变换与复合构造；复合经两次真实Day求值及实际结合子定义，保留完整构造等式。 |
+| `Cubical/DayHomCompositionMaps` | 恒等映射uncurry等式、复合求值β、复合β及恒等求值β。任意同一宇宙中的立方集及全部参数维数。 |
+| `Enrichment/StableCompositionMergeCore` | 原 `mergeN∞` 的abstract包装、逐应用等式和同阶段式；只控制自动展开，不替换数学构造。 |
+| `Enrichment/StableCompositionUnitStages` | 恒等网格的左右阶段同步、同阶段复合、有限网格单位式及实际includeStage自然性；源网格参数明确。 |
+| `Enrichment/StableCompositionMergeUnits` | 原 `mergeN∞` 对任意稳定商cell的左右单位律；使用命题商消去，不选择稳定代表。 |
+
+本批整库回执为206模块、退出码0；此前201模块回执保存在 `checks/verification-before-composition.json`。这些结果覆盖任意宇宙ℓ中同一ℓ的任意图（允许无限图）、所有维数。它们不单独提供整个富集范畴或内部Hom的完整相干模型。
 
 ## 尚未验收或未完成
 
-11个本轮相容律草稿因转换检查超时或尚未完成检查而移出正式DHH树，同时保存在本任务 `work/unverified-enrichment-current` 和仓库 `research-drafts/unverified`（`.agda.txt`）。诊断与名单见 `checks/comparison-development-diagnostics.json`。包括稳定商上的完整单位/结合律、神经函子的完整保持式以及内部Hom复合包装；它们不计入201模块验收。
+12份未验收源码（10份当前候选和2份替代实现）保存在 `research-drafts/unverified`（`.agda.txt`）。它们包括完整Day单位等式、稳定结合律、神经函子保持式和内部Hom参数相容律；不计入206模块验收。诊断见 `checks/comparison-development-diagnostics.json`。正式Core中只有已检查的原合并操作包装；Day复合扩展的超时尝试单独保留。
 
 原始 `N₁→N∞` 的 anodyne 性与标准拓扑全维弱同伦等价仍未证明。尚需所有其余面因子分解、退化和connections交叠的真实horn附着pushout、cellular饱和及其到既定真实几何实现的桥接。局部扩张采用时间首坐标，还需与原文时间末坐标写出精确图坐标识别，不能默认立方范畴允许任意置换。
 

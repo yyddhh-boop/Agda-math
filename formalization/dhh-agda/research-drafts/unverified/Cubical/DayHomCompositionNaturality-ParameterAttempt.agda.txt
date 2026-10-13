@@ -1,0 +1,98 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionNaturality where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayTriple
+open import DHH.Cubical.DayAssociator
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayClosedParameter using (curryDay-precomposeParameter)
+open import DHH.Cubical.DayHomNestedEvaluation
+open import DHH.Cubical.DayHomCompositionMaps
+open import DHH.Cubical.DayHomCompositionParameter
+
+private variable ℓ : Level
+
+abstract
+  curryDay-precomposeHom : (X Y A B : CubicalSet ℓ)
+    (h : CubicalNatural Y X) (F : CubicalNatural (DayTensor X A) B)
+    → _⋆n_ {A = Y} {B = X} {C = DayHom A B}
+        h (curryDay {C = X} {A = A} {B = B} F)
+      ≡ curryDay {C = Y} {A = A} {B = B}
+        (_⋆n_ {A = DayTensor Y A} {B = DayTensor X A} {C = B}
+          (dayMap {A = Y} {A' = X} {B = A} {B' = A} h (cubicalId A)) F)
+  curryDay-precomposeHom X Y A B h F = curryDay-precomposeParameter X Y A B h F
+
+-- The public statement retains the original actual dayMap construction.
+-- Imported parameter equations keep its proof records out of conversion.
+abstract
+  curryDay-composition : (X Y A B C : CubicalSet ℓ)
+    (F : CubicalNatural (DayTensor X B) C)
+    (G : CubicalNatural (DayTensor Y A) B)
+    → _⋆n_ {A = DayTensor X Y} {B = DayTensor (DayHom B C) (DayHom A B)} {C = DayHom A C}
+        (dayMap {A = X} {A' = DayHom B C} {B = Y} {B' = DayHom A B}
+          (curryDay {C = X} {A = B} {B = C} F)
+          (curryDay {C = Y} {A = A} {B = B} G))
+        (homComposition A B C)
+      ≡ curryDay {C = DayTensor X Y} {A = A} {B = C}
+        (nestedEvaluation X Y A B C F G)
+  curryDay-composition {ℓ} X Y A B C F G =
+    let
+      P : CubicalSet ℓ
+      P = DayTensor X Y
+      Q : CubicalSet ℓ
+      Q = DayTensor (DayHom B C) (DayHom A B)
+      L : CubicalSet ℓ
+      L = DayTensor P A
+      M : CubicalSet ℓ
+      M = DayTensor Q A
+      rawParameter : CubicalNatural P Q
+      rawParameter = dayMap {A = X} {A' = DayHom B C} {B = Y} {B' = DayHom A B}
+        (curryDay {C = X} {A = B} {B = C} F)
+        (curryDay {C = Y} {A = A} {B = B} G)
+      parameter : CubicalNatural P Q
+      parameter = homParameter X Y A B C F G
+      compositionEvaluation : CubicalNatural M C
+      compositionEvaluation = homCompositionEvaluation A B C
+      concreteRoute : CubicalNatural L C
+      concreteRoute = _⋆n_ {A = L} {B = M} {C = C}
+        (dayMap {A = P} {A' = Q} {B = A} {B' = A} parameter (cubicalId A))
+        compositionEvaluation
+      opaqueRoute : CubicalNatural L C
+      opaqueRoute = homParameterEvaluation X Y A B C F G
+      nestedRoute : CubicalNatural L C
+      nestedRoute = nestedEvaluation X Y A B C F G
+
+      β : (p q r : ℕ) (x : Cell X p) (y : Cell Y q) (a : Cell A r)
+        → mapCells {A = L} {B = C} opaqueRoute ((p + q) + r)
+            (leftTripleCell X Y A p q r x y a)
+          ≡ mapCells {A = L} {B = C} nestedRoute ((p + q) + r)
+            (leftTripleCell X Y A p q r x y a)
+      β p q r x y a = homParameterEvaluation-β X Y A B C F G p q r x y a
+        ∙ sym (nestedEvaluation-β X Y A B C F G p q r x y a)
+
+      evaluation-is-nested : opaqueRoute ≡ nestedRoute
+      evaluation-is-nested = TripleExt.leftTripleExt X Y A C opaqueRoute nestedRoute β
+
+      e0 : _⋆n_ {A = P} {B = Q} {C = DayHom A C} rawParameter (homComposition A B C)
+        ≡ _⋆n_ {A = P} {B = Q} {C = DayHom A C} parameter (homComposition A B C)
+      e0 = cong (λ (h : CubicalNatural P Q) →
+          _⋆n_ {A = P} {B = Q} {C = DayHom A C} h (homComposition A B C))
+        (sym (homParameter-map X Y A B C F G))
+      e1 : _⋆n_ {A = P} {B = Q} {C = DayHom A C} parameter (homComposition A B C)
+        ≡ curryDay {C = P} {A = A} {B = C} concreteRoute
+      e1 = cong (λ (h : CubicalNatural Q (DayHom A C)) →
+          _⋆n_ {A = P} {B = Q} {C = DayHom A C} parameter h)
+          (homComposition-curry A B C)
+        ∙ curryDay-precomposeHom Q P A C parameter compositionEvaluation
+      e2 : curryDay {C = P} {A = A} {B = C} concreteRoute
+        ≡ curryDay {C = P} {A = A} {B = C} opaqueRoute
+      e2 = cong (curryDay {C = P} {A = A} {B = C})
+        (sym (homParameterEvaluation-route X Y A B C F G))
+      e3 : curryDay {C = P} {A = A} {B = C} opaqueRoute
+        ≡ curryDay {C = P} {A = A} {B = C} nestedRoute
+      e3 = cong (curryDay {C = P} {A = A} {B = C}) evaluation-is-nested
+    in e0 ∙ e1 ∙ e2 ∙ e3
