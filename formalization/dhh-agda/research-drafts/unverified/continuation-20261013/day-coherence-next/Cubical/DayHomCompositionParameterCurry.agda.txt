@@ -1,0 +1,26 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionParameterCurry where
+
+open import Cubical.Foundations.Prelude
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayHomCompositionCore
+open import DHH.Cubical.DayHomCompositionParameter
+open import DHH.Cubical.DayHomCompositionPrecompose
+
+private variable ℓ : Level
+
+abstract
+  homParameter-composition-curry : (X Y A B C : CubicalSet ℓ)
+    (F : CubicalNatural (DayTensor X B) C)
+    (G : CubicalNatural (DayTensor Y A) B)
+    → _⋆n_ {A = DayTensor X Y} {B = DayTensor (DayHom B C) (DayHom A B)} {C = DayHom A C}
+        (homParameter X Y A B C F G) (homComposition A B C)
+      ≡ curryDay {C = DayTensor X Y} {A = A} {B = C}
+        (homParameterEvaluation X Y A B C F G)
+  homParameter-composition-curry X Y A B C F G =
+    homComposition-precompose (DayTensor X Y) A B C
+      (homParameter X Y A B C F G)
+    ∙ cong (curryDay {C = DayTensor X Y} {A = A} {B = C})
+        (sym (homParameterEvaluation-route X Y A B C F G))

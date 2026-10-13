@@ -1,0 +1,113 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionUnits where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCategory
+open import DHH.Cubical.TensorCoherence
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayAssociatorHelpers
+open import DHH.Cubical.DayUnitLift
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayHomEvaluation
+open import DHH.Cubical.DayHomCompositionMaps
+open import DHH.Cubical.DayHomGeneratorExt
+open import DHH.Cubical.DayHomUnitCharts
+
+private variable ℓ : Level
+
+-- Both equations are equality of the actual complete Day transformations.
+-- The two extensionality steps pay, respectively, the parameter coend
+-- quotient and the entire internal-Hom cell (not only its 0-cells).
+abstract
+  homComposition-leftUnit : (A B : CubicalSet ℓ)
+    → _⋆n_ {A = DayTensor (DayUnitAt ℓ) (DayHom A B)}
+        {B = DayTensor (DayHom B B) (DayHom A B)} {C = DayHom A B}
+        (dayMap {A = DayUnitAt ℓ} {A' = DayHom B B} {B = DayHom A B} {B' = DayHom A B}
+          (homIdentity B) (cubicalId (DayHom A B)))
+        (homComposition A B B)
+      ≡ dayLeftUnitAt (DayHom A B)
+  homComposition-leftUnit {ℓ} A B =
+    let
+      U = DayUnitAt ℓ
+      H = DayHom A B
+      T = DayTensor U H
+      Q = DayTensor (DayHom B B) H
+      L : CubicalNatural T H
+      L = _⋆n_ {A = T} {B = Q} {C = H}
+        (dayMap {A = U} {A' = DayHom B B} {B = H} {B' = H}
+          (homIdentity B) (cubicalId H)) (homComposition A B B)
+      R : CubicalNatural T H
+      R = dayLeftUnitAt H
+    in dayTensorExt {A = U} {B = H} {C = H} L R λ p q v h →
+      homCellExt A B (p + q)
+        (mapCells {A = T} {B = H} L (p + q) (dayPair {A = U} {B = H} p q v h))
+        (mapCells {A = T} {B = H} R (p + q) (dayPair {A = U} {B = H} p q v h))
+        λ r a →
+          let
+            c = mapCells {A = U} {B = DayHom B B} (homIdentity B) p v
+            b = applyHom A B q r h a
+            u = cubeAssociator p q r
+            f = lower v ⊗c cubeId q
+            input = dayPair {A = U} {B = H} p q v h
+            eL = cong (λ z → applyHom A B (p + q) r
+                (mapCells {A = Q} {B = H} (homComposition A B B) (p + q) z) a)
+                (dayMap-β {A = U} {A' = DayHom B B} {B = H} {B' = H}
+                  (homIdentity B) (cubicalId H) p q v h)
+              ∙ homComposition-β A B B p q r c h a
+              ∙ cong (reindex B u) (homIdentity-β B p (q + r) v b)
+              ∙ sym (reindex-compose B u (lower v ⊗c cubeId (q + r)) b)
+              ∙ cong (λ z → reindex B z b) (homLeftUnit-chart p q r (lower v))
+            eR = cong (λ z → applyHom A B (p + q) r z a)
+                (dayLeftUnitAt-β H p q v h)
+              ∙ applyHom-reindexParameter A B f r h a
+          in eL ∙ sym eR
+
+abstract
+  homComposition-rightUnit : (A B : CubicalSet ℓ)
+    → _⋆n_ {A = DayTensor (DayHom A B) (DayUnitAt ℓ)}
+        {B = DayTensor (DayHom A B) (DayHom A A)} {C = DayHom A B}
+        (dayMap {A = DayHom A B} {A' = DayHom A B} {B = DayUnitAt ℓ} {B' = DayHom A A}
+          (cubicalId (DayHom A B)) (homIdentity A))
+        (homComposition A A B)
+      ≡ dayRightUnitAt (DayHom A B)
+  homComposition-rightUnit {ℓ} A B =
+    let
+      U = DayUnitAt ℓ
+      H = DayHom A B
+      T = DayTensor H U
+      Q = DayTensor H (DayHom A A)
+      L : CubicalNatural T H
+      L = _⋆n_ {A = T} {B = Q} {C = H}
+        (dayMap {A = H} {A' = H} {B = U} {B' = DayHom A A}
+          (cubicalId H) (homIdentity A)) (homComposition A A B)
+      R : CubicalNatural T H
+      R = dayRightUnitAt H
+    in dayTensorExt {A = H} {B = U} {C = H} L R λ p q h v →
+      homCellExt A B (p + q)
+        (mapCells {A = T} {B = H} L (p + q) (dayPair {A = H} {B = U} p q h v))
+        (mapCells {A = T} {B = H} R (p + q) (dayPair {A = H} {B = U} p q h v))
+        λ r a →
+          let
+            c = mapCells {A = U} {B = DayHom A A} (homIdentity A) q v
+            b = applyHom A B p r h a
+            u = cubeAssociator p q r
+            g = lower v ⊗c cubeId r
+            f = (cubeId p ⊗c lower v) ⋆c cubeRightUnit p
+            eL = cong (λ z → applyHom A B (p + q) r
+                (mapCells {A = Q} {B = H} (homComposition A A B) (p + q) z) a)
+                (dayMap-β {A = H} {A' = H} {B = U} {B' = DayHom A A}
+                  (cubicalId H) (homIdentity A) p q h v)
+              ∙ homComposition-β A A B p q r h c a
+              ∙ cong (λ z → reindex B u (applyHom A B p (q + r) h z))
+                  (homIdentity-β A q r v a)
+              ∙ cong (reindex B u) (applyHom-reindexInput A B p g h a)
+              ∙ sym (reindex-compose B u (cubeId p ⊗c g) b)
+              ∙ cong (λ z → reindex B z b) (homRightUnit-chart p q r (lower v))
+            eR = cong (λ z → applyHom A B (p + q) r z a)
+                (dayRightUnitAt-β H p q h v)
+              ∙ applyHom-reindexParameter A B f r h a
+          in eL ∙ sym eR

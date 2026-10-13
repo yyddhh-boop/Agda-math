@@ -2,7 +2,7 @@
 
 这里的“原论文”指 Carranza–Kapulkin–Lindsey 的 [Calculus of Fractions for Quasicategories，2306.02218v1](https://arxiv.org/pdf/2306.02218v1)，特别是 §12、§14 和 Conjecture 14.3。稳定图 nerve 的定义和比较另见 Carranza–Kapulkin 的 [2202.03516v3，§3–4](https://arxiv.org/html/2202.03516v3)。两篇论文的同号定义不能混引。
 
-**当前已有闭合的候选 `Concrete.DHH : Type₃`；原论文版本还没有全部闭合。** 之前把剩余工作概括为“一个比较定理”过于简略：这包含稳定 nerve、富集、相干 nerve、标记局部化以及基础对象编码几个不同的接口。整数稳定 nerve 的自然比较已证明；后续又补出整个 horn 的有限阶段因子化、图 coend 伴随，以及几何张量的三角形和五边形相容。历史验收回执为 **176 个模块，退出码 0，2026-10-12 13:55:35 UTC**，对应当时新增的 30 个模块。本次续接的 `HornFilling` 提供实际 `N∞-Kan` 证明项。前一轮190模块验收时间为2026-10-13 11:30:51（北京时间），回执保存在 `checks/verification-before-comparison.json`。最新整库验收为 **206 个模块，退出码 0，2026-10-13 17:02:52（北京时间）**，耗时 7.106 秒，复用已检查依赖缓存；逐文件哈希见 `checks/verification.json`。前一版201模块回执保存在 `checks/verification-before-composition.json`。`DayMonoidal`、`DayMonoidalLift` 因转换检查超时保留为未验收的历史草稿，未包含在本次迁移交付中，也不计入正式源码验收。
+**当前已有闭合的候选 `Concrete.DHH : Type₃`；原论文版本还没有全部闭合。** 之前把剩余工作概括为“一个比较定理”过于简略：这包含稳定 nerve、富集、相干 nerve、标记局部化以及基础对象编码几个不同的接口。整数稳定 nerve 的自然比较已证明；后续又补出整个 horn 的有限阶段因子化、图 coend 伴随，以及几何张量的三角形和五边形相容。历史验收回执为 **176 个模块，退出码 0，2026-10-12 13:55:35 UTC**，对应当时新增的 30 个模块。本次续接的 `HornFilling` 提供实际 `N∞-Kan` 证明项。前一轮190模块验收时间为2026-10-13 11:30:51（北京时间），回执保存在 `checks/verification-before-comparison.json`。最新整库验收为 **217 个模块，退出码 0，2026-10-13 20:43:18（北京时间）**，耗时 147.765 秒，复用已检查依赖缓存；逐文件哈希见 `checks/verification.json`。前一版206模块回执保存在 `checks/verification-before-enrichment-associativity.json`。本轮新增11个稳定结合律、Day参数求值与内部Hom基础模块；见 `docs/enrichment-continuation.zh.md`。`DayMonoidal`、`DayMonoidalLift` 因转换检查超时保留为未验收的历史草稿，未包含在本次迁移交付中，也不计入正式源码验收。
 
 ## 1. 原论文的目标到底是哪条箭头
 
@@ -67,7 +67,7 @@ N_\infty G\cong N_{\mathbb Z}G.
 
 及完整 curry/uncurry 伴随等价。
 
-`CubicalComposition`、`StableComposition` 把图映射的逐点复合接到有限网格，再按共同 `max` 阶段同步，证明阶段无关并两变量降商，得到实际稳定 Day 复合。后续 `DayUnit`、`DayAssociator`、`DayCoherence`、`DayPentagon` 已构造张量单位子、结合子、自然性和三角形/五边形，并已通过整库安全检查；`DayUnitLift` 进一步通过任意 universe 的单位两逆、自然性和三角形单项检查。`DayTensorCategory` 的实际张量函子及全 universe `TensorStr` 已验收；完整 `DayMonoidal`、`DayMonoidalLift` 库记录包装仍为未验收的历史草稿，未包含在本次迁移交付中。稳定富集自身的单位/结合律和 nerve 作用保持这些结构仍需证明。
+`CubicalComposition`、`StableComposition` 把图映射的逐点复合接到有限网格，再按共同 `max` 阶段同步，证明阶段无关并两变量降商，得到实际稳定 Day 复合。后续 `DayUnit`、`DayAssociator`、`DayCoherence`、`DayPentagon` 已构造张量单位子、结合子、自然性和三角形/五边形，并已通过整库安全检查；`DayUnitLift` 进一步通过任意 universe 的单位两逆、自然性和三角形单项检查。`DayTensorCategory` 的实际张量函子及全 universe `TensorStr` 已验收；完整 `DayMonoidal`、`DayMonoidalLift` 库记录包装仍为未验收的历史草稿，未包含在本次迁移交付中。稳定合并的任意cell单位/结合律已完成；完整Day图式和nerve作用保持这些结构仍需证明。
 
 `NerveFunctor` 给出实际自然变换 `N∞HomGraph(G,H)→DayHom(N∞G,N∞H)`、稳定求值及其任意稳定 cell 配对公式；有限分块求值已证等于原图 evaluation 的复合。额外的共同阶段/curry β 历史草稿没有通过最终检查，未包含在本次迁移交付中，不计入验证模块或已证结论。这是该求值作用的特定义务，不同于现已完成的一般有限呈示阶段定理。
 
@@ -93,7 +93,7 @@ u^*:Q^L\longrightarrow\operatorname{Fun}_W(X,Q)
 |---|---|
 | 稳定 nerve 的 Kan 填充 | 已关闭。`HornFilling.StageFilling.stageFill` 实际填充给定阶段的整个 horn；`universalFill` 与 `universalHornFillings` 接上原归约，得到任意 universe、任意无限图及全部维数的普通 `IsKan (N∞ G)`。任意稳定 horn 的阶段表示保留截断，未提供 `ChosenKanFillings`。 |
 | `N₁→N∞` 及原文 A 群弱等价标记 | 固定比较映射和全维弱比较类型已有；对应证明与 A 群识别未完成。 |
-| 立方富集与 `N□Graph` | Hom、Day 张量及其相干证明本体、几何内部 Hom、稳定复合已有；`N∞HomGraph(G,H)` 的局部 Kan 性由 `N∞-Kan` 取得。稳定富集单位/结合、nerve 作用保持结构、几何内部 Hom 的 Kan 性及完整相干 nerve 尚缺。 |
+| 立方富集与 `N□Graph` | Hom、Day 张量及其相干证明本体、几何内部 Hom、稳定复合已有；`N∞HomGraph(G,H)` 的局部 Kan 性由 `N∞-Kan` 取得。任意稳定cell的结合律已完成；完整Day单位/结合图、nerve作用保持结构、几何内部Hom的Kan性及完整相干nerve尚缺。 |
 | `Exop+` 与固定诱导映射 | 泛性质已展开；原文 marked Ex 的实际构造及其应用实例尚缺。 |
 | 空间侧模型 | 真实拓扑几何已构造；`N□Kan□` 的完整实例及 B.20 的模型比较尚缺。 |
 | 旧候选与原文源的比较 | 经典 DK 与旧全箭头分辨、普通局部化与富集相干源的比较尚缺；走原文直接路线不必先解决所有旧候选比较。 |

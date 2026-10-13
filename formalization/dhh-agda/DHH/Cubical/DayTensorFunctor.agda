@@ -19,30 +19,32 @@ pair-natural (dayMapPairing {A' = A'} {B' = B'} F G) {p} {p'} {q} {q'} f g a b =
   cong₂ (dayPair {A = A'} {B = B'} p q) (natural F f a) (natural G g b)
   ∙ pair-natural (dayPairing A' B') f g (mapCells F p' a) (mapCells G q' b)
 
-dayMap : {A : CubicalSet ℓA} {A' : CubicalSet ℓA'} {B : CubicalSet ℓB} {B' : CubicalSet ℓB'}
-  → CubicalNatural A A' → CubicalNatural B B' → CubicalNatural (DayTensor A B) (DayTensor A' B')
-dayMap F G = factorDay (dayMapPairing F G)
+-- The concrete coend map and its checked laws share a controlled unfolding block.
+opaque
+  dayMap : {A : CubicalSet ℓA} {A' : CubicalSet ℓA'} {B : CubicalSet ℓB} {B' : CubicalSet ℓB'}
+    → CubicalNatural A A' → CubicalNatural B B' → CubicalNatural (DayTensor A B) (DayTensor A' B')
+  dayMap F G = factorDay (dayMapPairing F G)
 
-dayMap-β : {A : CubicalSet ℓA} {A' : CubicalSet ℓA'} {B : CubicalSet ℓB} {B' : CubicalSet ℓB'}
-  (F : CubicalNatural A A') (G : CubicalNatural B B') (p q : ℕ) (a : Cell A p) (b : Cell B q)
-  → mapCells (dayMap F G) (p + q) (dayPair {A = A} {B = B} p q a b)
-    ≡ dayPair {A = A'} {B = B'} p q (mapCells F p a) (mapCells G q b)
-dayMap-β F G = factorDay-β (dayMapPairing F G)
+  dayMap-β : {A : CubicalSet ℓA} {A' : CubicalSet ℓA'} {B : CubicalSet ℓB} {B' : CubicalSet ℓB'}
+    (F : CubicalNatural A A') (G : CubicalNatural B B') (p q : ℕ) (a : Cell A p) (b : Cell B q)
+    → mapCells (dayMap F G) (p + q) (dayPair {A = A} {B = B} p q a b)
+      ≡ dayPair {A = A'} {B = B'} p q (mapCells F p a) (mapCells G q b)
+  dayMap-β F G = factorDay-β (dayMapPairing F G)
 
-dayMap-id : (A : CubicalSet ℓA) (B : CubicalSet ℓB)
-  → dayMap (cubicalId A) (cubicalId B) ≡ cubicalId (DayTensor A B)
-dayMap-id A B = sym (factorDay-unique (dayMapPairing (cubicalId A) (cubicalId B))
-  (cubicalId (DayTensor A B)) (λ _ _ _ _ → refl))
+  dayMap-id : (A : CubicalSet ℓA) (B : CubicalSet ℓB)
+    → dayMap (cubicalId A) (cubicalId B) ≡ cubicalId (DayTensor A B)
+  dayMap-id A B = sym (factorDay-unique (dayMapPairing (cubicalId A) (cubicalId B))
+    (cubicalId (DayTensor A B)) (λ _ _ _ _ → refl))
 
-dayMap-compose : {A : CubicalSet ℓA} {A' : CubicalSet ℓA'} {A'' : CubicalSet ℓA''}
-  {B : CubicalSet ℓB} {B' : CubicalSet ℓB'} {B'' : CubicalSet ℓB''}
-  (F : CubicalNatural A A') (F' : CubicalNatural A' A'')
-  (G : CubicalNatural B B') (G' : CubicalNatural B' B'')
-  → dayMap (F ⋆n F') (G ⋆n G') ≡ dayMap F G ⋆n dayMap F' G'
-dayMap-compose F F' G G' = sym (factorDay-unique (dayMapPairing (F ⋆n F') (G ⋆n G'))
-  (dayMap F G ⋆n dayMap F' G') λ p q a b →
-    cong (mapCells (dayMap F' G') (p + q)) (dayMap-β F G p q a b)
-    ∙ dayMap-β F' G' p q (mapCells F p a) (mapCells G q b))
+  dayMap-compose : {A : CubicalSet ℓA} {A' : CubicalSet ℓA'} {A'' : CubicalSet ℓA''}
+    {B : CubicalSet ℓB} {B' : CubicalSet ℓB'} {B'' : CubicalSet ℓB''}
+    (F : CubicalNatural A A') (F' : CubicalNatural A' A'')
+    (G : CubicalNatural B B') (G' : CubicalNatural B' B'')
+    → dayMap (F ⋆n F') (G ⋆n G') ≡ dayMap F G ⋆n dayMap F' G'
+  dayMap-compose F F' G G' = sym (factorDay-unique (dayMapPairing (F ⋆n F') (G ⋆n G'))
+    (dayMap F G ⋆n dayMap F' G') λ p q a b →
+      cong (mapCells (dayMap F' G') (p + q)) (dayMap-β F G p q a b)
+      ∙ dayMap-β F' G' p q (mapCells F p a) (mapCells G q b))
 
 postcomposePairing : {A : CubicalSet ℓA} {B : CubicalSet ℓB} {C : CubicalSet ℓC} {D : CubicalSet ℓD}
   → DayPairing A B C → CubicalNatural C D → DayPairing A B D

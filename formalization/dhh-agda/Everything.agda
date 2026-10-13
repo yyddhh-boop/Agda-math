@@ -12,8 +12,16 @@ import DHH.Cubical.DayClosedParameter
 import DHH.Cubical.DayCoherence
 import DHH.Cubical.DayHomCompositionCore
 import DHH.Cubical.DayHomCompositionMaps
+import DHH.Cubical.DayHomCompositionParameter
+import DHH.Cubical.DayHomCompositionParameterCore
+import DHH.Cubical.DayHomCompositionParameterEvaluationCore
+import DHH.Cubical.DayHomCompositionParameterPairing
+import DHH.Cubical.DayHomCompositionParameterRoute
+import DHH.Cubical.DayHomCompositionPrecompose
 import DHH.Cubical.DayHomEvaluation
+import DHH.Cubical.DayHomGeneratorExt
 import DHH.Cubical.DayHomNestedEvaluation
+import DHH.Cubical.DayHomUnitCharts
 import DHH.Cubical.DayPentagon
 import DHH.Cubical.DayTensor
 import DHH.Cubical.DayTensorCategory
@@ -42,6 +50,7 @@ import DHH.Cubical.TensorCategory
 import DHH.Cubical.TensorCoherence
 import DHH.CubicalBridge
 import DHH.CubicalNerve
+import DHH.Enrichment.CubicalCategory
 import DHH.Enrichment.CubicalComposition
 import DHH.Enrichment.GraphHom
 import DHH.Enrichment.GraphHomCoherence
@@ -54,6 +63,8 @@ import DHH.Enrichment.OrderedCubicalCodes
 import DHH.Enrichment.OrderedGraphCodes
 import DHH.Enrichment.StableComposition
 import DHH.Enrichment.StableCompositionIdentity
+import DHH.Enrichment.StableCompositionMergeAssociativity
+import DHH.Enrichment.StableCompositionMergeAssociativityStages
 import DHH.Enrichment.StableCompositionMergeCore
 import DHH.Enrichment.StableCompositionMergeUnits
 import DHH.Enrichment.StableCompositionStageLaws

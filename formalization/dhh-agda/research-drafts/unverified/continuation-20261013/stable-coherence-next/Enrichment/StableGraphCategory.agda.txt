@@ -1,0 +1,38 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableGraphCategory where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Sigma using (Σ; _,_; Σ-syntax)
+open import DHH.Graph using (Graph)
+open import DHH.StableNerve.Colimit using (N∞)
+open import DHH.Enrichment.GraphHom using (HomGraph)
+open import DHH.Enrichment.CubicalCategory
+open import DHH.Enrichment.StableComposition using (stableComposition)
+open import DHH.Enrichment.StableCompositionIdentity using (stableIdentity)
+open import DHH.Enrichment.StableCompositionDayUnits
+  using (stableComposition-left-unit; stableComposition-right-unit)
+open import DHH.Enrichment.StableCompositionAssociativity
+  using (stableComposition-associativity)
+open import DHH.Enrichment.StableKan using (stableHomNerve-Kan)
+
+-- Original reflexive undirected graphs, with the CK BOX internal Hom
+-- followed by the actual alternating stable cubical nerve.
+-- The composition and identity maps are the original checked maps.
+stableGraphCategory : (ℓ : Level) → CubicalCategory (ℓ-suc ℓ) ℓ
+Obj (stableGraphCategory ℓ) = Graph ℓ
+Hom (stableGraphCategory ℓ) G H = N∞ (HomGraph G H)
+unit (stableGraphCategory ℓ) = stableIdentity
+compose (stableGraphCategory ℓ) = stableComposition
+compose-left-unit (stableGraphCategory ℓ) = stableComposition-left-unit
+compose-right-unit (stableGraphCategory ℓ) = stableComposition-right-unit
+compose-associativity (stableGraphCategory ℓ) = stableComposition-associativity
+
+stableGraphCategory-Kan : (ℓ : Level) → LocallyKan (stableGraphCategory ℓ)
+stableGraphCategory-Kan ℓ = stableHomNerve-Kan
+
+-- An actual enrichment together with its already-proved local Kan
+-- property.  No classical N□, triangulation, weak-equivalence inversion,
+-- DK comparison, or equivalence with spaces is asserted by this pair.
+stableGraphLocallyKan : (ℓ : Level)
+  → Σ[ C ∈ CubicalCategory (ℓ-suc ℓ) ℓ ] LocallyKan C
+stableGraphLocallyKan ℓ = stableGraphCategory ℓ , stableGraphCategory-Kan ℓ

@@ -1,0 +1,67 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableCompositionDayUnits where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.Graph
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor using (dayMap; dayMap-β)
+open import DHH.Cubical.DayAssociatorHelpers using (dayTensorExt)
+open import DHH.Cubical.DayUnitLift
+open import DHH.StableNerve.Colimit using (N∞)
+open import DHH.Enrichment.GraphHom using (HomGraph)
+open import DHH.Enrichment.StableComposition using (stableComposition)
+open import DHH.Enrichment.StableCompositionIdentity using (stableIdentity)
+open import DHH.Enrichment.StableCompositionActualBeta
+open import DHH.Enrichment.StableCompositionMergeUnits
+
+private variable ℓ : Level
+
+module _ (G H : Graph ℓ) where
+  private
+    A U HH GG : CubicalSet ℓ
+    A = N∞ (HomGraph G H)
+    U = DayUnitAt ℓ
+    HH = N∞ (HomGraph H H)
+    GG = N∞ (HomGraph G G)
+    composeLeft : CubicalNatural (DayTensor HH A) A
+    composeLeft = stableComposition G H H
+    composeRight : CubicalNatural (DayTensor A GG) A
+    composeRight = stableComposition G G H
+    leftUnitRoute : CubicalNatural (DayTensor U A) A
+    leftUnitRoute = dayMap {A = U} {A' = HH} {B = A} {B' = A}
+      (stableIdentity H) (cubicalId A) ⋆n composeLeft
+    rightUnitRoute : CubicalNatural (DayTensor A U) A
+    rightUnitRoute = dayMap {A = A} {A' = A} {B = U} {B' = GG}
+      (cubicalId A) (stableIdentity G) ⋆n composeRight
+
+  abstract
+    stableComposition-left-unit :
+      dayMap {A = U} {A' = HH} {B = A} {B' = A}
+        (stableIdentity H) (cubicalId A) ⋆n stableComposition G H H
+        ≡ dayLeftUnitAt A
+    stableComposition-left-unit = dayTensorExt {A = U} {B = A} {C = A}
+      leftUnitRoute (dayLeftUnitAt A) λ p q v b →
+      congS {A = Cell (DayTensor HH A) (p + q)} {B = Cell A (p + q)}
+        (mapCells {A = DayTensor HH A} {B = A} composeLeft (p + q))
+        (dayMap-β {A = U} {A' = HH} {B = A} {B' = A}
+          (stableIdentity H) (cubicalId A) p q v b)
+      ∙ stableComposition-actual-β G H H p q (mapCells {A = U} {B = HH} (stableIdentity H) p v) b
+      ∙ actualMergeN∞-left-unit G H p q v b
+      ∙ sym (dayLeftUnitAt-β A p q v b)
+
+  abstract
+    stableComposition-right-unit :
+      dayMap {A = A} {A' = A} {B = U} {B' = GG}
+        (cubicalId A) (stableIdentity G) ⋆n stableComposition G G H
+        ≡ dayRightUnitAt A
+    stableComposition-right-unit = dayTensorExt {A = A} {B = U} {C = A}
+      rightUnitRoute (dayRightUnitAt A) λ p q a v →
+      congS {A = Cell (DayTensor A GG) (p + q)} {B = Cell A (p + q)}
+        (mapCells {A = DayTensor A GG} {B = A} composeRight (p + q))
+        (dayMap-β {A = A} {A' = A} {B = U} {B' = GG}
+          (cubicalId A) (stableIdentity G) p q a v)
+      ∙ stableComposition-actual-β G G H p q a (mapCells {A = U} {B = GG} (stableIdentity G) q v)
+      ∙ actualMergeN∞-right-unit G H p q a v
+      ∙ sym (dayRightUnitAt-β A p q a v)

@@ -1,0 +1,24 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableCompositionDayCore where
+
+open import Cubical.Foundations.Prelude
+open import DHH.Graph
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor
+open import DHH.StableNerve.Colimit using (N∞)
+open import DHH.Enrichment.GraphHom using (HomGraph)
+open import DHH.Enrichment.StableComposition using (stableComposition)
+
+private variable ℓ : Level
+
+-- The original checked map, with an equation exposing its construction.
+abstract
+  actualStableComposition : (G H K : Graph ℓ)
+    → CubicalNatural
+      (DayTensor (N∞ (HomGraph H K)) (N∞ (HomGraph G H)))
+      (N∞ (HomGraph G K))
+  actualStableComposition = stableComposition
+
+  stableComposition-actual : (G H K : Graph ℓ)
+    → stableComposition G H K ≡ actualStableComposition G H K
+  stableComposition-actual G H K = refl

@@ -1,0 +1,127 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionAssociativityCells where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCategory
+open import DHH.Cubical.TensorCoherence
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayAssociator
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayHomEvaluation
+open import DHH.Cubical.DayHomCompositionMaps
+open import DHH.Cubical.DayHomGeneratorExt
+open import DHH.Cubical.DayHomCompositionAssociativityCore
+
+private variable ℓ : Level
+
+homCompose3Value : (A B C D : CubicalSet ℓ) (p q r s : ℕ)
+  → Cell (DayHom C D) p → Cell (DayHom B C) q → Cell (DayHom A B) r → Cell A s
+  → Cell D (p + (q + (r + s)))
+homCompose3Value A B C D p q r s h k l a =
+  applyHom C D p (q + (r + s)) h
+    (applyHom B C q (r + s) k (applyHom A B r s l a))
+
+module _ (A B C D : CubicalSet ℓ) where
+  private
+    H = DayHom C D
+    K = DayHom B C
+    L = DayHom A B
+    Out = DayHom A D
+    T = DayTensor (DayTensor H K) L
+    R = DayTensor H (DayTensor K L)
+    U = DayTensor (DayHom B D) L
+    W = DayTensor H (DayHom A C)
+
+  abstract
+    homCompose3Left-β : (p q r s : ℕ)
+      (h : Cell H p) (k : Cell K q) (l : Cell L r) (a : Cell A s)
+      → applyHom A D ((p + q) + r) s
+          (mapCells {A = T} {B = Out} (homCompose3Left A B C D) ((p + q) + r)
+            (leftTripleCell H K L p q r h k l)) a
+        ≡ reindex D (cubeAssociator (p + q) r s ⋆c cubeAssociator p q (r + s))
+            (homCompose3Value A B C D p q r s h k l a)
+    homCompose3Left-β p q r s h k l a =
+      let
+        n = (p + q) + r
+        hk = dayPair {A = H} {B = K} p q h k
+        t = leftTripleCell H K L p q r h k l
+        c = mapCells {A = DayTensor H K} {B = DayHom B D}
+          (homComposition B C D) (p + q) hk
+        b = applyHom A B r s l a
+        v = homCompose3Value A B C D p q r s h k l a
+        u = cubeAssociator (p + q) r s
+        e0 = cong (λ f → applyHom A D n s (mapCells {A = T} {B = Out} f n t) a)
+          (homCompose3Left-route A B C D)
+        e1 = cong (λ z → applyHom A D n s
+            (mapCells {A = U} {B = Out} (homComposition A B D) n z) a)
+          (dayMap-β {A = DayTensor H K} {A' = DayHom B D} {B = L} {B' = L}
+            (homComposition B C D) (cubicalId L) (p + q) r hk l)
+        e2 = homComposition-β A B D (p + q) r s c l a
+        e3 = cong (reindex D u) (homComposition-β B C D p q (r + s) h k b)
+        e4 = sym (reindex-compose D u (cubeAssociator p q (r + s)) v)
+      in e0 ∙ e1 ∙ e2 ∙ e3 ∙ e4
+
+  abstract
+    homCompose3After-β : (p q r s : ℕ)
+      (h : Cell H p) (k : Cell K q) (l : Cell L r) (a : Cell A s)
+      → applyHom A D (p + (q + r)) s
+          (mapCells {A = R} {B = Out} (homCompose3After A B C D) (p + (q + r))
+            (rightTripleCell H K L p q r h k l)) a
+        ≡ reindex D (cubeAssociator p (q + r) s ⋆c (cubeId p ⊗c cubeAssociator q r s))
+            (homCompose3Value A B C D p q r s h k l a)
+    homCompose3After-β p q r s h k l a =
+      let
+        n = p + (q + r)
+        kl = dayPair {A = K} {B = L} q r k l
+        t = rightTripleCell H K L p q r h k l
+        c = mapCells {A = DayTensor K L} {B = DayHom A C}
+          (homComposition A B C) (q + r) kl
+        b = applyHom B C q (r + s) k (applyHom A B r s l a)
+        v = homCompose3Value A B C D p q r s h k l a
+        u = cubeAssociator p (q + r) s
+        g = cubeAssociator q r s
+        e0 = cong (λ f → applyHom A D n s (mapCells {A = R} {B = Out} f n t) a)
+          (homCompose3After-route A B C D)
+        e1 = cong (λ z → applyHom A D n s
+            (mapCells {A = W} {B = Out} (homComposition A C D) n z) a)
+          (dayMap-β {A = H} {A' = H} {B = DayTensor K L} {B' = DayHom A C}
+            (cubicalId H) (homComposition A B C) p (q + r) h kl)
+        e2 = homComposition-β A C D p (q + r) s h c a
+        e3 = cong (λ z → reindex D u (applyHom C D p ((q + r) + s) h z))
+          (homComposition-β A B C q r s k l a)
+        e4 = cong (reindex D u) (applyHom-reindexInput C D p g h b)
+        e5 = sym (reindex-compose D u (cubeId p ⊗c g) v)
+      in e0 ∙ e1 ∙ e2 ∙ e3 ∙ e4 ∙ e5
+
+  abstract
+    homCompose3Right-β : (p q r s : ℕ)
+      (h : Cell H p) (k : Cell K q) (l : Cell L r) (a : Cell A s)
+      → applyHom A D ((p + q) + r) s
+          (mapCells {A = T} {B = Out} (homCompose3Right A B C D) ((p + q) + r)
+            (leftTripleCell H K L p q r h k l)) a
+        ≡ reindex D ((cubeAssociator p q r ⊗c cubeId s)
+            ⋆c (cubeAssociator p (q + r) s ⋆c (cubeId p ⊗c cubeAssociator q r s)))
+            (homCompose3Value A B C D p q r s h k l a)
+    homCompose3Right-β p q r s h k l a =
+      let
+        n = (p + q) + r
+        t = leftTripleCell H K L p q r h k l
+        t' = rightTripleCell H K L p q r h k l
+        u = cubeAssociator p q r
+        f = homCompose3After A B C D
+        c = mapCells {A = R} {B = Out} f (p + (q + r)) t'
+        v = homCompose3Value A B C D p q r s h k l a
+        w = cubeAssociator p (q + r) s ⋆c (cubeId p ⊗c cubeAssociator q r s)
+        e0 = cong (λ z → applyHom A D n s (mapCells {A = T} {B = Out} z n t) a)
+          (homCompose3Right-route A B C D)
+        e1 = cong (λ z → applyHom A D n s (mapCells {A = R} {B = Out} f n z) a)
+          (dayAssociator-β H K L p q r h k l)
+        e2 = cong (λ z → applyHom A D n s z a) (natural {A = R} {B = Out} f u t')
+        e3 = applyHom-reindexParameter A D u s c a
+        e4 = cong (reindex D (u ⊗c cubeId s)) (homCompose3After-β p q r s h k l a)
+        e5 = sym (reindex-compose D (u ⊗c cubeId s) w v)
+      in e0 ∙ e1 ∙ e2 ∙ e3 ∙ e4 ∙ e5

@@ -1,0 +1,55 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionAssociativityCore where
+
+open import Cubical.Foundations.Prelude
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayAssociator
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayHomCompositionCore
+
+private variable ℓ : Level
+
+module _ (A B C D : CubicalSet ℓ) where
+  private
+    H = DayHom C D
+    K = DayHom B C
+    L = DayHom A B
+    Out = DayHom A D
+    T = DayTensor (DayTensor H K) L
+
+  abstract
+    homCompose3Left : CubicalNatural T Out
+    homCompose3Left =
+      _⋆n_ {A = T} {B = DayTensor (DayHom B D) L} {C = Out}
+        (dayMap {A = DayTensor H K} {A' = DayHom B D} {B = L} {B' = L}
+          (homComposition B C D) (cubicalId L))
+        (homComposition A B D)
+
+    homCompose3Left-route : homCompose3Left
+      ≡ _⋆n_ {A = T} {B = DayTensor (DayHom B D) L} {C = Out}
+        (dayMap {A = DayTensor H K} {A' = DayHom B D} {B = L} {B' = L}
+          (homComposition B C D) (cubicalId L)) (homComposition A B D)
+    homCompose3Left-route = refl
+
+    homCompose3After : CubicalNatural (DayTensor H (DayTensor K L)) Out
+    homCompose3After =
+      _⋆n_ {A = DayTensor H (DayTensor K L)} {B = DayTensor H (DayHom A C)} {C = Out}
+        (dayMap {A = H} {A' = H} {B = DayTensor K L} {B' = DayHom A C}
+          (cubicalId H) (homComposition A B C)) (homComposition A C D)
+
+    homCompose3After-route : homCompose3After
+      ≡ _⋆n_ {A = DayTensor H (DayTensor K L)} {B = DayTensor H (DayHom A C)} {C = Out}
+        (dayMap {A = H} {A' = H} {B = DayTensor K L} {B' = DayHom A C}
+          (cubicalId H) (homComposition A B C)) (homComposition A C D)
+    homCompose3After-route = refl
+
+    homCompose3Right : CubicalNatural T Out
+    homCompose3Right = _⋆n_ {A = T} {B = DayTensor H (DayTensor K L)} {C = Out}
+      (dayAssociator H K L) homCompose3After
+
+    homCompose3Right-route : homCompose3Right
+      ≡ _⋆n_ {A = T} {B = DayTensor H (DayTensor K L)} {C = Out}
+        (dayAssociator H K L) homCompose3After
+    homCompose3Right-route = refl

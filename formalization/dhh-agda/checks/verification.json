@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-13T09:02:52.319426+00:00",
+  "checked_at_utc": "2026-10-13T12:43:18.716780+00:00",
   "compiler": "Agda version 2.8.0-3d04bac\nBuilt with flags (cabal -f)\n - optimise-heavily: extra optimisations\n - use-xdg-data-home: install and locate data files under $XDG_DATA_HOME/agda/$AGDA_VERSION by default instead of the location defined by Cabal",
   "cubical_version": "0.9",
   "cubical_commit": "b150186d2544e7efeddd31e5d14a8b9ecbb100f7",
@@ -17,7 +17,7 @@
     "Everything.agda"
   ],
   "exit_code": 0,
-  "elapsed_seconds": 7.106,
+  "elapsed_seconds": 147.765,
   "own_source_audit": "no postulates, holes, or unsafe proof bypasses",
   "source_sha256": {
     "DHH/BoundaryChecks.agda": "8d61fc403bbdaf932edfe43a3f42371e61462eba9391574ed9a8439f82c7afad",
@@ -31,12 +31,20 @@
     "DHH/Cubical/DayCoherence.agda": "e7ea76ed4a49219258fb3624690e3f2ddfd28ff58b617fa4026ebbcec53c43fa",
     "DHH/Cubical/DayHomCompositionCore.agda": "d12fd9f9eb3c033697398ddfd8de155783aadeb1e89024188cc927caf7c93c98",
     "DHH/Cubical/DayHomCompositionMaps.agda": "6a0b5c438eb725e6b76604d7d116ac5676d8c0085ae362f60c29ee835554411a",
+    "DHH/Cubical/DayHomCompositionParameter.agda": "bba743bf27d1155075f600805fb89a08e52a444997ce2a31c3502adb3922b43c",
+    "DHH/Cubical/DayHomCompositionParameterCore.agda": "3c8f5f7922c39aea734156ac7c362f2183fb95a1279f78187e37eb8c88b4854f",
+    "DHH/Cubical/DayHomCompositionParameterEvaluationCore.agda": "1e2f830355025a14352badbe9115945a3f97fbe76d4ddb176f847bb5e6559e60",
+    "DHH/Cubical/DayHomCompositionParameterPairing.agda": "c9ea4ce1abf2c6ade86d5a1ae94219574b80a391bfa4a752ee61002d2d8960e2",
+    "DHH/Cubical/DayHomCompositionParameterRoute.agda": "9eec91e2800cd90c6da0b904d6cacdb0c9fbf9d0b0f1839eb38fbaa85c45bd68",
+    "DHH/Cubical/DayHomCompositionPrecompose.agda": "97a6d49710f938f017daffeae2682f2faafeb232ebd0d520031dd81989ed9ba2",
     "DHH/Cubical/DayHomEvaluation.agda": "b829eba7b4f705722f4d8a36710895d9703ecd509b150d72d01a4449bbcecae1",
+    "DHH/Cubical/DayHomGeneratorExt.agda": "c0cb6b65246c5b2ee2c6ddd4cdb482338c361b11fa766f69a8c7c4c4f930f3e7",
     "DHH/Cubical/DayHomNestedEvaluation.agda": "08e8593bbc35fb8b2537f25785a78204ad0d536939cd55bd66daadf46c31578a",
+    "DHH/Cubical/DayHomUnitCharts.agda": "8b4a7a2341b71883513da668bfcac1c41d2c36b6a57624da3a5f7c4b166e8f6e",
     "DHH/Cubical/DayPentagon.agda": "feab1899d9a61fef8d00f3dff3e72ce79576d114b342d275977fa5d25b0b95fc",
     "DHH/Cubical/DayTensor.agda": "ce19d90b460aecdf8b7fb765dd814f6fa395c4f88816c6a22cd3d3f0885603a0",
     "DHH/Cubical/DayTensorCategory.agda": "ea54b7a19bbaaeab8f63dc22cfa8eea219b0a6b6be3a12b4e6c488fec1bab780",
-    "DHH/Cubical/DayTensorFunctor.agda": "75ce3eeb8c2c2594a8d0e22dc4ec67274879cb3a19164230e473a4d9db96997c",
+    "DHH/Cubical/DayTensorFunctor.agda": "d3c52a675ee463aa819ed35b6dd0716e53f6457fff03e878f38dbde71f21dd95",
     "DHH/Cubical/DayTriple.agda": "301882792ab981545c91409c085cd624601f41a8e7d9cd67e67d6ed33c53cb69",
     "DHH/Cubical/DayUnit.agda": "efe0666314aefa6ff2304f6a358cb3bab8773d7ddd4683cdfd920a50d4b8ca62",
     "DHH/Cubical/DayUnitLift.agda": "be3f7e76250a639d0f621753aa2d9a13c905d191c8ea9ec0f3b00283190e5d25",
@@ -61,6 +69,7 @@
     "DHH/Cubical/TensorCoherence.agda": "39effe4b8835234154b9b4450c08adf25a64e87ceaf8080ca086a60c8fdf5b57",
     "DHH/CubicalBridge.agda": "8e19aa13186489691a1d80c370ab126e192537bcb4d982aa7adef0a3cafecef2",
     "DHH/CubicalNerve.agda": "b8719548d0e752cfeee22088dd235975fb3631ade177b8e99cc1c54cc4a9150d",
+    "DHH/Enrichment/CubicalCategory.agda": "44eea8bcdf441c8e365eeb6debd4b525ea2252da4af5f035db659afcc62fc5e3",
     "DHH/Enrichment/CubicalComposition.agda": "478b3253353f28b7043a7c8691847017a5c0b6246620a291c6bd41a8fca8544c",
     "DHH/Enrichment/GraphHom.agda": "8dc648eba1a1d4d08baaa2500372142b56a52b6423bca492f79ac8727deb6124",
     "DHH/Enrichment/GraphHomCoherence.agda": "635f63ad9b70dae5be87634fd874c5bb5b134b02034e9f865249a3b87a698a7e",
@@ -71,8 +80,10 @@
     "DHH/Enrichment/ObjectBoundary.agda": "a9b7423b1ccd6131254cec80df6666f3bc5e67873f239768f4ad1b73aca39549",
     "DHH/Enrichment/OrderedCubicalCodes.agda": "b1e2bf38c7e6f267670eb9b93bc18cf83992f7db50d93220a0b999873a7ad1a3",
     "DHH/Enrichment/OrderedGraphCodes.agda": "1034a6b5912f3bf6a287373a3435920938b81f12085edba099a034d8a095ddd1",
-    "DHH/Enrichment/StableComposition.agda": "0651dab6ad0f6ab3dae351be9d68b26c20cdc49986e17d0b9232667d77c9800a",
+    "DHH/Enrichment/StableComposition.agda": "74285beea290eed9a173e8da8b805f72502b0c8b9d0aa94844e823df3a25072e",
     "DHH/Enrichment/StableCompositionIdentity.agda": "000aecd1a42b52535b956205d5540ceaa56b72d56736040eea0aad559708d25a",
+    "DHH/Enrichment/StableCompositionMergeAssociativity.agda": "99b38697a1d5ab92470a2470f2b8e189d95113cebc4b7ebe205a243293bba6c0",
+    "DHH/Enrichment/StableCompositionMergeAssociativityStages.agda": "d7aec41e0261b01d4db51fa4d3a7f95226deeebf098e0b758e0ceedeb9b44cde",
     "DHH/Enrichment/StableCompositionMergeCore.agda": "dfbc3489717093de50fc106b88cc0e824ce242fc246eeca17a22033fc178c588",
     "DHH/Enrichment/StableCompositionMergeUnits.agda": "4e6f0bc71a500fd784abf93369465e85f6ce42a3d877163d70209f459ad13532",
     "DHH/Enrichment/StableCompositionStageLaws.agda": "46a94b8f4dfbfe83bfadbd872bccc2b3fa63eee7f24e54f92f25c2ff77169c33",
@@ -225,7 +236,7 @@
     "DHH/Topology/FinitePowers.agda": "cac4da5d4afd3b23e0f9712752de8d25496d7665d7d78c628d42855f1a8cf78f",
     "DHH/Topology/IndexedProduct.agda": "1ac88fd8101f4a97ce8ebd1295ff1176371c24a84b1539ea2b11d39990a4d651",
     "DHH/Topology/WeakEquivalence.agda": "6e2cf3489125a80ed6f0a63749253105d6f696a84690a56ccfcbb5c5bc2dcfb4",
-    "Everything.agda": "980a04fb920c71f7cdb672db656aab3d03b8b1d7c6193d79db6a19e16e9543e6"
+    "Everything.agda": "837a3229f625095c197d349599c8f181bdfac0e8c2d5799619f18f33da0115b2"
   },
   "scope": "All own modules, actual real geometries, stable nerve construction, and closed DHH statement type; classical/original localization and nerve comparisons remain; not a DHH proof"
 }

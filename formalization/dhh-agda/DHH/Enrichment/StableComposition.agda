@@ -128,43 +128,46 @@ module _ (G H K : Graph ℓ) where
 
   -- 真正的两变量商消去：左右每个生成关系均已单独验证，目标为集合。
   -- SQ.rec2 不选取稳定 cell 的代表，也不要求可数选择或相等可判定。
-  mergeN∞ : (p q : ℕ) → Cell (N∞ A) p → Cell (N∞ B) q → Cell (N∞ C) (p + q)
-  mergeN∞ p q = SQ.rec2 SQ.squash/ (mergeTagged p q) (mergeTagged-left p q) (mergeTagged-right p q)
-
-  mergeN∞-same-stage : (k p q : ℕ) (a : Cell (Stage A k) p) (b : Cell (Stage B k) q)
-    → mergeN∞ p q (mapCells (includeStage A k) p a) (mapCells (includeStage B k) q b)
-      ≡ mapCells (includeStage C k) (p + q) (combineAt k p q a b)
-  mergeN∞-same-stage k p q a b =
-    pairAt-independent p q (max k k) k left-≤-max right-≤-max ≤-refl ≤-refl a b
-    ∙ cong₂ (λ x y → Stable.point C (p + q) (k , combineAt k p q x y))
-      (AS.advanceCell-id k p a) (BS.advanceCell-id k q b)
-
-  pairAt-reindex : {p p' q q' k l : ℕ} (f : CubicalMap p p') (g : CubicalMap q q')
-    (M : ℕ) (h : k ≤ M) (i : l ≤ M) (a : Cell (Stage A k) p') (b : Cell (Stage B l) q')
-    → pairAt p q M h i (reindex (Stage A k) f a) (reindex (Stage B l) g b)
-      ≡ reindex (N∞ C) (f ⊗c g) (pairAt p' q' M h i a b)
-  pairAt-reindex {p} {p'} {q} {q'} f g M h i a b =
-    cong (λ c → Stable.point C (p + q) (M , c))
-      (cong₂ (combineAt M p q) (natural (AS.advance h) f a) (natural (BS.advance i) g b)
-      ∙ sym (composeGrid-reindex (suc M) f g (AS.advanceCell h p' a) (BS.advanceCell i q' b)))
-
-  mergeN∞-reindex : {p p' q q' : ℕ} (f : CubicalMap p p') (g : CubicalMap q q')
-    (a : Cell (N∞ A) p') (b : Cell (N∞ B) q')
-    → mergeN∞ p q (reindex (N∞ A) f a) (reindex (N∞ B) g b)
-      ≡ reindex (N∞ C) (f ⊗c g) (mergeN∞ p' q' a b)
-  mergeN∞-reindex f g = SQ.elimProp2 (λ _ _ → SQ.squash/ _ _)
-    (λ { (k , a) (l , b) → pairAt-reindex f g (max k l) left-≤-max right-≤-max a b })
-
-  stableCompositionPairing : DayPairing (N∞ A) (N∞ B) (N∞ C)
-  pairCells stableCompositionPairing = mergeN∞
-  pair-natural stableCompositionPairing = mergeN∞-reindex
-
-  stableComposition : CubicalNatural (DayTensor (N∞ A) (N∞ B)) (N∞ C)
-  stableComposition = factorDay stableCompositionPairing
-
-  stableComposition-β : (p q : ℕ) (a : Cell (N∞ A) p) (b : Cell (N∞ B) q)
-    → mapCells stableComposition (p + q) (dayPair {A = N∞ A} {B = N∞ B} p q a b) ≡ mergeN∞ p q a b
-  stableComposition-β = factorDay-β stableCompositionPairing
+  -- Preserve the actual quotient programs while controlling their unfolding.
+  -- All computation is exposed through the checked stage and pairing laws.
+  opaque
+    mergeN∞ : (p q : ℕ) → Cell (N∞ A) p → Cell (N∞ B) q → Cell (N∞ C) (p + q)
+    mergeN∞ p q = SQ.rec2 SQ.squash/ (mergeTagged p q) (mergeTagged-left p q) (mergeTagged-right p q)
+  
+    mergeN∞-same-stage : (k p q : ℕ) (a : Cell (Stage A k) p) (b : Cell (Stage B k) q)
+      → mergeN∞ p q (mapCells (includeStage A k) p a) (mapCells (includeStage B k) q b)
+        ≡ mapCells (includeStage C k) (p + q) (combineAt k p q a b)
+    mergeN∞-same-stage k p q a b =
+      pairAt-independent p q (max k k) k left-≤-max right-≤-max ≤-refl ≤-refl a b
+      ∙ cong₂ (λ x y → Stable.point C (p + q) (k , combineAt k p q x y))
+        (AS.advanceCell-id k p a) (BS.advanceCell-id k q b)
+  
+    pairAt-reindex : {p p' q q' k l : ℕ} (f : CubicalMap p p') (g : CubicalMap q q')
+      (M : ℕ) (h : k ≤ M) (i : l ≤ M) (a : Cell (Stage A k) p') (b : Cell (Stage B l) q')
+      → pairAt p q M h i (reindex (Stage A k) f a) (reindex (Stage B l) g b)
+        ≡ reindex (N∞ C) (f ⊗c g) (pairAt p' q' M h i a b)
+    pairAt-reindex {p} {p'} {q} {q'} f g M h i a b =
+      cong (λ c → Stable.point C (p + q) (M , c))
+        (cong₂ (combineAt M p q) (natural (AS.advance h) f a) (natural (BS.advance i) g b)
+        ∙ sym (composeGrid-reindex (suc M) f g (AS.advanceCell h p' a) (BS.advanceCell i q' b)))
+  
+    mergeN∞-reindex : {p p' q q' : ℕ} (f : CubicalMap p p') (g : CubicalMap q q')
+      (a : Cell (N∞ A) p') (b : Cell (N∞ B) q')
+      → mergeN∞ p q (reindex (N∞ A) f a) (reindex (N∞ B) g b)
+        ≡ reindex (N∞ C) (f ⊗c g) (mergeN∞ p' q' a b)
+    mergeN∞-reindex f g = SQ.elimProp2 (λ _ _ → SQ.squash/ _ _)
+      (λ { (k , a) (l , b) → pairAt-reindex f g (max k l) left-≤-max right-≤-max a b })
+  
+    stableCompositionPairing : DayPairing (N∞ A) (N∞ B) (N∞ C)
+    pairCells stableCompositionPairing = mergeN∞
+    pair-natural stableCompositionPairing = mergeN∞-reindex
+  
+    stableComposition : CubicalNatural (DayTensor (N∞ A) (N∞ B)) (N∞ C)
+    stableComposition = factorDay stableCompositionPairing
+  
+    stableComposition-β : (p q : ℕ) (a : Cell (N∞ A) p) (b : Cell (N∞ B) q)
+      → mapCells stableComposition (p + q) (dayPair {A = N∞ A} {B = N∞ B} p q a b) ≡ mergeN∞ p q a b
+    stableComposition-β = factorDay-β stableCompositionPairing
 
   -- 已构造 CK 原图 Hom 的稳定立方复合及 Day 降商。单位/结合律还需
   -- 与实际张量单位子/结合子同域比较；本文件不把它们当作隐藏字段。

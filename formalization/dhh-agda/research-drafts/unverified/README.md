@@ -1,9 +1,7 @@
 # 未验收的研究草稿
 
-当前正式入口 `../../Everything.agda` 覆盖206个模块，全部通过安全检查，逐文件哈希见 `../../checks/verification.json`。此目录单独保存12份未验收研究源码，扩展名为 `.agda.txt`；其中10份当前候选和2份替代实现，不计入正式模块。
+最新正式入口覆盖217个模块，全部通过安全检查，逐文件哈希见 `../../checks/verification.json`。本目录保留前一轮12份历史未验收源码，并新增 `continuation-20261013/` 中的16份候选和替代稿，均使用 `.agda.txt` 扩展名，不计入正式模块。
 
-已通过的内部Hom构造与求值β、原稳定合并操作左右单位律已移入正式树。这里仍保留完整Day单位自然变换等式、稳定结合律、nerve函子保持式及参数相容律等未验收尝试。转换超时不是通过，诊断见 `../../checks/comparison-development-diagnostics.json`。
+本轮已移入正式树的11个模块见 `../../checks/enrichment-continuation-index.json`。稳定cell结合律、Day完整参数求值及Hom外延性已验收；完整Day单位/结合图、最终curry桥、富集实例和nerve函子保持式尚未验收。超时不是通过，也不是数学反例。
 
-`StableCompositionMergeCore-DayMapAttempt.agda.txt` 是在正式Core之上扩展Day复合包装的未验收尝试，当前DayUnits草稿需要这些扩展。`DayHomCompositionNaturality-ParameterAttempt.agda.txt` 是采用参数包装的替代证明，需要同目录的Parameter草稿。它们不能替换正式模块并声称已经证明。
-
-继续时将候选和所需依赖复制到工作目录，实际检查成功后才能纳入正式入口。当前内容不提供原始N₁→N∞弱等价、完整模型识别或DHH证明。
+历史Parameter草稿与最新正式分层实现不同；历史DayUnits也依赖尚未验收的扩展Core。继续研究时需在树外复制所选候选及准确依赖，检查成功后再移入正式入口。所有模型边界见 `../../docs/enrichment-continuation.zh.md`。

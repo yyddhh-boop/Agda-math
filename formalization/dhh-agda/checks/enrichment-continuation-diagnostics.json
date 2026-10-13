@@ -1,0 +1,342 @@
+{
+  "status": "diagnostic_attempts_only",
+  "note": "Only verification.json confirms the final formal source tree. Prefix probes and timed out modules are not accepted.",
+  "attempts": [
+    {
+      "module": "DHH/Enrichment/StableCompositionDayCore.agda",
+      "exit_code": null,
+      "timeout": 60,
+      "elapsed_seconds": 60.017,
+      "checked_at_utc": "2026-10-13T11:58:28.117222+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionDayCore.agda"
+      ],
+      "source_sha256": "a6e198945b46680d7723bfd13b40589cdd9cfacc3201ceb65c4fe0fd2429f29b"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionDayCoreProbe.agda",
+      "exit_code": null,
+      "timeout": 45,
+      "elapsed_seconds": 45.049,
+      "checked_at_utc": "2026-10-13T12:01:28.335996+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionDayCoreProbe.agda"
+      ],
+      "source_sha256": "9feda069497bc7f66c25272c4c6a230e8cbf47476bb0ca82b8bd237c235aee6f"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionDayCoreProbe.agda",
+      "exit_code": null,
+      "timeout": 30,
+      "elapsed_seconds": 30.026,
+      "checked_at_utc": "2026-10-13T12:02:35.131857+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionDayCoreProbe.agda"
+      ],
+      "source_sha256": "b3d2dd637b2a8f6b6a24bb8891b305e50ef2dead2f215750f7651867e3a071ce"
+    },
+    {
+      "module": "DHH/Enrichment/StableComposition.agda",
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 2.697,
+      "checked_at_utc": "2026-10-13T12:03:09.363458+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableComposition.agda"
+      ],
+      "source_sha256": "fa4bc2b47599abb3169d82aeaf7749b7fc26630e2a7467cf8e56fc4b4023319a"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionDayCore.agda",
+      "exit_code": null,
+      "timeout": 60,
+      "elapsed_seconds": 60.014,
+      "checked_at_utc": "2026-10-13T12:05:21.728686+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionDayCore.agda"
+      ],
+      "source_sha256": "a6e198945b46680d7723bfd13b40589cdd9cfacc3201ceb65c4fe0fd2429f29b"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionMergeAssociativityStages.agda",
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 59.68,
+      "checked_at_utc": "2026-10-13T12:07:02.906661+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionMergeAssociativityStages.agda"
+      ],
+      "source_sha256": "d7aec41e0261b01d4db51fa4d3a7f95226deeebf098e0b758e0ceedeb9b44cde"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionMergeAssociativity.agda",
+      "exit_code": 42,
+      "timeout": false,
+      "elapsed_seconds": 30.034,
+      "checked_at_utc": "2026-10-13T12:08:22.751365+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionMergeAssociativity.agda"
+      ],
+      "source_sha256": "67bf7285d2ea48abed62f93b8d52bdb6579de47da0bef94063fb3dafef92cece"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionMergeAssociativity.agda",
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 44.044,
+      "checked_at_utc": "2026-10-13T12:18:03.087179+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionMergeAssociativity.agda"
+      ],
+      "source_sha256": "99b38697a1d5ab92470a2470f2b8e189d95113cebc4b7ebe205a243293bba6c0"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionActualBeta.agda",
+      "exit_code": null,
+      "timeout": 90,
+      "elapsed_seconds": 90.039,
+      "checked_at_utc": "2026-10-13T12:22:54.554202+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionActualBeta.agda"
+      ],
+      "source_sha256": "ebd0dde17849fd3998dd053dbb5c35c422165562abe4ce22f02407f5d2ae8389"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionActualBeta.agda",
+      "exit_code": null,
+      "timeout": 120,
+      "elapsed_seconds": 120.012,
+      "checked_at_utc": "2026-10-13T12:26:02.157243+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionActualBeta.agda"
+      ],
+      "source_sha256": "ebd0dde17849fd3998dd053dbb5c35c422165562abe4ce22f02407f5d2ae8389"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionActualBeta.agda",
+      "exit_code": null,
+      "timeout": 60,
+      "elapsed_seconds": 60.026,
+      "checked_at_utc": "2026-10-13T12:28:07.971673+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionActualBeta.agda"
+      ],
+      "source_sha256": "a241542b05551ae9ca19e3956d4a1ecc3c070dbe8a2ea053da33fce68a68e1ff"
+    },
+    {
+      "module": "DHH/Cubical/DayHomCompositionPrecompose.agda",
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 4.211,
+      "checked_at_utc": "2026-10-13T12:28:58.310992+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Cubical/DayHomCompositionPrecompose.agda"
+      ],
+      "source_sha256": "97a6d49710f938f017daffeae2682f2faafeb232ebd0d520031dd81989ed9ba2"
+    },
+    {
+      "module": "DHH/Cubical/DayHomCompositionNaturality.agda",
+      "exit_code": null,
+      "timeout": 180,
+      "elapsed_seconds": 180.017,
+      "checked_at_utc": "2026-10-13T12:32:56.825952+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Cubical/DayHomCompositionNaturality.agda"
+      ],
+      "source_sha256": "2fe276236c85ada41399d95aa9763faba255ce80b1019b192bfdf05acef0a364"
+    },
+    {
+      "module": "DHH/Cubical/DayHomCompositionUnits.agda",
+      "exit_code": null,
+      "timeout": 120,
+      "elapsed_seconds": 120.013,
+      "checked_at_utc": "2026-10-13T12:35:27.306278+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Cubical/DayHomCompositionUnits.agda"
+      ],
+      "source_sha256": "c2ddbb6012d7645c09a981aed3675eb8df1a8922a4c6042e12f8d86ada1c743f"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionMergeCore.agda",
+      "exit_code": null,
+      "timeout": 90,
+      "elapsed_seconds": 90.015,
+      "checked_at_utc": "2026-10-13T12:37:24.806301+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionMergeCore.agda"
+      ],
+      "source_sha256": "f7d85945f891a5d0390425b704890df1321eef9a6b84234099fd6d8845490ac5"
+    },
+    {
+      "module": "DHH/Enrichment/StableCompositionDayUnitsRaw.agda",
+      "exit_code": null,
+      "timeout": 150,
+      "elapsed_seconds": 150.02,
+      "checked_at_utc": "2026-10-13T12:40:27.733082+00:00",
+      "command": [
+        "/Users/donghengye/.local/bin/agda",
+        "--no-libraries",
+        "-i",
+        ".",
+        "-i",
+        "vendor/cubical",
+        "--cubical",
+        "--safe",
+        "--guardedness",
+        "-WnoUnsupportedIndexedMatch",
+        "DHH/Enrichment/StableCompositionDayUnitsRaw.agda"
+      ],
+      "source_sha256": "92ca5aa04e19d5efd09c331b4c32d0b6ebbf5f00422a24dae3b94aa34a9307d8"
+    }
+  ]
+}

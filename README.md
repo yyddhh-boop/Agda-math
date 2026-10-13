@@ -4,19 +4,17 @@
 
 ## DHH 形式化
 
-[源码与导读](formalization/dhh-agda/README.zh.md)包含自反无向图、BOX 乘积、全维立方 nerve、几何实现及 DHH 陈述所需的基础设施，允许无限图。
+[源码与导读](formalization/dhh-agda/README.zh.md)包含自反无向图、BOX乘积、全部维数的立方 nerve、真实几何实现及 DHH 陈述所需基础，允许无限图。
 
-2026-10-13 的验收版本含 **206 个正式模块**，全部通过 Agda `--cubical --safe` 检查。新完成的 `HornFilling.N∞-Kan` 证明任意 universe、任意图、所有维数下的稳定 nerve 的普通 Kan 性。`N₁→N∞` 的弱等价和原 DHH 的模型比较仍未完成；本仓库不把这些基础设施称作 DHH 猜想的证明。
+最新验收版本含 **217 个正式模块**，全部通过 Agda `--cubical --safe --guardedness` 检查。相比206模块版本新增11模块，关闭任意稳定cell结合律、完整Day参数求值图、内部Hom外延性及坐标相容；详见 [本轮续接](formalization/dhh-agda/docs/enrichment-continuation.zh.md)。完整富集图式、同伦相干nerve、原文标记局部化及固定比较仍未闭合。目标是完整陈述原文Conjecture14.3；不要求证明猜想自身。
 
-运行环境为 Agda 2.8.0；Cubical 0.9 的固定依赖源码及许可证已保存在 `vendor/cubical`。复现：
+Agda2.8.0与Cubical0.9固定依赖已保存在vendor/cubical并附许可证。复现：
 
 ```sh
 cd formalization/dhh-agda
 python3 -u check.py
 ```
 
-[验收记录](formalization/dhh-agda/checks/verification.json)保存实际编译版本、退出码、耗时和逐文件 SHA-256。[当前状态](formalization/dhh-agda/docs/original-paper-alignment.zh.md)区分已经构造的证明项与剩余接口。
+[验收回执](formalization/dhh-agda/checks/verification.json)保存编译器、真实退出码、时间、耗时与全部正式源码SHA-256。[原文状态](formalization/dhh-agda/docs/original-paper-alignment.zh.md)保留模型和剩余接口边界。
 
-首批新增11个基础模块，授权同步后又新增5个已验收模块：内部Hom构造和求值公式、原稳定合并操作的左右单位律及分步基础。未验收相容律草稿移出正式源码，并单独保存在 research-drafts/unverified，不计入验证。详见 [本轮范围](formalization/dhh-agda/docs/stable-enrichment-and-transition-progress.zh.md)。
-
-尚未验收的研究源码单独保存在 [研究草稿](formalization/dhh-agda/research-drafts/unverified/README.md)，不计入206个正式验证模块。
+[研究草稿](formalization/dhh-agda/research-drafts/unverified/README.md)保留12份历史草稿与16份本轮候选，均为树外 `.agda.txt`，不计入217个正式模块。转换超时没有被算作证明通过。

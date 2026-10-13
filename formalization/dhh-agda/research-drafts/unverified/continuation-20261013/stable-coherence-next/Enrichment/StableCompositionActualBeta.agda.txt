@@ -1,0 +1,29 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableCompositionActualBeta where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.Graph
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor using (DayTensor; dayPair)
+open import DHH.StableNerve.Colimit using (N∞)
+open import DHH.Enrichment.GraphHom using (HomGraph)
+open import DHH.Enrichment.StableComposition using (stableComposition; stableComposition-β)
+open import DHH.Enrichment.StableCompositionMergeCore
+
+private variable ℓ : Level
+
+-- One application lemma is the only required bridge from the original
+-- Day composition to the opaque copy of the original stable merge.
+-- Clients can reason entirely with actualMergeN∞ after this step.
+abstract
+  stableComposition-actual-β : (G H K : Graph ℓ) (p q : ℕ)
+    (a : Cell (N∞ (HomGraph H K)) p)
+    (b : Cell (N∞ (HomGraph G H)) q)
+    → mapCells
+        {A = DayTensor (N∞ (HomGraph H K)) (N∞ (HomGraph G H))}
+        {B = N∞ (HomGraph G K)} (stableComposition G H K) (p + q)
+        (dayPair {A = N∞ (HomGraph H K)} {B = N∞ (HomGraph G H)} p q a b)
+      ≡ actualMergeN∞ G H K p q a b
+  stableComposition-actual-β G H K p q a b =
+    stableComposition-β G H K p q a b ∙ mergeN∞-actual G H K p q a b

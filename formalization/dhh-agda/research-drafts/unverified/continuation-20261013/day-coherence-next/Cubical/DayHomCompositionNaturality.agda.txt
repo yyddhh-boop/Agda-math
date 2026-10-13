@@ -1,0 +1,48 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionNaturality where
+
+open import Cubical.Foundations.Prelude
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayClosedParameter using (curryDay-precomposeParameter)
+open import DHH.Cubical.DayHomNestedEvaluation
+open import DHH.Cubical.DayHomCompositionCore
+open import DHH.Cubical.DayHomCompositionParameter
+open import DHH.Cubical.DayHomCompositionParameterRoute
+open import DHH.Cubical.DayHomCompositionParameterCurry
+
+private variable ℓ : Level
+
+abstract
+  curryDay-precomposeHom : (X Y A B : CubicalSet ℓ)
+    (h : CubicalNatural Y X) (F : CubicalNatural (DayTensor X A) B)
+    → _⋆n_ {A = Y} {B = X} {C = DayHom A B}
+        h (curryDay {C = X} {A = A} {B = B} F)
+      ≡ curryDay {C = Y} {A = A} {B = B}
+        (_⋆n_ {A = DayTensor Y A} {B = DayTensor X A} {C = B}
+          (dayMap {A = Y} {A' = X} {B = A} {B' = A} h (cubicalId A)) F)
+  curryDay-precomposeHom X Y A B h F = curryDay-precomposeParameter X Y A B h F
+
+-- No quotient eliminator, internal-Hom cell projection, or local route
+-- alias occurs in this final theorem. All three edges are imported.
+abstract
+  curryDay-composition : (X Y A B C : CubicalSet ℓ)
+    (F : CubicalNatural (DayTensor X B) C)
+    (G : CubicalNatural (DayTensor Y A) B)
+    → _⋆n_ {A = DayTensor X Y} {B = DayTensor (DayHom B C) (DayHom A B)} {C = DayHom A C}
+        (dayMap {A = X} {A' = DayHom B C} {B = Y} {B' = DayHom A B}
+          (curryDay {C = X} {A = B} {B = C} F)
+          (curryDay {C = Y} {A = A} {B = B} G))
+        (homComposition A B C)
+      ≡ curryDay {C = DayTensor X Y} {A = A} {B = C}
+        (nestedEvaluation X Y A B C F G)
+  curryDay-composition X Y A B C F G =
+    cong (λ (h : CubicalNatural (DayTensor X Y) (DayTensor (DayHom B C) (DayHom A B))) →
+      _⋆n_ {A = DayTensor X Y} {B = DayTensor (DayHom B C) (DayHom A B)} {C = DayHom A C}
+        h (homComposition A B C))
+      (sym (homParameter-map X Y A B C F G))
+    ∙ homParameter-composition-curry X Y A B C F G
+    ∙ cong (curryDay {C = DayTensor X Y} {A = A} {B = C})
+        (homParameterEvaluation-nested X Y A B C F G)

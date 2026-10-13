@@ -1,0 +1,65 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionAssociativity where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (_+_)
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayTriple using (module TripleExt)
+open import DHH.Cubical.DayAssociator
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayHomCompositionCore
+open import DHH.Cubical.DayHomGeneratorExt
+open import DHH.Cubical.DayHomAssociativityChart
+open import DHH.Cubical.DayHomCompositionAssociativityCore
+open import DHH.Cubical.DayHomCompositionAssociativityCells
+
+private variable ℓ : Level
+
+abstract
+  homComposition-associativity-named : (A B C D : CubicalSet ℓ)
+    → homCompose3Left A B C D ≡ homCompose3Right A B C D
+  homComposition-associativity-named A B C D =
+    let H = DayHom C D
+        K = DayHom B C
+        L = DayHom A B
+        Out = DayHom A D
+        T = DayTensor (DayTensor H K) L
+    in TripleExt.leftTripleExt H K L Out
+      (homCompose3Left A B C D) (homCompose3Right A B C D)
+      λ p q r h k l →
+        homCellExt A D ((p + q) + r)
+          (mapCells {A = T} {B = Out} (homCompose3Left A B C D) ((p + q) + r)
+            (leftTripleCell H K L p q r h k l))
+          (mapCells {A = T} {B = Out} (homCompose3Right A B C D) ((p + q) + r)
+            (leftTripleCell H K L p q r h k l))
+          λ s a → homCompose3Left-β A B C D p q r s h k l a
+            ∙ cong (λ u → reindex D u (homCompose3Value A B C D p q r s h k l a))
+                (homAssociativity-chart p q r s)
+            ∙ sym (homCompose3Right-β A B C D p q r s h k l a)
+
+abstract
+  homComposition-associativity : (A B C D : CubicalSet ℓ)
+    → _⋆n_ {A = DayTensor (DayTensor (DayHom C D) (DayHom B C)) (DayHom A B)}
+        {B = DayTensor (DayHom B D) (DayHom A B)} {C = DayHom A D}
+        (dayMap {A = DayTensor (DayHom C D) (DayHom B C)} {A' = DayHom B D}
+          {B = DayHom A B} {B' = DayHom A B}
+          (homComposition B C D) (cubicalId (DayHom A B))) (homComposition A B D)
+      ≡ _⋆n_ {A = DayTensor (DayTensor (DayHom C D) (DayHom B C)) (DayHom A B)}
+        {B = DayTensor (DayHom C D) (DayTensor (DayHom B C) (DayHom A B))} {C = DayHom A D}
+        (dayAssociator (DayHom C D) (DayHom B C) (DayHom A B))
+        (_⋆n_ {A = DayTensor (DayHom C D) (DayTensor (DayHom B C) (DayHom A B))}
+          {B = DayTensor (DayHom C D) (DayHom A C)} {C = DayHom A D}
+          (dayMap {A = DayHom C D} {A' = DayHom C D}
+            {B = DayTensor (DayHom B C) (DayHom A B)} {B' = DayHom A C}
+            (cubicalId (DayHom C D)) (homComposition A B C)) (homComposition A C D))
+  homComposition-associativity A B C D =
+    sym (homCompose3Left-route A B C D)
+    ∙ homComposition-associativity-named A B C D
+    ∙ homCompose3Right-route A B C D
+    ∙ cong (λ f → _⋆n_
+        {A = DayTensor (DayTensor (DayHom C D) (DayHom B C)) (DayHom A B)}
+        {B = DayTensor (DayHom C D) (DayTensor (DayHom B C) (DayHom A B))} {C = DayHom A D}
+        (dayAssociator (DayHom C D) (DayHom B C) (DayHom A B)) f)
+        (homCompose3After-route A B C D)

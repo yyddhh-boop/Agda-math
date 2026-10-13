@@ -1,0 +1,55 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomAssociativityChart where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import Cubical.Data.Sigma
+open import DHH.Graph
+open import DHH.Cubes using (Q)
+open import DHH.CubeCategory
+open import DHH.Cubical.TensorCategory
+open import DHH.Cubical.TensorCategory.Coordinates
+open import DHH.Cubical.TensorCoherence
+
+leftQuadHomExt : {p q r s k : ℕ} {f g : Hom (Q (((p + q) + r) + s)) (Q k)}
+  → ((x : Vertex (Q p)) (y : Vertex (Q q)) (z : Vertex (Q r)) (w : Vertex (Q s))
+    → onVertices f (appendPoint ((p + q) + r) s (appendPoint (p + q) r (appendPoint p q x y) z) w)
+      ≡ onVertices g (appendPoint ((p + q) + r) s (appendPoint (p + q) r (appendPoint p q x y) z) w))
+  → f ≡ g
+leftQuadHomExt {p} {q} {r} {s} {k} {f} {g} e =
+  leftTripleHomExt {p = p + q} {q = r} {r = s} {k = k} {f = f} {g = g} λ xy z w →
+    sym (cong (λ t → onVertices f (appendPoint ((p + q) + r) s (appendPoint (p + q) r t z) w))
+      (append-split p q xy))
+    ∙ e (fst (splitPoint p q xy)) (snd (splitPoint p q xy)) z w
+    ∙ cong (λ t → onVertices g (appendPoint ((p + q) + r) s (appendPoint (p + q) r t z) w))
+      (append-split p q xy)
+
+abstract
+  homAssociativity-chart : (p q r s : ℕ)
+    → cubeAssociator (p + q) r s ⋆c cubeAssociator p q (r + s)
+      ≡ (cubeAssociator p q r ⊗c cubeId s)
+          ⋆c (cubeAssociator p (q + r) s ⋆c (cubeId p ⊗c cubeAssociator q r s))
+  homAssociativity-chart p q r s = cubeMapExt
+    (leftQuadHomExt {p = p} {q = q} {r = r} {s = s} {k = p + (q + (r + s))}
+      {f = underlying (cubeAssociator (p + q) r s ⋆c cubeAssociator p q (r + s))}
+      {g = underlying ((cubeAssociator p q r ⊗c cubeId s)
+        ⋆c (cubeAssociator p (q + r) s ⋆c (cubeId p ⊗c cubeAssociator q r s)))}
+      λ x y z w →
+        let
+          f = cubeAssociator p q r ⊗c cubeId s
+          g = cubeAssociator p (q + r) s
+          h = cubeId p ⊗c cubeAssociator q r s
+          short = cong (onVertices (underlying (cubeAssociator p q (r + s))))
+              (cubeAssociator-on-append (p + q) r s (appendPoint p q x y) z w)
+            ∙ cubeAssociator-on-append p q (r + s) x y (appendPoint r s z w)
+          first = tensor-on-append (cubeAssociator p q r) (cubeId s)
+              (appendPoint (p + q) r (appendPoint p q x y) z) w
+            ∙ cong (λ t → appendPoint (p + (q + r)) s t w)
+                (cubeAssociator-on-append p q r x y z)
+          second = cong (onVertices (underlying g)) first
+            ∙ cubeAssociator-on-append p (q + r) s x (appendPoint q r y z) w
+          long = cong (onVertices (underlying h)) second
+            ∙ tensor-on-append (cubeId p) (cubeAssociator q r s) x
+                (appendPoint (q + r) s (appendPoint q r y z) w)
+            ∙ cong (appendPoint p (q + (r + s)) x) (cubeAssociator-on-append q r s y z w)
+        in short ∙ sym long)

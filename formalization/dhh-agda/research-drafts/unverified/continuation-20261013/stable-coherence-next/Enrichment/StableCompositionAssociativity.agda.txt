@@ -1,0 +1,109 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableCompositionAssociativity where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.Graph
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCoherence using (cubeAssociator)
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor using (dayMap; dayMap-β)
+open import DHH.Cubical.DayTriple using (module TripleExt)
+open import DHH.Cubical.DayAssociator using (dayAssociator; dayAssociator-β; rightTripleCell)
+open import DHH.StableNerve.Colimit using (N∞)
+open import DHH.Enrichment.GraphHom using (HomGraph)
+open import DHH.Enrichment.StableComposition using (stableComposition)
+open import DHH.Enrichment.StableCompositionMergeCore using (actualMergeN∞)
+open import DHH.Enrichment.StableCompositionActualBeta
+open import DHH.Enrichment.StableCompositionMergeAssociativity
+
+private variable ℓ : Level
+
+module _ (G H K L : Graph ℓ) where
+  private
+    A B C D N M TLeft TRight : CubicalSet ℓ
+    A = N∞ (HomGraph K L)
+    B = N∞ (HomGraph H K)
+    C = N∞ (HomGraph G H)
+    D = N∞ (HomGraph G L)
+    N = N∞ (HomGraph H L)
+    M = N∞ (HomGraph G K)
+    TLeft = DayTensor (DayTensor A B) C
+    TRight = DayTensor A (DayTensor B C)
+    composeAB : CubicalNatural (DayTensor A B) N
+    composeAB = stableComposition H K L
+    composeNC : CubicalNatural (DayTensor N C) D
+    composeNC = stableComposition G H L
+    composeBC : CubicalNatural (DayTensor B C) M
+    composeBC = stableComposition G H K
+    composeAM : CubicalNatural (DayTensor A M) D
+    composeAM = stableComposition G K L
+    associateLeftRoute : CubicalNatural TLeft D
+    associateLeftRoute = dayMap {A = DayTensor A B} {A' = N} {B = C} {B' = C}
+      composeAB (cubicalId C) ⋆n composeNC
+    associateAfterRoute : CubicalNatural TRight D
+    associateAfterRoute = dayMap {A = A} {A' = A} {B = DayTensor B C} {B' = M}
+      (cubicalId A) composeBC ⋆n composeAM
+    associateRightRoute : CubicalNatural TLeft D
+    associateRightRoute = dayAssociator A B C ⋆n associateAfterRoute
+    leftGenerator : (p q r : ℕ) → Cell A p → Cell B q → Cell C r
+      → Cell TLeft ((p + q) + r)
+    leftGenerator p q r a b c = dayPair {A = DayTensor A B} {B = C} (p + q) r
+      (dayPair {A = A} {B = B} p q a b) c
+
+  -- Small, separately abstracted application equations keep the two
+  -- nested coends out of the final natural-transformation comparison.
+  abstract
+    associateLeftRoute-β : (p q r : ℕ) (a : Cell A p) (b : Cell B q) (c : Cell C r)
+      → mapCells associateLeftRoute ((p + q) + r) (leftGenerator p q r a b c)
+        ≡ leftActualMerge G H K L p q r a b c
+    associateLeftRoute-β p q r a b c =
+      congS {A = Cell (DayTensor N C) ((p + q) + r)} {B = Cell D ((p + q) + r)}
+        (mapCells {A = DayTensor N C} {B = D} composeNC ((p + q) + r))
+        (dayMap-β {A = DayTensor A B} {A' = N} {B = C} {B' = C}
+          composeAB (cubicalId C) (p + q) r (dayPair {A = A} {B = B} p q a b) c
+        ∙ congS {A = Cell N (p + q)} {B = Cell (DayTensor N C) ((p + q) + r)}
+          (λ ab → dayPair {A = N} {B = C} (p + q) r ab c)
+          (stableComposition-actual-β H K L p q a b))
+      ∙ stableComposition-actual-β G H L (p + q) r
+        (actualMergeN∞ H K L p q a b) c
+
+  abstract
+    associateAfterRoute-β : (p q r : ℕ) (a : Cell A p) (b : Cell B q) (c : Cell C r)
+      → mapCells associateAfterRoute (p + (q + r)) (rightTripleCell A B C p q r a b c)
+        ≡ actualMergeN∞ G K L p (q + r) a (actualMergeN∞ G H K q r b c)
+    associateAfterRoute-β p q r a b c =
+      congS {A = Cell (DayTensor A M) (p + (q + r))} {B = Cell D (p + (q + r))}
+        (mapCells {A = DayTensor A M} {B = D} composeAM (p + (q + r)))
+        (dayMap-β {A = A} {A' = A} {B = DayTensor B C} {B' = M}
+          (cubicalId A) composeBC p (q + r) a (dayPair {A = B} {B = C} q r b c)
+        ∙ congS {A = Cell M (q + r)} {B = Cell (DayTensor A M) (p + (q + r))}
+          (dayPair {A = A} {B = M} p (q + r) a)
+          (stableComposition-actual-β G H K q r b c))
+      ∙ stableComposition-actual-β G K L p (q + r) a (actualMergeN∞ G H K q r b c)
+
+  abstract
+    associateRightRoute-β : (p q r : ℕ) (a : Cell A p) (b : Cell B q) (c : Cell C r)
+      → mapCells associateRightRoute ((p + q) + r) (leftGenerator p q r a b c)
+        ≡ rightActualMerge G H K L p q r a b c
+    associateRightRoute-β p q r a b c =
+      congS {A = Cell TRight ((p + q) + r)} {B = Cell D ((p + q) + r)}
+        (mapCells {A = TRight} {B = D} associateAfterRoute ((p + q) + r))
+        (dayAssociator-β A B C p q r a b c)
+      ∙ natural {A = TRight} {B = D} associateAfterRoute (cubeAssociator p q r)
+        (rightTripleCell A B C p q r a b c)
+      ∙ congS {A = Cell D (p + (q + r))} {B = Cell D ((p + q) + r)}
+        (reindex D (cubeAssociator p q r)) (associateAfterRoute-β p q r a b c)
+
+  abstract
+    stableComposition-associativity :
+      dayMap {A = DayTensor A B} {A' = N} {B = C} {B' = C}
+          (stableComposition H K L) (cubicalId C) ⋆n stableComposition G H L
+        ≡ dayAssociator A B C
+          ⋆n (dayMap {A = A} {A' = A} {B = DayTensor B C} {B' = M}
+              (cubicalId A) (stableComposition G H K) ⋆n stableComposition G K L)
+    stableComposition-associativity = TripleExt.leftTripleExt A B C D
+      associateLeftRoute associateRightRoute λ p q r a b c →
+      associateLeftRoute-β p q r a b c
+      ∙ actualMergeN∞-associativity G H K L p q r a b c
+      ∙ sym (associateRightRoute-β p q r a b c)

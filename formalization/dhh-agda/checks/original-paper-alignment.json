@@ -5,7 +5,7 @@
   "closed_original_paper_statement": false,
   "remaining_original_components": [
     "Raw-to-stable weak equivalence and A-group operations/marking comparison",
-    "Stable enriched unit/associativity laws, nerve Hom action preserving these laws, and original homotopy coherent nerve; Day base coherence proof bodies are individually checked",
+    "Full stable Day unit/associativity diagrams, complete enriched instances and nerve Hom action preserving laws, DayHom Kan, and actual homotopy coherent nerve; arbitrary stable-cell associativity and Day parameter-evaluation diagrams are now checked",
     "All-object coding or internal model comparison; supplied-order graph/cubical codes do not by themselves cover arbitrary objects",
     "Original marked Exop+ localization instance and fixed canonical induced map",
     "Cubical Kan coherent-nerve space-model instance and explicit test-universe compatibility"
@@ -69,7 +69,7 @@
     "scope": "35 new modules with actual original integer cubical model comparison, geometric inverse and weak comparison, Day tensor/internal hom, mapping action, and expanded quasicategorical localization property; closed original Conjecture 14.3 remains incomplete",
     "status": "aggregate_verified_historical_snapshot"
   },
-  "updated_at_utc": "2026-10-13T05:13:24.823396+00:00",
+  "updated_at_utc": "2026-10-13T12:43:18.716780+00:00",
   "current_constructions": [
     "Finite selected-face presentation, whole-horn stage factorization, later equality and Hom-to-sequential-colimit equivalence",
     "Graph presentation, full graph coend adjunction, actual staged horn graph interpretation, and aggregate checked GraphPresentationComparison graph isomorphism",
@@ -78,10 +78,11 @@
     "HornFilling.universalFill inhabits the universal interface; HornFilling.N∞-Kan proves IsKan for every graph in every universe, with a 3m fill at a supplied finite stage; GeometricComparison.stableKan consumes StableKanClaim",
     "KanTransport, IntegerKan and StableKan have unconditional ordinary Kan proofs with truncation retained",
     "Finite grid composition coherence; all stage transition monomorphisms; BOX mixed expansion with only its two time faces",
-    "Closed-adjunction parameter/evaluation/nested-evaluation theorems; actual stable identity family and stage persistence"
+    "Closed-adjunction parameter/evaluation/nested-evaluation theorems; actual stable identity family and stage persistence",
+    "Stable merge associativity on arbitrary quotient cells; Day internal-Hom parameter evaluation is the actual nested route; full Hom-cell extensionality and unit cube charts; generic CubicalCategory record without a stableGraphCategory instance"
   ],
   "task_scope": "Complete the original-paper statement and necessary model comparisons; proving the DHH conjecture itself is not requested",
-  "scope": "Ordinary Kan transport/original integer/Hom models; finite-grid coherence; stage monomorphisms and two-face local expansion; closed-adjunction/evaluation helpers; stable identity family. Full stable enrichment/coherent/localization and raw-to-stable weak comparison remain incomplete.",
+  "scope": "217 verified modules; stable-cell associativity, complete Day parameter evaluation and internal-Hom extensionality checked. Original coherent nerve/localization/fixed comparison and remaining model interfaces incomplete; conjecture proof not requested.",
   "individual_checks": [
     {
       "module": "Cubical/GraphPresentationComparison",
@@ -163,9 +164,9 @@
     "UniversalHornReduction: exact whole-boundary recovery from graph-coend evaluation and stage naturality; all dimensions and arbitrary graph universes; both truncations eliminated only into truncated existence, with the universal filling family still uninhabited"
   ],
   "verification_manifest": "checks/verification.json",
-  "project_module_count": 201,
+  "project_module_count": 217,
   "aggregate_exit_code": 0,
-  "checked_at_utc": "2026-10-13T05:13:24.823396+00:00",
+  "checked_at_utc": "2026-10-13T12:43:18.716780+00:00",
   "source_hashes_recomputed": true,
   "new_module_count": 11,
   "comparison_checkpoint": {
@@ -212,6 +213,30 @@
       "DHH/Enrichment/StableCompositionDayUnits.agda",
       "DHH/Enrichment/StableCompositionMergeUnits.agda",
       "DHH/Enrichment/StableCompositionUnits.agda"
+    ],
+    "verification_manifest": "checks/verification.json"
+  },
+  "enrichment_continuation_checkpoint": {
+    "status": "aggregate_verified",
+    "checked_at_utc": "2026-10-13T12:43:18.716780+00:00",
+    "project_module_count": 217,
+    "aggregate_exit_code": 0,
+    "new_modules": [
+      "DHH/Cubical/DayHomCompositionPrecompose.agda",
+      "DHH/Cubical/DayHomCompositionParameterCore.agda",
+      "DHH/Cubical/DayHomCompositionParameterEvaluationCore.agda",
+      "DHH/Cubical/DayHomCompositionParameterPairing.agda",
+      "DHH/Cubical/DayHomCompositionParameter.agda",
+      "DHH/Cubical/DayHomCompositionParameterRoute.agda",
+      "DHH/Cubical/DayHomGeneratorExt.agda",
+      "DHH/Cubical/DayHomUnitCharts.agda",
+      "DHH/Enrichment/StableCompositionMergeAssociativityStages.agda",
+      "DHH/Enrichment/StableCompositionMergeAssociativity.agda",
+      "DHH/Enrichment/CubicalCategory.agda"
+    ],
+    "modified_modules": [
+      "DHH/Cubical/DayTensorFunctor.agda",
+      "DHH/Enrichment/StableComposition.agda"
     ],
     "verification_manifest": "checks/verification.json"
   }

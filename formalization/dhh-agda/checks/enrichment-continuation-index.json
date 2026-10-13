@@ -1,0 +1,38 @@
+{
+  "new_modules": [
+    "DHH/Cubical/DayHomCompositionPrecompose.agda",
+    "DHH/Cubical/DayHomCompositionParameterCore.agda",
+    "DHH/Cubical/DayHomCompositionParameterEvaluationCore.agda",
+    "DHH/Cubical/DayHomCompositionParameterPairing.agda",
+    "DHH/Cubical/DayHomCompositionParameter.agda",
+    "DHH/Cubical/DayHomCompositionParameterRoute.agda",
+    "DHH/Cubical/DayHomGeneratorExt.agda",
+    "DHH/Cubical/DayHomUnitCharts.agda",
+    "DHH/Enrichment/StableCompositionMergeAssociativityStages.agda",
+    "DHH/Enrichment/StableCompositionMergeAssociativity.agda",
+    "DHH/Enrichment/CubicalCategory.agda"
+  ],
+  "modified_modules": [
+    "DHH/Cubical/DayTensorFunctor.agda",
+    "DHH/Enrichment/StableComposition.agda"
+  ],
+  "target": "完整陈述2306.02218v1 Conjecture14.3，不证明猜想",
+  "drafts": [
+    "research-drafts/unverified/continuation-20261013/day-coherence-next/Cubical/DayHomAssociativityChart.agda.txt",
+    "research-drafts/unverified/continuation-20261013/day-coherence-next/Cubical/DayHomCompositionAssociativity.agda.txt",
+    "research-drafts/unverified/continuation-20261013/day-coherence-next/Cubical/DayHomCompositionAssociativityCells.agda.txt",
+    "research-drafts/unverified/continuation-20261013/day-coherence-next/Cubical/DayHomCompositionAssociativityCore.agda.txt",
+    "research-drafts/unverified/continuation-20261013/day-coherence-next/Cubical/DayHomCompositionNaturality.agda.txt",
+    "research-drafts/unverified/continuation-20261013/day-coherence-next/Cubical/DayHomCompositionParameterCurry.agda.txt",
+    "research-drafts/unverified/continuation-20261013/day-coherence-next/Cubical/DayHomCompositionUnits.agda.txt",
+    "research-drafts/unverified/continuation-20261013/day-coherence-next/Cubical/DayHomNestedEvaluation.agda.txt",
+    "research-drafts/unverified/continuation-20261013/root-attempts/Enrichment/StableCompositionActualBeta.agda.txt",
+    "research-drafts/unverified/continuation-20261013/root-attempts/Enrichment/StableCompositionDayCore.agda.txt",
+    "research-drafts/unverified/continuation-20261013/root-attempts/Enrichment/StableCompositionMergeCore-SameBlockBeta.agda.txt",
+    "research-drafts/unverified/continuation-20261013/stable-coherence-next/Enrichment/StableCompositionActualBeta.agda.txt",
+    "research-drafts/unverified/continuation-20261013/stable-coherence-next/Enrichment/StableCompositionAssociativity.agda.txt",
+    "research-drafts/unverified/continuation-20261013/stable-coherence-next/Enrichment/StableCompositionDayUnits.agda.txt",
+    "research-drafts/unverified/continuation-20261013/stable-coherence-next/Enrichment/StableCompositionDayUnitsRaw.agda.txt",
+    "research-drafts/unverified/continuation-20261013/stable-coherence-next/Enrichment/StableGraphCategory.agda.txt"
+  ]
+}

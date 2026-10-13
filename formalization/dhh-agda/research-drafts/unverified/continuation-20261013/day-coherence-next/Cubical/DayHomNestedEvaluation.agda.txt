@@ -1,0 +1,78 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomNestedEvaluation where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCategory
+open import DHH.Cubical.TensorCoherence
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayAssociator
+
+private variable ℓ : Level
+
+-- The genuine Day associator puts the two actions on their common domain.
+abstract
+  nestedEvaluation : (X Y A B C : CubicalSet ℓ)
+    → CubicalNatural (DayTensor X B) C
+    → CubicalNatural (DayTensor Y A) B
+    → CubicalNatural (DayTensor (DayTensor X Y) A) C
+  nestedEvaluation X Y A B C F G =
+    _⋆n_ {A = DayTensor (DayTensor X Y) A} {B = DayTensor X B} {C = C}
+      (_⋆n_ {A = DayTensor (DayTensor X Y) A} {B = DayTensor X (DayTensor Y A)} {C = DayTensor X B}
+        (dayAssociator X Y A)
+        (dayMap {A = X} {A' = X} {B = DayTensor Y A} {B' = B} (cubicalId X) G)) F
+
+  nestedEvaluation-β : (X Y A B C : CubicalSet ℓ)
+    (F : CubicalNatural (DayTensor X B) C)
+    (G : CubicalNatural (DayTensor Y A) B) (p q r : ℕ)
+    (x : Cell X p) (y : Cell Y q) (a : Cell A r)
+    → mapCells {A = DayTensor (DayTensor X Y) A} {B = C}
+        (nestedEvaluation X Y A B C F G) ((p + q) + r)
+        (leftTripleCell X Y A p q r x y a)
+      ≡ reindex C (cubeAssociator p q r)
+        (mapCells {A = DayTensor X B} {B = C} F (p + (q + r))
+          (dayPair {A = X} {B = B} p (q + r) x
+            (mapCells {A = DayTensor Y A} {B = B} G (q + r) (dayPair {A = Y} {B = A} q r y a))))
+  nestedEvaluation-β {ℓ} X Y A B C F G p q r x y a =
+    let
+      L : CubicalSet ℓ
+      L = DayTensor (DayTensor X Y) A
+      R : CubicalSet ℓ
+      R = DayTensor X (DayTensor Y A)
+      T : CubicalSet ℓ
+      T = DayTensor X B
+      action : CubicalNatural R T
+      action = dayMap {A = X} {A' = X} {B = DayTensor Y A} {B' = B} (cubicalId X) G
+      route : CubicalNatural R C
+      route = _⋆n_ {A = R} {B = T} {C = C} action F
+      t : Cell L ((p + q) + r)
+      t = leftTripleCell X Y A p q r x y a
+      s : Cell R (p + (q + r))
+      s = rightTripleCell X Y A p q r x y a
+      u : CubicalMap ((p + q) + r) (p + (q + r))
+      u = cubeAssociator p q r
+      value : Cell T (p + (q + r))
+      value = dayPair {A = X} {B = B} p (q + r) x
+        (mapCells {A = DayTensor Y A} {B = B} G (q + r) (dayPair {A = Y} {B = A} q r y a))
+
+      e1 : mapCells {A = L} {B = C} (nestedEvaluation X Y A B C F G) ((p + q) + r) t
+        ≡ mapCells {A = R} {B = C} route ((p + q) + r) (reindex R u s)
+      e1 = cong (mapCells {A = R} {B = C} route ((p + q) + r))
+        (dayAssociator-β X Y A p q r x y a)
+
+      e2 : mapCells {A = R} {B = C} route ((p + q) + r) (reindex R u s)
+        ≡ reindex C u (mapCells {A = R} {B = C} route (p + (q + r)) s)
+      e2 = natural {A = R} {B = C} route u s
+
+      eMap : mapCells {A = R} {B = T} action (p + (q + r)) s ≡ value
+      eMap = dayMap-β {A = X} {A' = X} {B = DayTensor Y A} {B' = B}
+        (cubicalId X) G p (q + r) x (dayPair {A = Y} {B = A} q r y a)
+
+      e3 : reindex C u (mapCells {A = R} {B = C} route (p + (q + r)) s)
+        ≡ reindex C u (mapCells {A = T} {B = C} F (p + (q + r)) value)
+      e3 = cong (reindex C u)
+        (cong (mapCells {A = T} {B = C} F (p + (q + r))) eMap)
+    in e1 ∙ e2 ∙ e3

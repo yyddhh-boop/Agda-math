@@ -10,7 +10,7 @@ DHH = Geometric.DHHStatement
 
 这同时要求每个空间有图模型、每一对图的完整映射比较为全维弱同伦等价。没有提供 `DHH` 的 inhabitant，也没有把当前全箭头自由分辨与原文局部化模型的比较算作已经证明。因此，“闭合且可检查的陈述类型”已经有了；“原论文所有模型识别均已形式化”还没有全部完成。
 
-每个正式模块启用 `--cubical --safe`，没有 `postulate`、证明洞或绕过检查的选项。历史验收回执为 **176 个模块，退出码 0，2026-10-12 13:55:35 UTC**，对应当时新增的 30 个模块。本次续接的 `HornFilling` 提供实际 `N∞-Kan` 证明项。前一轮190模块验收时间为2026-10-13 11:30:51（北京时间），回执保存在 `checks/verification-before-comparison.json`。最新整库验收为 **206 个模块，退出码 0，2026-10-13 17:02:52（北京时间）**，耗时 7.106 秒，复用已检查依赖缓存；逐文件哈希见 `checks/verification.json`。前一版201模块回执保存在 `checks/verification-before-composition.json`。`DayMonoidal`、`DayMonoidalLift` 因转换检查超时保留为未验收的历史草稿，未包含在本次迁移交付中，也不计入正式源码验收。
+每个正式模块启用 `--cubical --safe`，没有 `postulate`、证明洞或绕过检查的选项。历史验收回执为 **176 个模块，退出码 0，2026-10-12 13:55:35 UTC**，对应当时新增的 30 个模块。本次续接的 `HornFilling` 提供实际 `N∞-Kan` 证明项。前一轮190模块验收时间为2026-10-13 11:30:51（北京时间），回执保存在 `checks/verification-before-comparison.json`。最新整库验收为 **217 个模块，退出码 0，2026-10-13 20:43:18（北京时间）**，耗时 147.765 秒，复用已检查依赖缓存；逐文件哈希见 `checks/verification.json`。前一版206模块回执保存在 `checks/verification-before-enrichment-associativity.json`。本轮新增11个稳定结合律、Day参数求值与内部Hom基础模块；见 `docs/enrichment-continuation.zh.md`。`DayMonoidal`、`DayMonoidalLift` 因转换检查超时保留为未验收的历史草稿，未包含在本次迁移交付中，也不计入正式源码验收。
 
 ## 阅读入口
 
@@ -58,7 +58,7 @@ DHH = Geometric.DHHStatement
 - `StableNerve/UniversalHornReduction`、`HornFilling`：`universalFill` 已填入原通用接口，`universalHornFillings` 是实际证明项；结合整个 horn 的截断阶段提升，得到 `N∞-Kan : {ℓ : Level} (G : Graph ℓ) → IsKan (N∞ G)`。
 - `StableNerve/GeometricComparison`：实际原神经到稳定神经实现的连续比较、自然性，以及两个尚未证明的基础比较陈述。
 
-这些模块的中文注释说明输入、递归/消去依据、保持的不变量、程序与证明的关系及适用边界。详细阅读见 `docs/finite-presentation-stage-lifting.zh.md` 和 `docs/horn-retraction-algorithm.zh.md`。稳定 nerve 的 Kan 证明已通过最新206模块整库安全检查，回执见 `checks/verification.json`。任意稳定 horn 的阶段表示仅为命题截断，故结论是普通 `IsKan`，未给出 `ChosenKanFillings`。`N₁→N∞` 的弱等价仍未证明。
+这些模块的中文注释说明输入、递归/消去依据、保持的不变量、程序与证明的关系及适用边界。详细阅读见 `docs/finite-presentation-stage-lifting.zh.md` 和 `docs/horn-retraction-algorithm.zh.md`。稳定 nerve 的 Kan 证明已通过最新217模块整库安全检查，回执见 `checks/verification.json`。任意稳定 horn 的阶段表示仅为命题截断，故结论是普通 `IsKan`，未给出 `ChosenKanFillings`。`N₁→N∞` 的弱等价仍未证明。
 
 ## 原文模型对齐的新构造
 
@@ -68,7 +68,7 @@ DHH = Geometric.DHHStatement
 
 ## 本轮后续验收
 
-最新整库验收为 **206 个模块，退出码 0，2026-10-13 17:02:52（北京时间）**，耗时 7.106 秒，复用已检查依赖缓存；逐文件哈希见 `checks/verification.json`。前一版201模块回执保存在 `checks/verification-before-composition.json`。 从190模块版本起先新增11个基础模块，随后新增5个复合与单位基础模块；严格保留的缺口见 `docs/stable-enrichment-and-transition-progress.zh.md`。另有12份未验收候选与替代草稿移出正式源码，并单独保存在 `research-drafts/unverified`，不计入验证，也未算作已证明。
+最新整库验收为 **217 个模块，退出码 0，2026-10-13 20:43:18（北京时间）**，耗时 147.765 秒，复用已检查依赖缓存；逐文件哈希见 `checks/verification.json`。前一版206模块回执保存在 `checks/verification-before-enrichment-associativity.json`。本轮新增11个稳定结合律、Day参数求值与内部Hom基础模块；见 `docs/enrichment-continuation.zh.md`。 从190模块版本起先新增11个基础模块，随后新增5个复合与单位基础模块；严格保留的缺口见 `docs/stable-enrichment-and-transition-progress.zh.md`。保留前一轮12份历史草稿，另有16份本轮未验收候选与替代草稿移出正式源码，并单独保存在 `research-drafts/unverified`，不计入验证，也未算作已证明。
 
 ## Carrier 是集合为何仍有高阶同伦
 

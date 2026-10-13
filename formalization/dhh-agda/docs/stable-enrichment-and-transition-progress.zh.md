@@ -1,6 +1,6 @@
 # 稳定模型、阶段过渡与闭伴随：本轮验收
 
-当前正式入口 `Everything.agda` 覆盖206个模块，全部通过 `--cubical --safe`。逐文件哈希、编译器与时间见 `checks/verification.json`；历史190模块回执保存在 `checks/verification-before-comparison.json`。所有图大小及全部维数保留，没有加入 postulate、证明洞或不安全绕过。
+当前正式入口 `Everything.agda` 覆盖217个模块，全部通过 `--cubical --safe`。逐文件哈希、编译器与时间见 `checks/verification.json`；历史190模块回执保存在 `checks/verification-before-comparison.json`。所有图大小及全部维数保留，没有加入 postulate、证明洞或不安全绕过。
 
 ## 本轮新增的已验收模块
 
@@ -18,7 +18,7 @@
 | `Enrichment/StableCompositionIdentity` | 从提升的Day单位出发构造稳定恒等族，并证明常值恒等网格在所有原交替阶段保持恒等。 |
 | `Enrichment/StableCompositionStageLaws` | 原已检同阶段复合等式的精确abstract别名；不改变原复合构造或定理。 |
 
-Kan结论都是普通 `IsKan`；没有为任意稳定horn选择全局阶段或 `ChosenKanFillings`。`DayHom`的cell是整个 `RepresentableCube n ⊗ A → B` 自然变换，不是逐度笛卡尔指数。原稳定合并操作的左右单位律已经验收，但完整Day单位自然变换等式、稳定结合律仍待验收。
+Kan结论都是普通 `IsKan`；没有为任意稳定horn选择全局阶段或 `ChosenKanFillings`。`DayHom`的cell是整个 `RepresentableCube n ⊗ A → B` 自然变换，不是逐度笛卡尔指数。原稳定合并操作的左右单位律已经验收，但完整Day单位自然变换等式、任意稳定cell结合律已由后续验收关闭，完整Day结合图仍待验收。
 
 ## 授权同步后新增的已验收模块
 
@@ -41,3 +41,7 @@ Kan结论都是普通 `IsKan`；没有为任意稳定horn选择全局阶段或 `
 此外仍需原文A群/W识别、几何内部Hom的局部Kan性、相干nerve、标记局部化、全对象编码或内部模型比较及空间侧模型。DHH本身没有证明；本任务并不要求证明猜想。
 
 [原文公式对照：Carranza–Kapulkin，2202.03516v3，§4](https://arxiv.org/html/2202.03516v3)。本轮只关闭上表明确列出的义务。
+
+## 原文陈述目标续接
+
+最新217模块整库检查退出码0。新增11个正式模块关闭稳定cell结合律、完整参数求值图以及内部Hom外延性/坐标相容。完整富集实例与原文相干nerve/局部化仍未构造；详见 [本轮续接](enrichment-continuation.zh.md)。前面206模块/12草稿计数为历史批次；本轮另保存16份未验收候选，不计入正式模块。
