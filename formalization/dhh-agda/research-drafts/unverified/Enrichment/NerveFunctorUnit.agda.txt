@@ -1,0 +1,104 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.NerveFunctorUnit where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.Graph
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCategory
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayAssociatorHelpers using (dayTensorExt)
+open import DHH.Cubical.DayUnitLift
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayClosedParameter using (curryDay-precomposeParameter)
+open import DHH.StableNerve.Colimit
+open import DHH.Enrichment.GraphHom
+open import DHH.Enrichment.StableCompositionCoherence
+open import DHH.Enrichment.NerveFunctor
+
+private variable ℓ ℓA ℓB ℓC ℓD : Level
+
+-- Yoneda classification commutes with an actual natural transformation.
+abstract
+  classify-mapCells : {C : CubicalSet ℓC} {D : CubicalSet ℓD}
+    (h : CubicalNatural D C) (n : ℕ) (d : Cell D n)
+    → classifyCube C (mapCells {A = D} {B = C} h n d)
+      ≡ _⋆n_ {A = RepresentableCube n} {B = D} {C = C} (classifyCube D d) h
+  classify-mapCells {C = C} {D = D} h n d =
+    cubicalNaturalExt {A = RepresentableCube n} {B = C}
+      {f = classifyCube C (mapCells {A = D} {B = C} h n d)}
+      {g = _⋆n_ {A = RepresentableCube n} {B = D} {C = C} (classifyCube D d) h}
+      λ p u → sym (natural {A = D} {B = C} h u d)
+
+-- C, D, A and B retain four independent universe parameters.
+abstract
+  curryDay-precompose : {C : CubicalSet ℓC} {D : CubicalSet ℓD}
+    {A : CubicalSet ℓA} {B : CubicalSet ℓB}
+    (h : CubicalNatural D C) (F : CubicalNatural (DayTensor C A) B)
+    → _⋆n_ {A = D} {B = C} {C = DayHom A B}
+        h (curryDay {C = C} {A = A} {B = B} F)
+      ≡ curryDay {C = D} {A = A} {B = B}
+        (_⋆n_ {A = DayTensor D A} {B = DayTensor C A} {C = B}
+          (dayMap {A = D} {A' = C} {B = A} {B' = A} h (cubicalId A)) F)
+  curryDay-precompose {C = C} {D = D} {A = A} {B = B} h F =
+    curryDay-precomposeParameter C D A B h F
+
+module _ (G : Graph ℓ) where
+  private
+    P : Graph ℓ
+    P = liftPointGraph ℓ
+    A M U HH : CubicalSet ℓ
+    A = N∞ G
+    M = N∞ (HomGraph P G)
+    U = DayUnitAt ℓ
+    HH = N∞ (HomGraph G G)
+    input : CubicalNatural A M
+    input = N∞-map (constPoint G)
+    output : CubicalNatural M A
+    output = N∞-map (evalPoint G)
+    evaluation : CubicalNatural (DayTensor HH A) A
+    evaluation = stableEvaluation G G
+    unitActionRoute : CubicalNatural (DayTensor U A) A
+    unitActionRoute = dayMap {A = U} {A' = HH} {B = A} {B' = A}
+      (stableIdentity G) (cubicalId A) ⋆n evaluation
+
+    abstract
+      point-roundtrip : _⋆n_ {A = A} {B = M} {C = A} input output ≡ cubicalId A
+      point-roundtrip = sym (N∞-map-compose (constPoint G) (evalPoint G))
+        ∙ cong (N∞-map {G = G} {H = G}) (eval-constPoint G) ∙ N∞-map-id G
+
+  stableEvaluation-identity-pair : (p q : ℕ)
+    (v : Cell (DayUnitAt ℓ) p) (b : Cell A q)
+    → mapCells (stableEvaluation G G) (p + q)
+      (dayPair {A = N∞ (HomGraph G G)} {B = A} p q
+        (mapCells (stableIdentity G) p v) b)
+      ≡ reindex A (lower v ⊗c cubeId q) b
+  stableEvaluation-identity-pair p q v b =
+    stableEvaluation-β G G p q (mapCells (stableIdentity G) p v) b
+    ∙ cong (mapCells {A = M} {B = A} output (p + q))
+      (mergeN∞-left-unit P G p q v (mapCells input q b))
+    ∙ natural {A = M} {B = A} output (lower v ⊗c cubeId q) (mapCells input q b)
+    ∙ cong (reindex A (lower v ⊗c cubeId q))
+      (cong (λ (t : CubicalNatural A A) → mapCells {A = A} {B = A} t q b) point-roundtrip)
+
+  -- The genuine evaluation action satisfies the Day unit diagram.
+  stableEvaluation-left-unit :
+    dayMap (stableIdentity G) (cubicalId A) ⋆n stableEvaluation G G
+      ≡ dayLeftUnitAt A
+  stableEvaluation-left-unit = dayTensorExt {A = U} {B = A} {C = A}
+    unitActionRoute (dayLeftUnitAt A) λ p q v b →
+    cong (mapCells {A = DayTensor HH A} {B = A} evaluation (p + q))
+      (dayMap-β {A = U} {A' = HH} {B = A} {B' = A}
+        (stableIdentity G) (cubicalId A) p q v b)
+    ∙ stableEvaluation-identity-pair p q v b
+    ∙ sym (dayLeftUnitAt-β A p q v b)
+
+  -- Internal-Hom identity is the curry of the actual lifted left unitor.
+  -- This proves the unit part of the existing nerveHomMap, in all cells.
+  nerveHomMap-preserves-identity :
+    stableIdentity G ⋆n nerveHomMap G G ≡ curryDay (dayLeftUnitAt A)
+  nerveHomMap-preserves-identity =
+    curryDay-precompose {C = HH} {D = U} {A = A} {B = A} (stableIdentity G) evaluation
+    ∙ cong (curryDay {C = U} {A = A} {B = A}) stableEvaluation-left-unit

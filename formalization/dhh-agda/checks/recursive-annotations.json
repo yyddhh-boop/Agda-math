@@ -1,0 +1,66 @@
+{
+  "scope": "Comment-only source annotations; Agda non-comment tokens unchanged",
+  "user_preference_date": "2026-10-12",
+  "files": [
+    {
+      "file": "DHH/Cubes.agda",
+      "only_comments_changed": true,
+      "before_sha256": "ad01dd646d99f05c1fb73986f7b0c2329d247e6ffce46d8ef0805db6d9aa4abe",
+      "after_sha256": "4171768d1ee8426024d552557d3ff0362691e935772305952a11565a7727d6fb"
+    },
+    {
+      "file": "DHH/CubicalNerve.agda",
+      "only_comments_changed": true,
+      "before_sha256": "531a3f23d3b9cedf8b0c9df660485efb50bfc007f763d9aea56398548f51d043",
+      "after_sha256": "b8719548d0e752cfeee22088dd235975fb3631ade177b8e99cc1c54cc4a9150d"
+    },
+    {
+      "file": "DHH/Simplicial/NormalForm.agda",
+      "only_comments_changed": true,
+      "before_sha256": "dc238d9a7107f61128a203067601d8e2b41a3b9de10bfd52d5cd97b66e5dc98c",
+      "after_sha256": "2b7bfee3340b1c2646b01449ccb4def8932810f257bf95dbebbca64773554c81"
+    },
+    {
+      "file": "DHH/Simplicial/WordNormalization.agda",
+      "only_comments_changed": true,
+      "before_sha256": "f26171d27d04b0ff3740b7e2db0af44f4c9237929c08a140187d53ee25fca3e1",
+      "after_sha256": "03352df0c66db3508517abcdce994a453024f69a2ef0c1a69c9b2b5f7a9c3852"
+    },
+    {
+      "file": "DHH/Localization/FreeCategory.agda",
+      "only_comments_changed": true,
+      "before_sha256": "b80192ae0defa757bd6c5fdfee9b765542c050163438ec26cb346f141fc5c84a",
+      "after_sha256": "0dde560e760213e51f2aafa88925817ec206ecf87ed7f777068a71fa59a20067"
+    },
+    {
+      "file": "DHH/Localization/ResolutionOperators.agda",
+      "only_comments_changed": true,
+      "before_sha256": "9a1769ce351ec59ad72765d1a8d9cf152275b4f43e78d2e06fa31985c51d1106",
+      "after_sha256": "a87193dabfde50b4af81620ace413685fefcaf532f519942113437e3ada0db7c"
+    },
+    {
+      "file": "DHH/StableNerve/SequenceColimit.agda",
+      "only_comments_changed": true,
+      "before_sha256": "f9680fd39ae21f20c0be7ca1e1d8df9d0a479c7871a5338c5edce8f282f50335",
+      "after_sha256": "628296be47a1470660019d8d093daaaa2b687af1c40bf6078325790cba9ce6ba"
+    },
+    {
+      "file": "DHH/Geometry/RealCubeDescent.agda",
+      "only_comments_changed": true,
+      "before_sha256": "125ef56b65a7db8cee484c33aa5a2d6816a1dfa5407f009acf510b3849cfa6df",
+      "after_sha256": "a89c7bc4b58e35a4155fe8f60942ed52b67400c501d79cd8582b4af615e0b0d5"
+    },
+    {
+      "file": "DHH/Realization/Coend.agda",
+      "only_comments_changed": true,
+      "before_sha256": "a64a56b14e501c6b004ddbd08cc67ce37c82693aa926e793a88c298c718d5b94",
+      "after_sha256": "8d982f7950c995a77f7443551632afef6b71362873bcffbf315befa4532140ee"
+    },
+    {
+      "file": "DHH/Statements/Concrete.agda",
+      "only_comments_changed": true,
+      "before_sha256": "5456d8473ed42d54f199a4dc9bfa74367972bd89a1c02b9cdc4454af1e2246e9",
+      "after_sha256": "52f5265e823b1b6e7d9835860c0dcc5627eeabb53590b0937b7bee8ce5806613"
+    }
+  ]
+}

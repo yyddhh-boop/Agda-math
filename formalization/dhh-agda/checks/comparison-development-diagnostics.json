@@ -1,0 +1,442 @@
+{
+  "included_new_modules": [
+    "DHH/Cubical/KanTransport.agda",
+    "DHH/StableNerve/IntegerKan.agda",
+    "DHH/Enrichment/StableKan.agda",
+    "DHH/Enrichment/GridCompositionCoherence.agda",
+    "DHH/StableNerve/TransitionMonomorphism.agda",
+    "DHH/StableNerve/TransitionExpansion.agda",
+    "DHH/Cubical/DayClosedParameter.agda",
+    "DHH/Enrichment/StableCompositionIdentity.agda",
+    "DHH/Enrichment/StableCompositionStageLaws.agda",
+    "DHH/Cubical/DayHomEvaluation.agda",
+    "DHH/Cubical/DayHomNestedEvaluation.agda"
+  ],
+  "excluded_unverified_modules": [
+    "DHH/Cubical/DayHomComposition.agda",
+    "DHH/Cubical/DayHomCompositionMaps.agda",
+    "DHH/Cubical/DayHomCompositionNaturality.agda",
+    "DHH/Enrichment/NerveFunctorCoherence.agda",
+    "DHH/Enrichment/NerveFunctorComposition.agda",
+    "DHH/Enrichment/NerveFunctorUnit.agda",
+    "DHH/Enrichment/StableCompositionAssociativity.agda",
+    "DHH/Enrichment/StableCompositionCoherence.agda",
+    "DHH/Enrichment/StableCompositionDayUnits.agda",
+    "DHH/Enrichment/StableCompositionMergeUnits.agda",
+    "DHH/Enrichment/StableCompositionUnits.agda"
+  ],
+  "drafts_preserved": "research-drafts/unverified/*.agda.txt (published separately, excluded from formal source tree and proof claims)",
+  "individual_receipts": [
+    {
+      "record": "stable-composition-latest.json",
+      "result": {
+        "module": "StableCompositionCoherence",
+        "timeout": 240,
+        "elapsed": 240.023,
+        "output": "Checking DHH.Enrichment.StableCompositionCoherence (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionCoherence.agda).\n"
+      }
+    },
+    {
+      "record": "day-hom-latest.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomComposition.agda",
+        "timeout": 180,
+        "elapsed": 180.261,
+        "output": "Checking DHH.Cubical.DayHomComposition (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomComposition.agda).\n"
+      }
+    },
+    {
+      "record": "stable-units-latest.json",
+      "result": {
+        "module": "DHH/Enrichment/StableCompositionUnits.agda",
+        "timeout": 240,
+        "elapsed": 240.022,
+        "output_tail": "Checking DHH.Enrichment.StableCompositionUnits (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionUnits.agda).\n"
+      }
+    },
+    {
+      "record": "conversion-fuel-results.json",
+      "result": [
+        {
+          "module": "DHH/Enrichment/StableCompositionUnits.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/StableCompositionUnits.agda"
+          ],
+          "timeout": 120,
+          "elapsed": 120.035,
+          "output": "Checking DHH.Enrichment.StableCompositionUnits (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionUnits.agda).\n Checking Cubical.Foundations.Prelude (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Prelude.agda).\n  Checking Cubical.Core.Primitives (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Core/Primitives.agda).\n Checking Cubical.Data.Nat (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Nat.agda).\n  Checking Cubical.Data.Nat.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Nat/Base.agda).\n   Checking Cubical.Data.Nat.Literals (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Nat/Literals.agda).\n    Checking Cubical.Data.Unit.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Unit/Base.agda).\n   Checking Cubical.Data.Bool.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Bool/Base.agda).\n    Checking Cubical.Data.Empty (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Empty.agda).\n     Checking Cubical.Data.Empty.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Empty/Base.agda).\n     Checking Cubical.Data.Empty.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Empty/Properties.agda).\n      Checking Cubical.Foundations.Equiv (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Equiv.agda).\n       Checking Cubical.Foundations.Function (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Function.agda).\n       Checking Cubical.Foundations.Isomorphism (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Isomorphism.agda).\n        Checking Cubical.Core.Glue (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Core/Glue.agda).\n        Checking Cubical.Foundations.GroupoidLaws (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/GroupoidLaws.agda).\n        Checking Cubical.Foundations.Equiv.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Equiv/Base.agda).\n       Checking Cubical.Data.Sigma.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Sigma/Base.agda).\n        Checking Cubical.HITs.PropositionalTruncation.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/PropositionalTruncation/Base.agda).\n    Checking Cubical.Data.Sum.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Sum/Base.agda).\n     Checking Cubical.Relation.Nullary.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Relation/Nullary/Base.agda).\n      Checking Cubical.Functions.Fixpoint (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Functions/Fixpoint.agda).\n  Checking Cubical.Data.Nat.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Nat/Properties.agda).\n   Checking Cubical.Foundations.Transport (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Transport.agda).\n    Checking Cubical.Foundations.Univalence (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Univalence.agda).\n     Checking Cubical.Reflection.StrictEquiv (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Reflection/StrictEquiv.agda).\n      Checking Cubical.Data.List.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/List/Base.agda).\n       Checking Cubical.Data.Maybe.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Maybe/Base.agda).\n      Checking Cubical.Reflection.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Reflection/Base.agda).\n   Checking Cubical.Data.Sigma (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Sigma.agda).\n    Checking Cubical.Data.Sigma.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Sigma/Properties.agda).\n     Checking Cubical.Foundations.Equiv.HalfAdjoint (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Equiv/HalfAdjoint.agda).\n     Checking Cubical.Foundations.Path (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Path.agda).\n     Checking Cubical.Relation.Nullary (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Relation/Nullary.agda).\n      Checking Cubical.Relation.Nullary.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Relation/Nullary/Properties.agda).\n Checking Cubical.Data.Nat.Order (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Nat/Order.agda).\n  Checking Cubical.Foundations.HLevels (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/HLevels.agda).\n   Checking Cubical.Foundations.Structure (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Structure.agda).\n   Checking Cubical.Functions.FunExtEquiv (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Functions/FunExtEquiv.agda).\n    Checking Cubical.Foundations.CartesianKanOps (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/CartesianKanOps.agda).\n     Checking Cubical.Foundations.Interpolate (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Interpolate.agda).\n    Checking Cubical.Data.Vec.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Vec/Base.agda).\n     Checking Cubical.Data.FinData.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/FinData/Base.agda).\n    Checking Cubical.Data.Vec.NAry (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Vec/NAry.agda).\n   Checking Cubical.Foundations.Pointed.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Pointed/Base.agda).\n  Checking Cubical.Data.Sum (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Sum.agda).\n   Checking Cubical.Data.Sum.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Sum/Properties.agda).\n    Checking Cubical.Functions.Embedding (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Functions/Embedding.agda).\n     Checking Cubical.Foundations.Equiv.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Equiv/Properties.agda).\n     Checking Cubical.Foundations.Powerset (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Powerset.agda).\n     Checking Cubical.Functions.Fibration (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Functions/Fibration.agda).\n     Checking Cubical.Structures.Axioms (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Structures/Axioms.agda).\n      Checking Cubical.Foundations.SIP (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/SIP.agda).\n  Checking Cubical.Induction.WellFounded (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Induction/WellFounded.agda).\n Checking Cubical.Data.Bool (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Bool.agda).\n  Checking Cubical.Data.Bool.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Bool/Properties.agda).\n   Checking Cubical.Functions.Involution (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Functions/Involution.agda).\n   Checking Cubical.Foundations.Pointed (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Pointed.agda).\n    Checking Cubical.Foundations.Pointed.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Pointed/Properties.agda).\n    Checking Cubical.Foundations.Pointed.FunExt (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Pointed/FunExt.agda).\n     Checking Cubical.Foundations.Pointed.Homotopy (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Pointed/Homotopy.agda).\n      Checking Cubical.Foundations.Equiv.Fiberwise (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Equiv/Fiberwise.agda).\n      Checking Cubical.Homotopy.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Homotopy/Base.agda).\n    Checking Cubical.Foundations.Pointed.Homogeneous (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Foundations/Pointed/Homogeneous.agda).\n     Checking Cubical.Structures.Pointed (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Structures/Pointed.agda).\n   Checking Cubical.Data.Unit (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Unit.agda).\n    Checking Cubical.Data.Unit.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Unit/Properties.agda).\n     Checking Cubical.Data.Prod.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Prod/Base.agda).\n   Checking Cubical.HITs.PropositionalTruncation (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/PropositionalTruncation.agda).\n    Checking Cubical.HITs.PropositionalTruncation.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/PropositionalTruncation/Properties.agda).\n     Checking Cubical.Data.FinData (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/FinData.agda).\n      Checking Cubical.Data.FinData.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/FinData/Properties.agda).\n       Checking Cubical.Data.Maybe (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Maybe.agda).\n        Checking Cubical.Data.Maybe.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Data/Maybe/Properties.agda).\n    Checking Cubical.HITs.PropositionalTruncation.MagicTrick (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/PropositionalTruncation/MagicTrick.agda).\n Checking Cubical.HITs.SetQuotients (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/SetQuotients.agda).\n  Checking Cubical.HITs.SetQuotients.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/SetQuotients/Base.agda).\n  Checking Cubical.HITs.SetQuotients.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/SetQuotients/Properties.agda).\n   Checking Cubical.Relation.Binary.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Relation/Binary/Base.agda).\n    Checking Cubical.Functions.Logic (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Functions/Logic.agda).\n   Checking Cubical.HITs.TypeQuotients (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/TypeQuotients.agda).\n    Checking Cubical.HITs.TypeQuotients.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/TypeQuotients/Base.agda).\n    Checking Cubical.HITs.TypeQuotients.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/TypeQuotients/Properties.agda).\n   Checking Cubical.HITs.SetTruncation (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/SetTruncation.agda).\n    Checking Cubical.HITs.SetTruncation.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/SetTruncation/Base.agda).\n    Checking Cubical.HITs.SetTruncation.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/HITs/SetTruncation/Properties.agda).\n Checking DHH.Graph (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Graph.agda).\n Checking DHH.CubeCategory (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/CubeCategory.agda).\n  Checking Cubical.Categories.Category.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Categories/Category/Base.agda).\n  Checking DHH.GraphSets (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/GraphSets.agda).\n  Checking DHH.Cubes (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubes.agda).\n   Checking DHH.FiniteInterval (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/FiniteInterval.agda).\n Checking DHH.CubicalNerve (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/CubicalNerve.agda).\n  Checking Cubical.Categories.Functor.Base (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Categories/Functor/Base.agda).\n   Checking Cubical.Categories.Category (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Categories/Category.agda).\n    Checking Cubical.Categories.Category.Properties (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/vendor/cubical/Cubical/Categories/Category/Properties.agda).\n Checking DHH.Cubical.TensorCategory (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/TensorCategory.agda).\n  Checking DHH.Cubical.TensorCategory.Coordinates (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/TensorCategory/Coordinates.agda).\n   Checking DHH.Enrichment.GraphHomCoherence (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/GraphHomCoherence.agda).\n    Checking DHH.Enrichment.GraphHom (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/GraphHom.agda).\n  Checking DHH.Cubical.TensorCategory.Words (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/TensorCategory/Words.agda).\n Checking DHH.Cubical.TensorCoherence (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/TensorCoherence.agda).\n Checking DHH.Cubical.DayTensor (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayTensor.agda).\n Checking DHH.Cubical.DayTensorFunctor (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayTensorFunctor.agda).\n Checking DHH.Cubical.DayAssociatorHelpers (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayAssociatorHelpers.agda).\n Checking DHH.Cubical.DayTriple (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayTriple.agda).\n Checking DHH.Cubical.DayAssociator (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayAssociator.agda).\n Checking DHH.Cubical.DayUnitLift (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayUnitLift.agda).\n  Checking DHH.Cubical.DayUnit (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayUnit.agda).\n  Checking DHH.Cubical.DayCoherence (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayCoherence.agda).\n Checking DHH.StableNerve.Nerve (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/Nerve.agda).\n  Checking DHH.StableNerve.Grid (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/Grid.agda).\n   Checking DHH.StableNerve.Interval (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/Interval.agda).\n Checking DHH.StableNerve.Transitions (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/Transitions.agda).\n  Checking DHH.StableNerve.IntervalLaws (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/IntervalLaws.agda).\n Checking DHH.StableNerve.Colimit (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/Colimit.agda).\n  Checking DHH.StableNerve.SequenceColimit (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/SequenceColimit.agda).\n Checking DHH.StableNerve.CommonStage (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/CommonStage.agda).\n  Checking DHH.StableNerve.StageArithmetic (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/StableNerve/StageArithmetic.agda).\n Checking DHH.Enrichment.StableComposition (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableComposition.agda).\n  Checking DHH.Enrichment.GridComposition (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/GridComposition.agda).\n  Checking DHH.Enrichment.GridCompositionNaturality (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/GridCompositionNaturality.agda).\n Checking DHH.Enrichment.GridCompositionCoherence (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/GridCompositionCoherence.agda).\n"
+        },
+        {
+          "module": "DHH/Cubical/DayClosedParameter.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Cubical/DayClosedParameter.agda"
+          ],
+          "exit_code": 0,
+          "elapsed": 2.291,
+          "output": "Checking DHH.Cubical.DayClosedParameter (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayClosedParameter.agda).\n Checking DHH.Cubical.DayClosed (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayClosed.agda).\n"
+        }
+      ]
+    },
+    {
+      "record": "day-hom-fuel64.json",
+      "result": {
+        "module": "DHH/Cubical/DayHomComposition.agda",
+        "command": [
+          "/Users/donghengye/.local/bin/agda",
+          "--no-libraries",
+          "-i",
+          ".",
+          "-i",
+          "vendor/cubical",
+          "--cubical",
+          "--safe",
+          "--guardedness",
+          "-WnoUnsupportedIndexedMatch",
+          "--syntactic-equality=64",
+          "DHH/Cubical/DayHomComposition.agda"
+        ],
+        "timeout": 150,
+        "elapsed": 150.027,
+        "output": "Checking DHH.Cubical.DayHomComposition (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomComposition.agda).\n"
+      }
+    },
+    {
+      "record": "stable-layers-results.json",
+      "result": [
+        {
+          "module": "DHH/Enrichment/StableCompositionIdentity.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/StableCompositionIdentity.agda"
+          ],
+          "exit_code": 0,
+          "elapsed": 2.802,
+          "output": "Checking DHH.Enrichment.StableCompositionIdentity (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionIdentity.agda).\n"
+        },
+        {
+          "module": "DHH/Enrichment/StableCompositionMergeUnits.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/StableCompositionMergeUnits.agda"
+          ],
+          "timeout": 90,
+          "elapsed": 90.026,
+          "output": "Checking DHH.Enrichment.StableCompositionMergeUnits (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionMergeUnits.agda).\n"
+        },
+        {
+          "module": "DHH/Enrichment/StableCompositionAssociativity.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/StableCompositionAssociativity.agda"
+          ],
+          "timeout": 90,
+          "elapsed": 90.058,
+          "output": "Checking DHH.Enrichment.StableCompositionAssociativity (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionAssociativity.agda).\n"
+        }
+      ]
+    },
+    {
+      "record": "proof-barrier-results.json",
+      "result": [
+        {
+          "module": "DHH/Enrichment/GridCompositionCoherence.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/GridCompositionCoherence.agda"
+          ],
+          "exit_code": 0,
+          "elapsed": 3.582,
+          "output": "Checking DHH.Enrichment.GridCompositionCoherence (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/GridCompositionCoherence.agda).\n"
+        },
+        {
+          "module": "DHH/Enrichment/StableCompositionStageLaws.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/StableCompositionStageLaws.agda"
+          ],
+          "exit_code": 0,
+          "elapsed": 11.514,
+          "output": "Checking DHH.Enrichment.StableCompositionStageLaws (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionStageLaws.agda).\n"
+        },
+        {
+          "module": "DHH/Enrichment/StableCompositionMergeUnits.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/StableCompositionMergeUnits.agda"
+          ],
+          "timeout": 90,
+          "elapsed": 90.015,
+          "output": "Checking DHH.Enrichment.StableCompositionMergeUnits (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionMergeUnits.agda).\n Checking DHH.Enrichment.StableCompositionIdentity (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionIdentity.agda).\n"
+        },
+        {
+          "module": "DHH/Enrichment/StableCompositionAssociativity.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/StableCompositionAssociativity.agda"
+          ],
+          "timeout": 90,
+          "elapsed": 90.054,
+          "output": "Checking DHH.Enrichment.StableCompositionAssociativity (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionAssociativity.agda).\n"
+        }
+      ]
+    },
+    {
+      "record": "day-components-results.json",
+      "result": [
+        {
+          "module": "DHH/Cubical/DayHomEvaluation.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Cubical/DayHomEvaluation.agda"
+          ],
+          "exit_code": 0,
+          "elapsed": 1.72,
+          "output": "Checking DHH.Cubical.DayHomEvaluation (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomEvaluation.agda).\n"
+        },
+        {
+          "module": "DHH/Cubical/DayHomNestedEvaluation.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Cubical/DayHomNestedEvaluation.agda"
+          ],
+          "exit_code": 42,
+          "elapsed": 1.558,
+          "output": "Checking DHH.Cubical.DayHomNestedEvaluation (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomNestedEvaluation.agda).\n/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomNestedEvaluation.agda:42.9-36: error: [UnequalTerms]\nℓ != ℓ₁ of type Level\nwhen checking that the inferred type of an application\n  CubicalSet (ℓ-max (ℓ-max ℓ ℓ) ℓ)\nmatches the expected type\n  CubicalSet ℓ₁\n"
+        }
+      ]
+    },
+    {
+      "record": "day-components-repaired-results.json",
+      "result": [
+        {
+          "module": "DHH/Cubical/DayHomNestedEvaluation.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Cubical/DayHomNestedEvaluation.agda"
+          ],
+          "exit_code": 42,
+          "elapsed": 1.965,
+          "output": "Checking DHH.Cubical.DayHomNestedEvaluation (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomNestedEvaluation.agda).\n/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomNestedEvaluation.agda:59.36-66: error: [UnequalTerms]\nConstruction.Generator (DayTensor X Y) A x₁\nCubical.HITs.SetQuotients.Base./\nConstruction.Slide (DayTensor X Y) A x₁\n!= L .cells x₁ .fst of type Type (ℓ-max (ℓ-max ℓ ℓ) ℓ)\nwhen checking that the inferred type of an application\n  CubicalNatural (DayTensor (DayTensor X Y) A) C\nmatches the expected type\n  CubicalNatural L C\n"
+        }
+      ]
+    },
+    {
+      "record": "day-components-let-results.json",
+      "result": [
+        {
+          "module": "DHH/Cubical/DayHomNestedEvaluation.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Cubical/DayHomNestedEvaluation.agda"
+          ],
+          "exit_code": 42,
+          "elapsed": 1.748,
+          "output": "Checking DHH.Cubical.DayHomNestedEvaluation (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomNestedEvaluation.agda).\n/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomNestedEvaluation.agda:41.7-44.24: error: [NotAValidLetBinding]\nNot a valid let binding\nwhen scope checking\nlet L : CubicalSet ℓ\n    R : CubicalSet ℓ\n    T : CubicalSet ℓ\n    L = DayTensor (DayTensor X Y) A\n    R = DayTensor X (DayTensor Y A)\n    T = DayTensor X B\n    action : CubicalNatural R T\n    action\n      = dayMap {A = X} {A' = X} {B = DayTensor Y A} {B' = B}\n        (cubicalId X) G\n    route : CubicalNatural R C\n    route = _⋆n_ {A = R} {B = T} {C = C} action F\n    t : Cell L ((p + q) + r)\n    t = leftTripleCell X Y A p q r x y a\n    s : Cell R (p + (q + r))\n    s = rightTripleCell X Y A p q r x y a\n    u : CubicalMap ((p + q) + r) (p + (q + r))\n    u = cubeAssociator p q r\n    value : Cell T (p + (q + r))\n    value\n      = dayPair {A = X} {B = B} p (q + r) x\n        (mapCells {A = DayTensor Y A} {B = B} G (q + r)\n         (dayPair {A = Y} {B = A} q r y a))\n    e1 :\n      mapCells {A = L} {B = C} (nestedEvaluation X Y A B C F G)\n      ((p + q) + r) t ≡ mapCells {A = R} {B = C} route ((p + q) + r)\n      (reindex R u s)\n    e1\n      = cong (mapCells {A = R} {B = C} route ((p + q) + r))\n        (dayAssociator-β X Y A p q r x y a)\n    e2 :\n      mapCells {A = R} {B = C} route ((p + q) + r) (reindex R u s) ≡\n      reindex C u (mapCells {A = R} {B = C} route (p + (q + r)) s)\n    e2 = natural {A = R} {B = C} route u s\n    eMap : mapCells {A = R} {B = T} action (p + (q + r)) s ≡ value\n    eMap\n      = dayMap-β {A = X} {A' = X} {B = DayTensor Y A} {B' = B}\n        (cubicalId X) G p (q + r) x (dayPair {A = Y} {B = A} q r y a)\n    e3 :\n      reindex C u (mapCells {A = R} {B = C} route (p + (q + r)) s) ≡\n      reindex C u (mapCells {A = T} {B = C} F (p + (q + r)) value)\n    e3\n      = cong (reindex C u)\n        (cong (mapCells {A = T} {B = C} F (p + (q + r))) eMap)\nin e1 ∙ e2 ∙ e3\n"
+        }
+      ]
+    },
+    {
+      "record": "stable-transparent-results.json",
+      "result": [
+        {
+          "module": "DHH/Enrichment/StableCompositionMergeUnits.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Enrichment/StableCompositionMergeUnits.agda"
+          ],
+          "timeout": 60,
+          "elapsed": 60.022,
+          "output": "Checking DHH.Enrichment.StableCompositionMergeUnits (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Enrichment/StableCompositionMergeUnits.agda).\n"
+        }
+      ]
+    },
+    {
+      "record": "day-components-final-results.json",
+      "result": [
+        {
+          "module": "DHH/Cubical/DayHomNestedEvaluation.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Cubical/DayHomNestedEvaluation.agda"
+          ],
+          "exit_code": 0,
+          "elapsed": 1.991,
+          "output": "Checking DHH.Cubical.DayHomNestedEvaluation (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomNestedEvaluation.agda).\n"
+        },
+        {
+          "module": "DHH/Cubical/DayHomCompositionMaps.agda",
+          "command": [
+            "/Users/donghengye/.local/bin/agda",
+            "--no-libraries",
+            "-i",
+            ".",
+            "-i",
+            "vendor/cubical",
+            "--cubical",
+            "--safe",
+            "--guardedness",
+            "-WnoUnsupportedIndexedMatch",
+            "--syntactic-equality=64",
+            "DHH/Cubical/DayHomCompositionMaps.agda"
+          ],
+          "timeout": 45,
+          "elapsed": 45.012,
+          "output": "Checking DHH.Cubical.DayHomCompositionMaps (/Users/donghengye/Documents/Codex/2026-10-13/jixu/outputs/dhh-agda/DHH/Cubical/DayHomCompositionMaps.agda).\n"
+        }
+      ]
+    }
+  ],
+  "boundary": "Compiler timeouts and diagnosed errors are not successful checks. Ordinary IsKan retains truncation. Raw-to-stable anodyne/topological weak comparison and complete enriched/coherent/localization models remain incomplete."
+}

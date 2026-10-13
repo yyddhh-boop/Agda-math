@@ -1,0 +1,129 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableCompositionMergeUnits where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; zero; suc; _+_; max)
+open import Cubical.Data.Nat.Order using (_≤_; ≤-trans; left-≤-max; right-≤-max)
+open import Cubical.Data.Sigma
+open import Cubical.Data.Bool using (Bool; true; false)
+import Cubical.HITs.SetQuotients as SQ
+open import DHH.Graph
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCategory
+open import DHH.Cubical.TensorCoherence
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayAssociatorHelpers using (dayTensorExt)
+open import DHH.Cubical.DayTriple
+open import DHH.Cubical.DayAssociator
+open import DHH.Cubical.DayUnitLift
+open import DHH.StableNerve.Nerve
+open import DHH.StableNerve.Transitions
+open import DHH.StableNerve.Colimit
+open import DHH.StableNerve.CommonStage
+open import DHH.Enrichment.GraphHom
+open import DHH.Enrichment.StableComposition
+open import DHH.Enrichment.StableCompositionStageLaws using (mergeN∞-same-stage-abstract)
+open import DHH.Enrichment.GridCompositionCoherence
+
+open import DHH.Enrichment.StableCompositionIdentity
+
+private variable ℓ : Level
+
+module _ (G H : Graph ℓ) where
+  private
+    A : CubicalSet ℓ
+    A = N∞ (HomGraph G H)
+    U : CubicalSet ℓ
+    U = DayUnitAt ℓ
+    HH : CubicalSet ℓ
+    HH = N∞ (HomGraph H H)
+    GG : CubicalSet ℓ
+    GG = N∞ (HomGraph G G)
+    abstract
+      leftUnitStage : (p q : ℕ) (v : Cell U p) (k : ℕ) (b : Cell (Stage (HomGraph G H) k) q)
+        → mergeN∞ G H H p q (mapCells (stableIdentity H) p v)
+            (Stable.point (HomGraph G H) q (k , b))
+          ≡ reindex A (lower v ⊗c cubeId q) (Stable.point (HomGraph G H) q (k , b))
+      leftUnitStage p q v k b =
+        let identityAtK : Cell HH p
+            identityAtK = Stable.point (HomGraph H H) p
+              (k , constantHom (HomGraph H H) (idHom H))
+            inputAtK : Cell A q
+            inputAtK = Stable.point (HomGraph G H) q (k , b)
+            composed : Cell (Stage (HomGraph G H) k) (p + q)
+            composed = combineAt G H H k p q
+              (constantHom (HomGraph H H) (idHom H)) b
+            collapsed : Cell (Stage (HomGraph G H) k) (p + q)
+            collapsed = reindex (Stage (HomGraph G H) k) (lower v ⊗c cubeId q) b
+            e1 : mergeN∞ G H H p q (mapCells (stableIdentity H) p v) inputAtK
+              ≡ mergeN∞ G H H p q identityAtK inputAtK
+            e1 = congS {A = Cell HH p} {B = Cell A (p + q)}
+              (λ a → mergeN∞ G H H p q a inputAtK)
+              (stableIdentity-at-stage H k p v)
+            e2 : mergeN∞ G H H p q identityAtK inputAtK
+              ≡ Stable.point (HomGraph G H) (p + q) (k , composed)
+            e2 = mergeN∞-same-stage-abstract G H H k p q
+              (constantHom (HomGraph H H) (idHom H)) b
+            e3 : Stable.point (HomGraph G H) (p + q) (k , composed)
+              ≡ Stable.point (HomGraph G H) (p + q) (k , collapsed)
+            e3 = congS {A = Cell (Stage (HomGraph G H) k) (p + q)} {B = Cell A (p + q)}
+              (λ c → Stable.point (HomGraph G H) (p + q) (k , c))
+              (composeGrid-left-unit (suc k) p q {G = G} {H = H} (lower v) b)
+        in e1 ∙ e2 ∙ e3
+
+      rightUnitStage : (p q : ℕ) (v : Cell U q) (k : ℕ) (a : Cell (Stage (HomGraph G H) k) p)
+        → mergeN∞ G G H p q (Stable.point (HomGraph G H) p (k , a))
+            (mapCells (stableIdentity G) q v)
+          ≡ reindex A ((cubeId p ⊗c lower v) ⋆c cubeRightUnit p)
+            (Stable.point (HomGraph G H) p (k , a))
+      rightUnitStage p q v k a =
+        let identityAtK : Cell GG q
+            identityAtK = Stable.point (HomGraph G G) q
+              (k , constantHom (HomGraph G G) (idHom G))
+            inputAtK : Cell A p
+            inputAtK = Stable.point (HomGraph G H) p (k , a)
+            composed : Cell (Stage (HomGraph G H) k) (p + q)
+            composed = combineAt G G H k p q a
+              (constantHom (HomGraph G G) (idHom G))
+            collapsed : Cell (Stage (HomGraph G H) k) (p + q)
+            collapsed = reindex (Stage (HomGraph G H) k)
+              ((cubeId p ⊗c lower v) ⋆c cubeRightUnit p) a
+            e1 : mergeN∞ G G H p q inputAtK (mapCells (stableIdentity G) q v)
+              ≡ mergeN∞ G G H p q inputAtK identityAtK
+            e1 = congS {A = Cell GG q} {B = Cell A (p + q)}
+              (mergeN∞ G G H p q inputAtK)
+              (stableIdentity-at-stage G k q v)
+            e2 : mergeN∞ G G H p q inputAtK identityAtK
+              ≡ Stable.point (HomGraph G H) (p + q) (k , composed)
+            e2 = mergeN∞-same-stage-abstract G G H k p q a
+              (constantHom (HomGraph G G) (idHom G))
+            e3 : Stable.point (HomGraph G H) (p + q) (k , composed)
+              ≡ Stable.point (HomGraph G H) (p + q) (k , collapsed)
+            e3 = congS {A = Cell (Stage (HomGraph G H) k) (p + q)} {B = Cell A (p + q)}
+              (λ c → Stable.point (HomGraph G H) (p + q) (k , c))
+              (composeGrid-right-unit (suc k) p q {G = G} {H = H} (lower v) a)
+        in e1 ∙ e2 ∙ e3
+
+  abstract
+    mergeN∞-left-unit : (p q : ℕ) (v : Cell (DayUnitAt ℓ) p) (b : Cell A q)
+      → mergeN∞ G H H p q (mapCells (stableIdentity H) p v) b
+        ≡ reindex A (lower v ⊗c cubeId q) b
+    mergeN∞-left-unit p q v = SQ.elimProp
+      {A = Stable.Tagged (HomGraph G H) q} {R = Stable.Step (HomGraph G H) q}
+      {P = λ b → mergeN∞ G H H p q (mapCells (stableIdentity H) p v) b
+        ≡ reindex A (lower v ⊗c cubeId q) b}
+      (λ _ → snd (cells A (p + q)) _ _)
+      (λ { (k , b) → leftUnitStage p q v k b })
+
+    mergeN∞-right-unit : (p q : ℕ) (a : Cell A p) (v : Cell (DayUnitAt ℓ) q)
+      → mergeN∞ G G H p q a (mapCells (stableIdentity G) q v)
+        ≡ reindex A ((cubeId p ⊗c lower v) ⋆c cubeRightUnit p) a
+    mergeN∞-right-unit p q a v = SQ.elimProp
+      {A = Stable.Tagged (HomGraph G H) p} {R = Stable.Step (HomGraph G H) p}
+      {P = λ a → mergeN∞ G G H p q a (mapCells (stableIdentity G) q v)
+        ≡ reindex A ((cubeId p ⊗c lower v) ⋆c cubeRightUnit p) a}
+      (λ _ → snd (cells A (p + q)) _ _)
+      (λ { (k , a) → rightUnitStage p q v k a }) a
+

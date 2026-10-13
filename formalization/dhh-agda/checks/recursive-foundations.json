@@ -1,0 +1,25 @@
+{
+  "checked_at_utc": "2026-10-12T04:20:43.072563+00:00",
+  "project_module_count": 111,
+  "aggregate_exit_code": 0,
+  "source_hashes_recomputed": true,
+  "new_module_count": 13,
+  "new_module_sha256": {
+    "DHH/Cubical/FaceGluing.agda": "36761c28874f82d0225d3c9a92db83b87b741ddca5438dfb1dedf401d4353296",
+    "DHH/Cubical/Faces.agda": "97c8e6d9c3818868f23f5dd447a2481bb82d0dfd9e21228e2084307645b39190",
+    "DHH/Cubical/Kan.agda": "8eea4dd2476aaab727912d84c6c0a964ff9c0fabd0a22cd3cd1318f059ef58a1",
+    "DHH/Cubical/KanComposition.agda": "37188878a165e7779ddb7b807b78a28f908eb86f26330db936e5356a91477a14",
+    "DHH/Simplicial/DecidableWords.agda": "1dbdde860e75817936116a24d96621c8d08e7e999a1a2b45730eb9ddafef1cc6",
+    "DHH/Simplicial/NormalizedComposition.agda": "99cb6df30cc5f4bdaf6ff3b37ef829cc4442b780d2ab8c6c9143f850288b02ed",
+    "DHH/StableNerve/CommonStage.agda": "8f3baad377e5db64d23770d8946965cd6ca62d694c1a94467902ac542bd88d78",
+    "DHH/StableNerve/FiniteStages.agda": "c0df739fc6707da4d9ea886021788bd6ccf41dd830fd21c73232ff36a1d1ef8a",
+    "DHH/StableNerve/GeometricComparison.agda": "91f8b51365228f1392630244cf53acb2abcf22cd521669d397ac0102f8919044",
+    "DHH/StableNerve/IntegerClamp.agda": "172adb6a672e615e05b825bf03f9a5eca83ed58c0820236d02bdf2245fac5ed9",
+    "DHH/StableNerve/IntegerInterval.agda": "85765fe6e2f56a239feaa9f3ff732f3a7804b19a7a1def478736f8b2a1ae3ef6",
+    "DHH/StableNerve/StableStages.agda": "78ba83ec97c82ec5af670008487f959219d8fb33ca6ea9d4665b104fa6e04107",
+    "DHH/StableNerve/StageArithmetic.agda": "b9ffabbaaf8eea69a015582f3b87f04687133ed3ae87ad49e1bff012ccf5cf43"
+  },
+  "verification_manifest": "verification.json",
+  "scope": "Recursive programs with correctness proofs, cubical face/box infrastructure, common finite stages, integer grid clamps and realized comparison; no stable-nerve Kan proof, original-model identification or DHH proof",
+  "independent_review": "Mathematical and truncation/choice-boundary review of new modules; see docs/statement-status-audit.zh.md"
+}

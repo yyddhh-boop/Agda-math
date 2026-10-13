@@ -1,0 +1,43 @@
+{
+  "status": "full_library_wrappers_unverified",
+  "successful_prefixes": [
+    {
+      "scope": "associator NatTrans only",
+      "compiler_exit_code": 0,
+      "elapsed_seconds": 34.32
+    },
+    {
+      "scope": "associator NatTrans and inverse isIso only",
+      "compiler_exit_code": 0,
+      "elapsed_seconds": 36.89
+    }
+  ],
+  "full_attempts": [
+    {
+      "log": "dhh-daymonoidal-root-full.log",
+      "result": "timeout",
+      "limit_seconds": 240
+    },
+    {
+      "log": "dhh-daymonoidal-root-full-copattern.log",
+      "result": "timeout",
+      "limit_seconds": 180
+    },
+    {
+      "log": "dhh-daymonoidal-direct.log",
+      "result": "timeout",
+      "limit_seconds": 180
+    },
+    {
+      "log": "dhh-daymonoidal-fuel.log",
+      "result": "timeout",
+      "limit_seconds": 90
+    }
+  ],
+  "retained_verified_structure": "DHH.Cubical.DayTensorCategory supplies actual Functor and TensorStr at every level; associator/unit/coherence proof modules independently checked",
+  "drafts": {
+    "../../work/dhh/DayMonoidal-unverified.agda.txt": "0ce9036cc2c611635d74603c9119b183629b9d8fb15935acce91f978fbe1b119",
+    "../../work/dhh/DayMonoidalLift-unverified.agda.txt": "7ddaf8ab7c6129a5dadea76f607a9e108544380117bbaa06ddc0cd078e33b175"
+  },
+  "boundary": "No full MonoidalCategory wrapper success is claimed. Drafts are excluded from Everything and from the aggregate source receipt. The attempted syntactic-equality fuel setting is a conversion performance option, not a proof bypass."
+}

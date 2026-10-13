@@ -1,0 +1,568 @@
+{
+  "conventions": {
+    "graphs": "Small reflexive symmetric set-valued graphs with proposition-valued adjacency; maps may collapse edges",
+    "product": "BOX; one coordinate changes at a time",
+    "raw_nerve": "N1(G)[n] = GraphHom(Q_n,G)",
+    "full_target": "Original full-weak-equivalence infinity-localization DHH; not replaced by ordinary HoGraph or clique complexes"
+  },
+  "milestones": [
+    {
+      "id": "malle-foundations",
+      "source": "https://web.math.pmf.unizg.hr/glasnik/18.1/18101.pdf",
+      "status": "checked_foundational_slice",
+      "modules": [
+        "Graph",
+        "FinitePath",
+        "Homotopy",
+        "HomotopyCategory",
+        "Examples"
+      ],
+      "next_obligations": [
+        "Original string definitions and pauses",
+        "Endpoint-fixed homotopy quotient",
+        "Fundamental group and its operations"
+      ]
+    },
+    {
+      "id": "unit-cubical-nerve",
+      "source": "https://arxiv.org/pdf/math/0403146",
+      "status": "checked_all_dimensional_presheaf",
+      "modules": [
+        "Cubes",
+        "Cellular2",
+        "CubicalBridge",
+        "NerveExamples",
+        "BoundaryChecks",
+        "GraphSets",
+        "CubeCategory",
+        "CubicalNerve",
+        "PresheafInterop"
+      ],
+      "next_obligations": [
+        "Original face/degeneracy and modern connection realization comparison"
+      ]
+    },
+    {
+      "id": "ck-comparison",
+      "source": "https://arxiv.org/html/2202.03516v3",
+      "status": "checked_unconditional_stable_kan_with_actual_triple_stage_fill",
+      "next_obligations": [
+        "N1 to N_infinity anodyne/weak equivalence",
+        "A_n group operations and comparison with pi_n and original marking W"
+      ],
+      "modules": [
+        "StableNerve/Colimit",
+        "StableNerve/Grid",
+        "StableNerve/Interval",
+        "StableNerve/IntervalLaws",
+        "StableNerve/Nerve",
+        "StableNerve/SequenceColimit",
+        "StableNerve/Transitions",
+        "StableNerve/UnitComparison",
+        "StableNerve/StageArithmetic",
+        "StableNerve/CommonStage",
+        "StableNerve/FiniteStages",
+        "StableNerve/StableStages",
+        "StableNerve/IntegerInterval",
+        "StableNerve/IntegerClamp",
+        "StableNerve/GeometricComparison",
+        "StableNerve/FiniteCoherence",
+        "StableNerve/CenteredInterval",
+        "StableNerve/IntegerStable",
+        "StableNerve/IntegerDirections",
+        "StableNerve/IntegerPaperStability",
+        "StableNerve/IntegerLattice",
+        "StableNerve/IntegerCubical",
+        "StableNerve/IntegerRealization",
+        "Realization/CubicalIso",
+        "Topology/ContinuousIsoWeak",
+        "Cubical/FinitePresentation",
+        "Cubical/FaceIntersections",
+        "Cubical/FiniteFaceIndices",
+        "Cubical/SelectedFinitePresentation",
+        "StableNerve/PresentationStages",
+        "StableNerve/PresentationEqualities",
+        "StableNerve/PresentationComparison",
+        "StableNerve/WholeBoxStages",
+        "Cubical/GraphPresentation",
+        "Cubical/SelectedGraphPresentation",
+        "Cubical/GraphCoend",
+        "Cubical/GraphCoendAdjunction",
+        "StableNerve/StagedFaceGraphs",
+        "Cubical/GraphPresentationComparison",
+        "StableNerve/HornScalar",
+        "StableNerve/Padding",
+        "Cubical/GraphResize",
+        "StableNerve/HornInterval",
+        "StableNerve/UniversalHornReduction",
+        "StableNerve/GridFaces",
+        "StableNerve/GridFocus",
+        "StableNerve/HornDistance",
+        "StableNerve/HornWindow",
+        "StableNerve/HornGridDistance",
+        "StableNerve/HornGridEdges",
+        "StableNerve/HornFocusedMap",
+        "StableNerve/HornFocusedBoundary",
+        "StableNerve/HornFaceEvaluation",
+        "StableNerve/HornSelectedEvaluation",
+        "StableNerve/HornRetraction",
+        "StableNerve/HornBoundary",
+        "StableNerve/StagePadding",
+        "StableNerve/HornFilling"
+      ],
+      "checked_structure": [
+        "Colimit equality iff truncated equality at a common later stage; no injective transition hypothesis",
+        "Explicit finite tagged families have a computed common stage; arbitrary finite colimit families have truncated common-stage representations",
+        "Concrete integer grid inclusion, clamp retraction and restriction/extension recovery",
+        "Actual raw-to-stable continuous comparison and naturality; stable Kan is proved by HornFilling, while the N1-to-stable weak-equivalence claim remains uninhabited",
+        "Finite supplied relation diagrams synchronize both representatives and equality witnesses across heterogeneous dimensions",
+        "Window stability iff original independent per-coordinate per-direction stability, without countable choice",
+        "All-dimensional cubical comparison identifies direct integer faces, coordinate deletion and min/max connections; final aggregate verification recorded separately",
+        "Selected faces are actually isomorphic to a finite presentation; boundary/open-box nodes and relations are generated from decidable selections",
+        "Entire finite-presentation and open-box natural transformations factor through a stage; existence remains propositionally truncated and arbitrary infinite target graphs are allowed",
+        "Equality of stage maps is witnessed at a common later stage, including the zero-node case; the explicit stage-map quotient is equivalent to maps into the sequential colimit",
+        "Actual graph coend Gamma_m for arbitrary cubical presheaves, natural Hom equivalence, unit/counit and triangle identities, packaged as Gamma_m left adjoint to N_m",
+        "GraphPresentationComparison gives actual mutually inverse graph maps between the finite node presentation and the full Gamma_m coend, individually checked safe exit 0",
+        "HornInterval gives fixed-distance positive/negative interval graph maps and fixed-input preservation of adjacency in the distance variable; Padding/GraphResize naturality and identity/composition have individual safe checks",
+        "HornFilling.universalFill inhabits every fixed universal Gamma_m(horn) unit-box filling, and universalHornFillings supplies the actual family consumed by UniversalHornReduction",
+        "HornWindow identifies the numeric middle-window clamp with Padding.middleCollapse, and HornGridEdges/HornFocusedMap construct common-selected-face witnesses for every source edge",
+        "HornFaceEvaluation and HornSelectedEvaluation give witness-independent evaluation through the actual generated faces, without replacing the horn graph by an induced ambient subgraph",
+        "GridFocus and HornRetraction cover arbitrary missing coordinates; HornBoundary.full-boundary is equality of the entire horn natural transformation, including every reindexing",
+        "For m=suc k, tripleStage k=k+(suc k+suc k)=3k+2 has length 3m; StagePadding.middle-later compares the actual alternating Stages.laterMap with changeSize middleCollapse, and middle-include proves the original cocone identity",
+        "StageFilling.stageFill explicitly fills a supplied finite-stage horn at tripleStage k for arbitrary target universes and infinite graphs",
+        "HornFilling.N∞-Kan proves ordinary truncated IsKan for all graphs in all universes and all dimensions; the whole-stage representation remains truncated, and ChosenKanFillings for arbitrary stable horns is not claimed"
+      ],
+      "verification_boundary": "HornFilling has a successful individual --cubical --safe exit-0 check. Current aggregate result, module count and source hashes are authoritative only in checks/verification.json. The unconditional IsKan theorem and a triple-stage bound for supplied finite-stage horns are proved; arbitrary stable-horn ChosenKanFillings, N1 weak equivalence and DHH model comparisons are not claimed."
+    },
+    {
+      "id": "finite-n-dhh",
+      "source": "https://arxiv.org/html/2602.19293v1",
+      "status": "not_formalized",
+      "next_obligations": [
+        "Cubification and graph realization",
+        "Fixed finite n equivalence",
+        "Appropriate localization structures"
+      ]
+    },
+    {
+      "id": "strong-dhh",
+      "source": "https://arxiv.org/pdf/2306.02218v1#page=62",
+      "status": "checked_closed_real_geometry_statement_model_comparisons_pending",
+      "next_obligations": [
+        "Original coherent nerve with coverage of all graph/cubical objects or an internal model comparison; supplied ordinal orders are only a restricted coding route",
+        "Stable enriched unit/associativity laws, preservation by the nerve Hom action and local Kan structure for geometric internal Hom (stable graph nerve Kan is proved)",
+        "Construct original marked Exop+ localization instance and fixed canonical induced nerve comparison",
+        "Identify original A-group marking with realized weak equivalences",
+        "Construct the cubical Kan-category coherent nerve and its space-model identification, with explicit test-universe compatibility",
+        "Optional candidate-route identification: all-arrow resolution versus classical DK, ordinary graph localization versus original enriched coherent nerve",
+        "The complete original statement and required model comparisons remain in scope; DHH essential surjectivity and all derived mapping equivalences themselves are not requested proofs"
+      ],
+      "modules": [
+        "Statements/RelativeRealization",
+        "Statements/Objects",
+        "Statements/Full",
+        "Statements/Concrete"
+      ]
+    },
+    {
+      "id": "point-set-realization",
+      "status": "checked_actual_real_cubes_simplexes_and_compatible_basis_lifts",
+      "modules": [
+        "Topology/Base",
+        "Topology/Category",
+        "Realization/Coend",
+        "Realization/Graph",
+        "Realization/Simplicial",
+        "Realization/Examples",
+        "Realization/SimplicialFunctor",
+        "Realization/DKMapping",
+        "Geometry/DedekindReals",
+        "Geometry/IntervalLattice",
+        "Geometry/RationalOrder",
+        "Geometry/RealCubeChecks",
+        "Geometry/RealCubeDescent",
+        "Geometry/RealCubeDiagram",
+        "Geometry/RealCubeLift",
+        "Geometry/RealCubes",
+        "Geometry/RealSimplex",
+        "Geometry/RealSimplexCoordinates",
+        "Geometry/RealSimplexLift",
+        "Geometry/RealTopology"
+      ],
+      "next_obligations": [
+        "Realization/product comparison for continuous composition of realized mapping spaces"
+      ]
+    },
+    {
+      "id": "all-degree-weak-equivalences",
+      "status": "checked_with_constructed_real_cube_geometry",
+      "modules": [
+        "Topology/WeakEquivalence",
+        "Statements/RelativeRealization"
+      ],
+      "next_obligations": [
+        "Classical homotopy group identification and algebraic operations"
+      ]
+    },
+    {
+      "id": "simplicial-localization-foundations",
+      "status": "checked_functorial_enriched_construction",
+      "modules": [
+        "Localization/Ordinary",
+        "Localization/FreeCategory",
+        "Localization/RelativeFree",
+        "Localization/ResolutionOperators",
+        "Localization/LevelwiseResolution",
+        "Localization/DKMapping",
+        "Simplicial/PresentedCategory",
+        "Simplicial/PresentedProducts",
+        "Localization/LevelFunctorLaws",
+        "Localization/DKMappingFunctor",
+        "Localization/DKEnrichment",
+        "Simplicial/PresentationCompleteness",
+        "Simplicial/DecidableWords",
+        "Simplicial/NormalizedComposition"
+      ],
+      "next_obligations": [
+        "Classical DK model comparison; all-arrow free resolution variant",
+        "Internal object type strictification/comparison",
+        "Mapping-object Kan models and homotopy-coherent nerve comparison"
+      ],
+      "checked_structure": [
+        "Internal enrichment in presented simplicial sets; composition, units, associativity",
+        "Relative functors preserve enrichment; induced whole simplicial maps preserve identity and composition",
+        "No Kan or classical localization comparison assumed",
+        "Original simplicial generators/relations proven complete; strictly inverse functors to concrete Delta",
+        "Certified decidable equality for finite Delta words in the original relation quotient",
+        "Incremental normalized composition with semantic correctness, units and associativity"
+      ]
+    },
+    {
+      "id": "cubical-boundary-and-lifting",
+      "status": "checked_selected_face_presentation_whole_stage_lift_and_stable_kan_fill",
+      "source": "https://arxiv.org/html/2202.03516v3#S2",
+      "modules": [
+        "Cubical/Faces",
+        "Cubical/FaceGluing",
+        "Cubical/Kan",
+        "Cubical/KanComposition",
+        "Cubical/FaceIntersections",
+        "Cubical/FiniteFaceIndices",
+        "Cubical/FinitePresentation",
+        "Cubical/SelectedFinitePresentation",
+        "StableNerve/WholeBoxStages",
+        "StableNerve/HornRetraction",
+        "StableNerve/HornBoundary",
+        "StableNerve/StagePadding",
+        "StableNerve/HornFilling"
+      ],
+      "checked_structure": [
+        "Actual selected-face subpresheaves, boundary and open box with injective inclusions",
+        "Gluing and uniqueness from compatibility on all reindexed overlaps",
+        "Truncated Kan existence distinguished from a chosen filling program",
+        "Actual identity lift and composite Kan-fibration proof",
+        "All reindexed overlap compatibility reduces to finite codimension-two relations",
+        "Actual selected-face finite-presentation isomorphism; no finite-presentation witness is assumed for boundary or open boxes",
+        "The whole open-box natural transformation, in every cell degree, factors through a common stage with truncated existence",
+        "Actual generated horn-graph contraction and equality of the entire selected boundary, with common-face edge certificates",
+        "Exact compatibility with the original alternating finite stage transition and explicit triple-stage filling; ordinary stable IsKan is proved"
+      ],
+      "next_obligations": []
+    },
+    {
+      "id": "original-geometric-enrichment",
+      "source": "https://arxiv.org/pdf/2306.02218v1",
+      "status": "checked_day_coherence_core_historical_wrappers_excluded",
+      "modules": [
+        "Enrichment/GraphHom",
+        "Enrichment/GraphHomCoherence",
+        "Enrichment/GridComposition",
+        "Enrichment/GridCompositionNaturality",
+        "Cubical/TensorCategory/Coordinates",
+        "Cubical/TensorCategory/Words",
+        "Cubical/TensorCategory",
+        "Cubical/DayTensor",
+        "Cubical/DayTensorFunctor",
+        "Cubical/DayClosed",
+        "Enrichment/CubicalComposition",
+        "Enrichment/StableComposition",
+        "Enrichment/NerveFunctor",
+        "Cubical/TensorCoherence",
+        "Cubical/DayUnit",
+        "Cubical/DayUnitLift",
+        "Cubical/DayTriple",
+        "Cubical/DayAssociatorHelpers",
+        "Cubical/DayAssociator",
+        "Cubical/DayCoherence",
+        "Cubical/DayPentagon",
+        "Cubical/DayTensorCategory"
+      ],
+      "next_obligations": [
+        "Resolve conversion-check performance and verify the excluded MonoidalCategory wrapper drafts; all actual coherence modules and TensorStr are aggregate verified",
+        "Stable enriched unit/associativity laws using the actual Day unitors/associator, and nerve Hom action preserving units/composition",
+        "Original C[n] and full coherent nerve with all-object model boundary resolved",
+        "Local Kan structure for the geometric internal Hom target; stable HomGraph nerve Kan follows from HornFilling.N∞-Kan",
+        "Supplemental NerveFunctor evaluation common-stage/curry beta draft remains unverified; this is separate from the completed finite-presentation stage theorems"
+      ],
+      "checked_structure": [
+        "Day unitors, associator, their naturality, triangle and pentagon proof bodies have individual safe exit 0 checks",
+        "These base-monoidal coherence laws are distinct from the stable graph-nerve enriched unit and associativity laws",
+        "DayUnitLift has individual safe exit 0 for lifted units in arbitrary levels, both inverse laws, naturality and the triangle; DayMonoidal/DayMonoidalLift wrappers remain unverified"
+      ],
+      "excluded_unverified_drafts": [
+        "DayMonoidal-unverified.agda.txt (historical excluded draft; not included in this relocated delivery)",
+        "DayMonoidalLift-unverified.agda.txt (historical excluded draft; not included in this relocated delivery)"
+      ]
+    },
+    {
+      "id": "original-quasicategorical-localization-statement",
+      "source": "https://arxiv.org/pdf/2306.02218v1",
+      "status": "checked_definitions_actual_restriction_and_full_test_universe_property_type",
+      "modules": [
+        "Simplicial/Sets",
+        "Simplicial/Horns",
+        "Simplicial/Quasicategories",
+        "Simplicial/Products",
+        "Simplicial/Exponentials",
+        "Simplicial/ExponentialFunctor",
+        "Simplicial/WalkingIsomorphism",
+        "Simplicial/Equivalences",
+        "Simplicial/FullSubcomplex",
+        "Simplicial/Marked",
+        "Simplicial/LocalizationUniversal"
+      ],
+      "next_obligations": [
+        "Functor quasi-category horn theorem",
+        "Original marked Exop+ actual model and localization instance",
+        "Original fixed source target and induced map; general types are not a closed original DHH"
+      ]
+    },
+    {
+      "id": "internal-object-model-boundary",
+      "status": "checked_Graph_non_set_boundary_with_restricted_ordinal_coding_constructions",
+      "modules": [
+        "Enrichment/ObjectBoundary",
+        "Enrichment/OrderedGraphCodes",
+        "Enrichment/OrderedCubicalCodes"
+      ],
+      "scope": "Nontrivial lifted Boolean swap loop for each universe; supplied-order graph and degreewise cubical codes are sets, but their coverage requires explicit order data and does not cover arbitrary objects without further proof; not a counterexample to DHH",
+      "next_obligations": [
+        "All-object coding/coverage or an internal coherent/space model comparison, without assuming isSet Graph or silently choosing orders"
+      ]
+    }
+  ],
+  "auxiliary_hit_warning": "Cell2 is a free point/edge/square presentation, not established equivalent to full |N1G|. Ordinary HoGraph remembers homotopy classes only.",
+  "geometry_boundary_check": "Discrete test geometry retained only as boundary regression; Concrete.DHH uses constructed Dedekind real cubes and compatible real simplex/cube basis lifts.",
+  "verification": {
+    "status": "aggregate_verified",
+    "manifest": "checks/verification.json",
+    "historical_baseline": {
+      "project_module_count": 146,
+      "exit_code": 0,
+      "checked_at_utc": "2026-10-12T11:17:26.770042+00:00",
+      "source_hashes_matched_when_checked": true,
+      "scope": "35 new modules with actual original integer cubical model comparison, geometric inverse and weak comparison, Day tensor/internal hom, mapping action, and expanded quasicategorical localization property; closed original Conjecture 14.3 remains incomplete"
+    },
+    "pending_individual_checks": [],
+    "scope": "Ordinary Kan transport/original integer/Hom models; finite-grid coherence; stage monomorphisms and two-face local expansion; closed-adjunction/evaluation helpers; stable identity family. Full stable enrichment/coherent/localization and raw-to-stable weak comparison remain incomplete.",
+    "individually_verified_additions": [
+      {
+        "module": "Cubical/GraphPresentationComparison",
+        "exit_code": 0,
+        "compiler_session": 68378
+      },
+      {
+        "module": "StableNerve/HornInterval",
+        "exit_code": 0,
+        "compiler_session": 72853
+      },
+      {
+        "module": "StableNerve/UniversalHornReduction",
+        "exit_code": 0,
+        "compiler_session": 43547
+      },
+      {
+        "module": "Cubical/DayUnitLift",
+        "exit_code": 0
+      },
+      {
+        "module": "StableNerve/Padding",
+        "exit_code": 0
+      },
+      {
+        "module": "Cubical/GraphResize",
+        "exit_code": 0
+      },
+      {
+        "module": "StableNerve/HornFilling",
+        "exit_code": 0,
+        "scope": "Actual universalFill, universalHornFillings and unconditional N_infinity-Kan; exact finite-stage triple bound; ordinary IsKan only"
+      }
+    ],
+    "excluded_unverified_drafts": [
+      "DayMonoidal-unverified.agda.txt (historical excluded draft; not included in this relocated delivery)",
+      "DayMonoidalLift-unverified.agda.txt (historical excluded draft; not included in this relocated delivery)",
+      "DHH/Cubical/DayHomComposition.agda",
+      "DHH/Cubical/DayHomCompositionMaps.agda",
+      "DHH/Cubical/DayHomCompositionNaturality.agda",
+      "DHH/Enrichment/NerveFunctorCoherence.agda",
+      "DHH/Enrichment/NerveFunctorComposition.agda",
+      "DHH/Enrichment/NerveFunctorUnit.agda",
+      "DHH/Enrichment/StableCompositionAssociativity.agda",
+      "DHH/Enrichment/StableCompositionCoherence.agda",
+      "DHH/Enrichment/StableCompositionDayUnits.agda",
+      "DHH/Enrichment/StableCompositionMergeUnits.agda",
+      "DHH/Enrichment/StableCompositionUnits.agda"
+    ],
+    "historical_176_receipt": {
+      "snapshot_date": "2026-10-12",
+      "project_module_count": 176,
+      "exit_code": 0,
+      "checked_at_utc": "2026-10-12T13:55:35.222524+00:00",
+      "elapsed_seconds": 12.982,
+      "source_hashes_matched_when_checked": true,
+      "scope": "Historical 176-module safe-check receipt, including 30 additions; not verification of the newly added horn filling modules."
+    },
+    "current_aggregate_verified": true,
+    "project_module_count": 201,
+    "aggregate_exit_code": 0,
+    "checked_at_utc": "2026-10-13T05:13:24.823396+00:00",
+    "source_hashes_recomputed": true,
+    "previous_190_aggregate_receipt": {
+      "project_module_count": 190,
+      "aggregate_exit_code": 0,
+      "checked_at_utc": "2026-10-13T03:30:51.259981+00:00",
+      "scope": "190 formal modules checked; stable Kan constructed for every universe and all graph sizes/dimensions; original DHH alignment and N1 weak comparison remain incomplete"
+    }
+  },
+  "closed_statement": {
+    "module": "DHH/Statements/Concrete.agda",
+    "name": "DHH",
+    "type": "Type₃",
+    "geometry_parameters": 0,
+    "graph_vertex_universe": "Type₁",
+    "mapping_space_universe": "Type₂",
+    "proved": false,
+    "original_model_comparisons_complete": false
+  },
+  "research_method": {
+    "source": "User steering 2026-10-12: algorithmic and recursive formal reasoning as the main research approach",
+    "priority": [
+      "Recursive constructions paired with correctness proofs",
+      "Structural induction, naturality and universal properties",
+      "Syntax/semantics comparisons and compatible stage constructions"
+    ],
+    "role_of_enumeration": "Small examples, counterexamples and bounded diagnostics; not the default main research route",
+    "annotations": [
+      "input/output representation",
+      "recursion or elimination principle and termination basis",
+      "preserved invariant or naturality",
+      "computability, truncation/quotient boundary and exact quantifiers"
+    ],
+    "scope_guard": "Do not silently replace full DHH by finite or effectively presented inputs; computational subproblems must state their restricted domain",
+    "reading_map": "docs/DHH陈述与基础设施导读.zh.md sections 11–13; docs/original-paper-alignment.zh.md; docs/finite-presentation-stage-lifting.zh.md; docs/horn-retraction-algorithm.zh.md"
+  },
+  "original_paper_alignment": {
+    "document": "docs/original-paper-alignment.zh.md",
+    "original_conjecture": "Carranza–Kapulkin–Lindsey 2306.02218v1 Conjecture 14.3",
+    "full_original_statement_closed": false,
+    "generic_localization_property": "Simplicial.LocalizationUniversal.LocalizationAtTestUniverse",
+    "candidate_closed_statement_unchanged": "Statements.Concrete.DHH",
+    "test_universe": "Explicit kappa; not quantification over all levels inside Type3",
+    "current_batch_verification": {
+      "status": "aggregate_verified",
+      "project_module_count": 201,
+      "aggregate_exit_code": 0,
+      "checked_at_utc": "2026-10-13T05:13:24.823396+00:00",
+      "new_modules": [
+        "DHH/Cubical/KanTransport.agda",
+        "DHH/StableNerve/IntegerKan.agda",
+        "DHH/Enrichment/StableKan.agda",
+        "DHH/Enrichment/GridCompositionCoherence.agda",
+        "DHH/StableNerve/TransitionMonomorphism.agda",
+        "DHH/StableNerve/TransitionExpansion.agda",
+        "DHH/Cubical/DayClosedParameter.agda",
+        "DHH/Enrichment/StableCompositionIdentity.agda",
+        "DHH/Enrichment/StableCompositionStageLaws.agda",
+        "DHH/Cubical/DayHomEvaluation.agda",
+        "DHH/Cubical/DayHomNestedEvaluation.agda"
+      ],
+      "new_module_sha256": {
+        "DHH/Cubical/KanTransport.agda": "ed761fff0f1165161750b16cb69043ecfa8ac315c5ac15911e5a7b174393d274",
+        "DHH/StableNerve/IntegerKan.agda": "6cd53644a29f5a1f5787758ddcccf3bd7c9c635054d4e4035c44b372bcca7ea5",
+        "DHH/Enrichment/StableKan.agda": "2ce78cdb08153a0385838fd8fe5fe31c90a64e26eaaa5e7e43b8ac69de0daab4",
+        "DHH/Enrichment/GridCompositionCoherence.agda": "c4a77c40ead1990af44a52d8d4fa8ccff0e525e4d5290dd5ae36b369c548624d",
+        "DHH/StableNerve/TransitionMonomorphism.agda": "9b797a793fcf51352fd60eb722cfcb34b1c7957aeb3ba7698a74dc4623973174",
+        "DHH/StableNerve/TransitionExpansion.agda": "0756be3a79e99ffc5c72b5a02a993d7a1ac2bbe44480a7d8355b0806a767bd52",
+        "DHH/Cubical/DayClosedParameter.agda": "5975b64aafa600a676c27eeca64b349e618a8c60d97fa7cd601231be15b15a38",
+        "DHH/Enrichment/StableCompositionIdentity.agda": "000aecd1a42b52535b956205d5540ceaa56b72d56736040eea0aad559708d25a",
+        "DHH/Enrichment/StableCompositionStageLaws.agda": "46a94b8f4dfbfe83bfadbd872bccc2b3fa63eee7f24e54f92f25c2ff77169c33",
+        "DHH/Cubical/DayHomEvaluation.agda": "b829eba7b4f705722f4d8a36710895d9703ecd509b150d72d01a4449bbcecae1",
+        "DHH/Cubical/DayHomNestedEvaluation.agda": "08e8593bbc35fb8b2537f25785a78204ad0d536939cd55bd66daadf46c31578a"
+      },
+      "scope": "Ordinary Kan transport/original integer/Hom models; finite-grid coherence; stage monomorphisms and two-face local expansion; closed-adjunction/evaluation helpers; stable identity family. Full stable enrichment/coherent/localization and raw-to-stable weak comparison remain incomplete.",
+      "excluded_unverified_drafts": [
+        "DHH/Cubical/DayHomComposition.agda",
+        "DHH/Cubical/DayHomCompositionMaps.agda",
+        "DHH/Cubical/DayHomCompositionNaturality.agda",
+        "DHH/Enrichment/NerveFunctorCoherence.agda",
+        "DHH/Enrichment/NerveFunctorComposition.agda",
+        "DHH/Enrichment/NerveFunctorUnit.agda",
+        "DHH/Enrichment/StableCompositionAssociativity.agda",
+        "DHH/Enrichment/StableCompositionCoherence.agda",
+        "DHH/Enrichment/StableCompositionDayUnits.agda",
+        "DHH/Enrichment/StableCompositionMergeUnits.agda",
+        "DHH/Enrichment/StableCompositionUnits.agda"
+      ],
+      "verification_manifest": "checks/verification.json"
+    }
+  },
+  "snapshot_source": "Current verification metadata is authoritative in checks/verification.json; historical receipt dates are retained below.",
+  "comparison_checkpoint": {
+    "status": "aggregate_verified",
+    "project_module_count": 201,
+    "aggregate_exit_code": 0,
+    "checked_at_utc": "2026-10-13T05:13:24.823396+00:00",
+    "new_modules": [
+      "DHH/Cubical/KanTransport.agda",
+      "DHH/StableNerve/IntegerKan.agda",
+      "DHH/Enrichment/StableKan.agda",
+      "DHH/Enrichment/GridCompositionCoherence.agda",
+      "DHH/StableNerve/TransitionMonomorphism.agda",
+      "DHH/StableNerve/TransitionExpansion.agda",
+      "DHH/Cubical/DayClosedParameter.agda",
+      "DHH/Enrichment/StableCompositionIdentity.agda",
+      "DHH/Enrichment/StableCompositionStageLaws.agda",
+      "DHH/Cubical/DayHomEvaluation.agda",
+      "DHH/Cubical/DayHomNestedEvaluation.agda"
+    ],
+    "new_module_sha256": {
+      "DHH/Cubical/KanTransport.agda": "ed761fff0f1165161750b16cb69043ecfa8ac315c5ac15911e5a7b174393d274",
+      "DHH/StableNerve/IntegerKan.agda": "6cd53644a29f5a1f5787758ddcccf3bd7c9c635054d4e4035c44b372bcca7ea5",
+      "DHH/Enrichment/StableKan.agda": "2ce78cdb08153a0385838fd8fe5fe31c90a64e26eaaa5e7e43b8ac69de0daab4",
+      "DHH/Enrichment/GridCompositionCoherence.agda": "c4a77c40ead1990af44a52d8d4fa8ccff0e525e4d5290dd5ae36b369c548624d",
+      "DHH/StableNerve/TransitionMonomorphism.agda": "9b797a793fcf51352fd60eb722cfcb34b1c7957aeb3ba7698a74dc4623973174",
+      "DHH/StableNerve/TransitionExpansion.agda": "0756be3a79e99ffc5c72b5a02a993d7a1ac2bbe44480a7d8355b0806a767bd52",
+      "DHH/Cubical/DayClosedParameter.agda": "5975b64aafa600a676c27eeca64b349e618a8c60d97fa7cd601231be15b15a38",
+      "DHH/Enrichment/StableCompositionIdentity.agda": "000aecd1a42b52535b956205d5540ceaa56b72d56736040eea0aad559708d25a",
+      "DHH/Enrichment/StableCompositionStageLaws.agda": "46a94b8f4dfbfe83bfadbd872bccc2b3fa63eee7f24e54f92f25c2ff77169c33",
+      "DHH/Cubical/DayHomEvaluation.agda": "b829eba7b4f705722f4d8a36710895d9703ecd509b150d72d01a4449bbcecae1",
+      "DHH/Cubical/DayHomNestedEvaluation.agda": "08e8593bbc35fb8b2537f25785a78204ad0d536939cd55bd66daadf46c31578a"
+    },
+    "scope": "Ordinary Kan transport/original integer/Hom models; finite-grid coherence; stage monomorphisms and two-face local expansion; closed-adjunction/evaluation helpers; stable identity family. Full stable enrichment/coherent/localization and raw-to-stable weak comparison remain incomplete.",
+    "excluded_unverified_drafts": [
+      "DHH/Cubical/DayHomComposition.agda",
+      "DHH/Cubical/DayHomCompositionMaps.agda",
+      "DHH/Cubical/DayHomCompositionNaturality.agda",
+      "DHH/Enrichment/NerveFunctorCoherence.agda",
+      "DHH/Enrichment/NerveFunctorComposition.agda",
+      "DHH/Enrichment/NerveFunctorUnit.agda",
+      "DHH/Enrichment/StableCompositionAssociativity.agda",
+      "DHH/Enrichment/StableCompositionCoherence.agda",
+      "DHH/Enrichment/StableCompositionDayUnits.agda",
+      "DHH/Enrichment/StableCompositionMergeUnits.agda",
+      "DHH/Enrichment/StableCompositionUnits.agda"
+    ],
+    "verification_manifest": "checks/verification.json"
+  }
+}

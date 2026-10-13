@@ -1,0 +1,3 @@
+name: dhh-foundations
+include: . vendor/cubical
+flags: --cubical --safe --guardedness

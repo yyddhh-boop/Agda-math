@@ -1,0 +1,63 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.NerveFunctorCoherence where
+
+open import Cubical.Foundations.Prelude
+open import DHH.Graph
+open import DHH.CubicalNerve
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayHomComposition
+open import DHH.StableNerve.Colimit
+open import DHH.Enrichment.GraphHom
+open import DHH.Enrichment.StableComposition
+open import DHH.Enrichment.StableCompositionCoherence
+open import DHH.Enrichment.NerveFunctor
+open import DHH.Enrichment.NerveFunctorUnit
+open import DHH.Enrichment.NerveFunctorComposition
+
+private variable ℓ : Level
+
+-- The target unit is the actual internal-Hom identity, constructed by
+-- currying the genuine lifted Day left unitor.
+nerveHomMap-preserves-homIdentity : (G : Graph ℓ)
+  → stableIdentity G ⋆n nerveHomMap G G ≡ homIdentity (N∞ G)
+nerveHomMap-preserves-homIdentity G = nerveHomMap-preserves-identity G
+
+module _ (G H K : Graph ℓ) where
+  private
+    X Y Z A B C : CubicalSet ℓ
+    X = N∞ (HomGraph H K)
+    Y = N∞ (HomGraph G H)
+    Z = N∞ (HomGraph G K)
+    A = N∞ G
+    B = N∞ H
+    C = N∞ K
+
+    composition : CubicalNatural (DayTensor X Y) Z
+    composition = stableComposition G H K
+    actionGK : CubicalNatural (DayTensor Z A) C
+    actionGK = stableEvaluation G K
+    actionHK : CubicalNatural (DayTensor X B) C
+    actionHK = stableEvaluation H K
+    actionGH : CubicalNatural (DayTensor Y A) B
+    actionGH = stableEvaluation G H
+
+  -- Curry transports the whole proven action diagram. The RHS uses
+  -- homComposition's concrete Day evaluation construction, so this is
+  -- equality of the existing Hom maps, not a renamed composite.
+  nerveHomMap-preserves-composition :
+    stableComposition G H K ⋆n nerveHomMap G K
+      ≡ dayMap {A = X} {A' = DayHom B C} {B = Y} {B' = DayHom A B}
+          (nerveHomMap H K) (nerveHomMap G H)
+        ⋆n homComposition A B C
+  nerveHomMap-preserves-composition =
+    curryDay-precomposeHom Z (DayTensor X Y) A C composition actionGK
+    ∙ cong (curryDay {C = DayTensor X Y} {A = A} {B = C})
+      (stableEvaluation-associativity G H K)
+    ∙ sym (curryDay-composition X Y A B C actionHK actionGH)
+
+-- These diagrams provide the unit and composition coherence of the
+-- actual nerveHomMap once this module and its dependencies are checked.
+-- They do not assert a weak equivalence of Hom nerves, Kan for DayHom,
+-- object-set strictification, localization comparison or DHH itself.

@@ -1,0 +1,144 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionNaturality where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCoherence
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayTriple
+open import DHH.Cubical.DayAssociator
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayClosedParameter using (curryDay-precomposeParameter)
+open import DHH.Cubical.DayHomEvaluation
+open import DHH.Cubical.DayHomNestedEvaluation
+open import DHH.Cubical.DayHomCompositionMaps
+
+private variable ℓ : Level
+
+abstract
+  curryDay-precomposeHom : (X Y A B : CubicalSet ℓ)
+    (h : CubicalNatural Y X) (F : CubicalNatural (DayTensor X A) B)
+    → _⋆n_ {A = Y} {B = X} {C = DayHom A B}
+        h (curryDay {C = X} {A = A} {B = B} F)
+      ≡ curryDay {C = Y} {A = A} {B = B}
+        (_⋆n_ {A = DayTensor Y A} {B = DayTensor X A} {C = B}
+          (dayMap {A = Y} {A' = X} {B = A} {B' = A} h (cubicalId A)) F)
+  curryDay-precomposeHom X Y A B h F = curryDay-precomposeParameter X Y A B h F
+
+-- All transitivity endpoints have explicit models and cells.
+abstract
+  curryDay-composition : (X Y A B C : CubicalSet ℓ)
+    (F : CubicalNatural (DayTensor X B) C)
+    (G : CubicalNatural (DayTensor Y A) B)
+    → _⋆n_ {A = DayTensor X Y} {B = DayTensor (DayHom B C) (DayHom A B)} {C = DayHom A C}
+        (dayMap {A = X} {A' = DayHom B C} {B = Y} {B' = DayHom A B}
+          (curryDay {C = X} {A = B} {B = C} F)
+          (curryDay {C = Y} {A = A} {B = B} G))
+        (homComposition A B C)
+      ≡ curryDay {C = DayTensor X Y} {A = A} {B = C}
+        (nestedEvaluation X Y A B C F G)
+  curryDay-composition {ℓ} X Y A B C F G =
+    let
+      H : CubicalSet ℓ
+      H = DayHom B C
+      K : CubicalSet ℓ
+      K = DayHom A B
+      P : CubicalSet ℓ
+      P = DayTensor X Y
+      L : CubicalSet ℓ
+      L = DayTensor P A
+      Q : CubicalSet ℓ
+      Q = DayTensor H K
+      M : CubicalSet ℓ
+      M = DayTensor Q A
+      curriedF : CubicalNatural X H
+      curriedF = curryDay {C = X} {A = B} {B = C} F
+      curriedG : CubicalNatural Y K
+      curriedG = curryDay {C = Y} {A = A} {B = B} G
+      parameter : CubicalNatural P Q
+      parameter = dayMap {A = X} {A' = H} {B = Y} {B' = K} curriedF curriedG
+      outerParameter : CubicalNatural L M
+      outerParameter = dayMap {A = P} {A' = Q} {B = A} {B' = A} parameter (cubicalId A)
+      compositionEvaluation : CubicalNatural M C
+      compositionEvaluation = homCompositionEvaluation A B C
+      uncurriedRoute : CubicalNatural L C
+      uncurriedRoute = _⋆n_ {A = L} {B = M} {C = C} outerParameter compositionEvaluation
+      nestedRoute : CubicalNatural L C
+      nestedRoute = nestedEvaluation X Y A B C F G
+
+      β : (p q r : ℕ) (x : Cell X p) (y : Cell Y q) (a : Cell A r)
+        → mapCells {A = L} {B = C} uncurriedRoute ((p + q) + r)
+            (leftTripleCell X Y A p q r x y a)
+          ≡ mapCells {A = L} {B = C} nestedRoute ((p + q) + r)
+            (leftTripleCell X Y A p q r x y a)
+      β p q r x y a =
+        let
+          t : Cell L ((p + q) + r)
+          t = leftTripleCell X Y A p q r x y a
+          xy : Cell P (p + q)
+          xy = dayPair {A = X} {B = Y} p q x y
+          hx : Cell H p
+          hx = mapCells {A = X} {B = H} curriedF p x
+          ky : Cell K q
+          ky = mapCells {A = Y} {B = K} curriedG q y
+          hk : Cell Q (p + q)
+          hk = dayPair {A = H} {B = K} p q hx ky
+          s : Cell M ((p + q) + r)
+          s = leftTripleCell H K A p q r hx ky a
+          u : CubicalMap ((p + q) + r) (p + (q + r))
+          u = cubeAssociator p q r
+          v : Cell B (q + r)
+          v = applyHom A B q r ky a
+          w : Cell B (q + r)
+          w = mapCells {A = DayTensor Y A} {B = B} G (q + r)
+            (dayPair {A = Y} {B = A} q r y a)
+          applyHx : Cell B (q + r) → Cell C (p + (q + r))
+          applyHx = applyHom B C p (q + r) hx
+          value : Cell C (p + (q + r))
+          value = mapCells {A = DayTensor X B} {B = C} F (p + (q + r))
+            (dayPair {A = X} {B = B} p (q + r) x w)
+
+          mapOuter : mapCells {A = L} {B = M} outerParameter ((p + q) + r) t
+            ≡ dayPair {A = Q} {B = A} (p + q) r (mapCells {A = P} {B = Q} parameter (p + q) xy) a
+          mapOuter = dayMap-β {A = P} {A' = Q} {B = A} {B' = A}
+            parameter (cubicalId A) (p + q) r xy a
+          mapInner : mapCells {A = P} {B = Q} parameter (p + q) xy ≡ hk
+          mapInner = dayMap-β {A = X} {A' = H} {B = Y} {B' = K} curriedF curriedG p q x y
+          pairedInner : dayPair {A = Q} {B = A} (p + q) r
+              (mapCells {A = P} {B = Q} parameter (p + q) xy) a ≡ s
+          pairedInner = cong (λ (z : Cell Q (p + q)) → dayPair {A = Q} {B = A} (p + q) r z a) mapInner
+
+          b1 : mapCells {A = L} {B = C} uncurriedRoute ((p + q) + r) t
+            ≡ mapCells {A = M} {B = C} compositionEvaluation ((p + q) + r) s
+          b1 = cong (mapCells {A = M} {B = C} compositionEvaluation ((p + q) + r))
+            (mapOuter ∙ pairedInner)
+          b2 : mapCells {A = M} {B = C} compositionEvaluation ((p + q) + r) s
+            ≡ reindex C u (applyHx v)
+          b2 = homCompositionEvaluation-β A B C p q r hx ky a
+          evalG : v ≡ w
+          evalG = applyHom-curry-β Y A B G q r y a
+          evalF : applyHx w ≡ value
+          evalF = applyHom-curry-β X B C F p (q + r) x w
+          evaluatedG : applyHx v ≡ applyHx w
+          evaluatedG = cong applyHx evalG
+          b3 : reindex C u (applyHx v) ≡ reindex C u value
+          b3 = cong (reindex C u) (evaluatedG ∙ evalF)
+          b4 : reindex C u value ≡ mapCells {A = L} {B = C} nestedRoute ((p + q) + r) t
+          b4 = sym (nestedEvaluation-β X Y A B C F G p q r x y a)
+        in b1 ∙ b2 ∙ b3 ∙ b4
+
+      uncurried : uncurriedRoute ≡ nestedRoute
+      uncurried = TripleExt.leftTripleExt X Y A C uncurriedRoute nestedRoute β
+      e1 : _⋆n_ {A = P} {B = Q} {C = DayHom A C} parameter (homComposition A B C)
+        ≡ curryDay {C = P} {A = A} {B = C} uncurriedRoute
+      e1 = curryDay-precomposeHom Q P A C parameter compositionEvaluation
+      e2 : curryDay {C = P} {A = A} {B = C} uncurriedRoute
+        ≡ curryDay {C = P} {A = A} {B = C} nestedRoute
+      e2 = cong (curryDay {C = P} {A = A} {B = C}) uncurried
+    in e1 ∙ e2
+
+-- Actual internal-Hom composition compatibility, without a local Kan
+-- or realization-model premise. Root owns validation of this source.

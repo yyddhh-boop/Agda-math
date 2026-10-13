@@ -1,0 +1,7 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableCompositionCoherence where
+
+-- Public re-export preserves the complete identity/unit/associativity
+-- interface. The two proof modules can be checked and cached independently.
+open import DHH.Enrichment.StableCompositionUnits public
+open import DHH.Enrichment.StableCompositionAssociativity public

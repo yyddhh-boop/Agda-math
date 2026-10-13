@@ -1,0 +1,151 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableCompositionAssociativity where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; zero; suc; _+_; max)
+open import Cubical.Data.Nat.Order using (_≤_; ≤-trans; left-≤-max; right-≤-max)
+open import Cubical.Data.Sigma
+open import Cubical.Data.Bool using (Bool; true; false)
+import Cubical.HITs.SetQuotients as SQ
+open import DHH.Graph
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCategory
+open import DHH.Cubical.TensorCoherence
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayAssociatorHelpers using (dayTensorExt)
+open import DHH.Cubical.DayTriple
+open import DHH.Cubical.DayAssociator
+open import DHH.Cubical.DayUnitLift
+open import DHH.StableNerve.Nerve
+open import DHH.StableNerve.Transitions
+open import DHH.StableNerve.Colimit
+open import DHH.StableNerve.CommonStage
+open import DHH.Enrichment.GraphHom
+open import DHH.Enrichment.StableComposition
+open import DHH.Enrichment.StableCompositionStageLaws using (mergeN∞-same-stage-abstract)
+open import DHH.Enrichment.GridCompositionCoherence
+
+private variable ℓ : Level
+
+module _ (G H K L : Graph ℓ) where
+  private
+    A₀ B₀ C₀ D₀ : Graph ℓ
+    A₀ = HomGraph K L
+    B₀ = HomGraph H K
+    C₀ = HomGraph G H
+    D₀ = HomGraph G L
+    A B C D : CubicalSet ℓ
+    A = N∞ A₀
+    B = N∞ B₀
+    C = N∞ C₀
+    D = N∞ D₀
+    N M TLeft TRight : CubicalSet ℓ
+    N = N∞ (HomGraph H L)
+    M = N∞ (HomGraph G K)
+    TLeft = DayTensor (DayTensor A B) C
+    TRight = DayTensor A (DayTensor B C)
+    composeAB : CubicalNatural (DayTensor A B) N
+    composeAB = stableComposition H K L
+    composeNC : CubicalNatural (DayTensor N C) D
+    composeNC = stableComposition G H L
+    composeBC : CubicalNatural (DayTensor B C) M
+    composeBC = stableComposition G H K
+    composeAM : CubicalNatural (DayTensor A M) D
+    composeAM = stableComposition G K L
+    associateLeftRoute : CubicalNatural TLeft D
+    associateLeftRoute = dayMap {A = DayTensor A B} {A' = N} {B = C} {B' = C}
+      composeAB (cubicalId C) ⋆n composeNC
+    associateAfterRoute : CubicalNatural TRight D
+    associateAfterRoute = dayMap {A = A} {A' = A} {B = DayTensor B C} {B' = M}
+      (cubicalId A) composeBC ⋆n composeAM
+    associateRightRoute : CubicalNatural TLeft D
+    associateRightRoute = dayAssociator A B C ⋆n associateAfterRoute
+    module AS = CommonStages (Stage A₀) (stageTransition A₀)
+    module BS = CommonStages (Stage B₀) (stageTransition B₀)
+    module CS = CommonStages (Stage C₀) (stageTransition C₀)
+
+    leftMerge : (p q r : ℕ) → Cell A p → Cell B q → Cell C r → Cell D ((p + q) + r)
+    leftMerge p q r a b c = mergeN∞ G H L (p + q) r (mergeN∞ H K L p q a b) c
+
+    rightMerge : (p q r : ℕ) → Cell A p → Cell B q → Cell C r → Cell D ((p + q) + r)
+    rightMerge p q r a b c = reindex D (cubeAssociator p q r)
+      (mergeN∞ G K L p (q + r) a (mergeN∞ G H K q r b c))
+
+  abstract
+    mergeN∞-associativity-same-stage : (k p q r : ℕ)
+      (a : Cell (Stage A₀ k) p) (b : Cell (Stage B₀ k) q) (c : Cell (Stage C₀ k) r)
+      → leftMerge p q r (Stable.point A₀ p (k , a))
+          (Stable.point B₀ q (k , b)) (Stable.point C₀ r (k , c))
+        ≡ rightMerge p q r (Stable.point A₀ p (k , a))
+          (Stable.point B₀ q (k , b)) (Stable.point C₀ r (k , c))
+    mergeN∞-associativity-same-stage k p q r a b c =
+      cong (λ ab → mergeN∞ G H L (p + q) r ab (Stable.point C₀ r (k , c)))
+        (mergeN∞-same-stage-abstract H K L k p q a b)
+      ∙ mergeN∞-same-stage-abstract G H L k (p + q) r (combineAt H K L k p q a b) c
+      ∙ cong (λ z → Stable.point D₀ ((p + q) + r) (k , z))
+        (composeGrid-associativity (suc k) p q r {G = G} {H = H} {K = K} {L = L} a b c)
+      ∙ natural (includeStage D₀ k) (cubeAssociator p q r)
+        (combineAt G K L k p (q + r) a (combineAt G H K k q r b c))
+      ∙ sym (cong (reindex D (cubeAssociator p q r))
+        (cong (mergeN∞ G K L p (q + r) (Stable.point A₀ p (k , a)))
+          (mergeN∞-same-stage-abstract G H K k q r b c)
+        ∙ mergeN∞-same-stage-abstract G K L k p (q + r) a (combineAt G H K k q r b c)))
+
+    -- Three independent quotient eliminations expose only tagged inputs.
+    -- They are then raised to max k (max l m), using their explicit
+    -- finite certificates, before the verified common-stage equation.
+    mergeN∞-associativity : (p q r : ℕ)
+      (a : Cell A p) (b : Cell B q) (c : Cell C r)
+      → leftMerge p q r a b c ≡ rightMerge p q r a b c
+    mergeN∞-associativity p q r = SQ.elimProp3 (λ _ _ _ → SQ.squash/ _ _)
+      λ { (k , a) (l , b) (m , c) →
+        let commonStage = max k (max l m)
+            ha : k ≤ commonStage
+            ha = left-≤-max
+            hb : l ≤ commonStage
+            hb = ≤-trans left-≤-max right-≤-max
+            hc : m ≤ commonStage
+            hc = ≤-trans right-≤-max right-≤-max
+            ea = AS.point-advance ha p a
+            eb = BS.point-advance hb q b
+            ec = CS.point-advance hc r c
+        in cong₃ (leftMerge p q r) ea eb ec
+          ∙ mergeN∞-associativity-same-stage commonStage p q r
+            (AS.advanceCell ha p a) (BS.advanceCell hb q b) (CS.advanceCell hc r c)
+          ∙ sym (cong₃ (rightMerge p q r) ea eb ec) }
+
+  -- Both sides now have the identical domain ((A ⊗ B) ⊗ C).
+  -- Equality is against the actual Day associator, not an equality of
+  -- degree expressions or an abstract associativity field.
+  abstract
+    stableComposition-associativity :
+      dayMap (stableComposition H K L) (cubicalId C) ⋆n stableComposition G H L
+        ≡ dayAssociator A B C
+          ⋆n dayMap (cubicalId A) (stableComposition G H K)
+          ⋆n stableComposition G K L
+    stableComposition-associativity = TripleExt.leftTripleExt A B C D
+      associateLeftRoute associateRightRoute λ p q r a b c →
+      let abc : Cell TRight (p + (q + r))
+          abc = rightTripleCell A B C p q r a b c
+      in cong (mapCells {A = DayTensor N C} {B = D} composeNC ((p + q) + r))
+          (dayMap-β {A = DayTensor A B} {A' = N} {B = C} {B' = C}
+            composeAB (cubicalId C) (p + q) r
+            (dayPair {A = A} {B = B} p q a b) c
+          ∙ cong (λ ab → dayPair {A = N} {B = C} (p + q) r ab c)
+            (stableComposition-β H K L p q a b))
+        ∙ stableComposition-β G H L (p + q) r (mergeN∞ H K L p q a b) c
+        ∙ mergeN∞-associativity p q r a b c
+        ∙ sym
+          (cong (mapCells {A = TRight} {B = D} associateAfterRoute ((p + q) + r))
+            (dayAssociator-β A B C p q r a b c)
+          ∙ natural {A = TRight} {B = D} associateAfterRoute (cubeAssociator p q r) abc
+          ∙ cong (reindex D (cubeAssociator p q r))
+            (cong (mapCells {A = DayTensor A M} {B = D} composeAM (p + (q + r)))
+              (dayMap-β {A = A} {A' = A} {B = DayTensor B C} {B' = M}
+                (cubicalId A) composeBC p (q + r) a
+                (dayPair {A = B} {B = C} q r b c)
+              ∙ cong (dayPair {A = A} {B = M} p (q + r) a)
+                (stableComposition-β G H K q r b c))
+            ∙ stableComposition-β G K L p (q + r) a (mergeN∞ G H K q r b c)))

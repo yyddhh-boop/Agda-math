@@ -1,0 +1,196 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.NerveFunctorComposition where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; suc; _+_; max)
+open import Cubical.Data.Nat.Order using (_≤_; ≤-trans; left-≤-max; right-≤-max)
+open import Cubical.Data.Sigma
+import Cubical.HITs.SetQuotients as SQ
+open import DHH.Graph
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCategory
+open import DHH.Cubical.TensorCoherence
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayTensorFunctor
+open import DHH.Cubical.DayTriple
+open import DHH.Cubical.DayAssociator
+open import DHH.StableNerve.Grid
+open import DHH.StableNerve.Nerve
+open import DHH.StableNerve.Transitions
+open import DHH.StableNerve.Colimit
+open import DHH.StableNerve.CommonStage
+open import DHH.Enrichment.GraphHom
+open import DHH.Enrichment.GridComposition
+open import DHH.Enrichment.GridCompositionCoherence
+open import DHH.Enrichment.StableComposition
+open import DHH.Enrichment.StableCompositionStageLaws using (mergeN∞-same-stage-abstract)
+open import DHH.Enrichment.NerveFunctor
+
+private variable ℓ : Level
+
+-- The existing evaluation is checked against its finite-grid program.
+-- Both mapping parameters and input coordinates have independent blocks.
+abstract
+  stableEvaluation-on-stage : (G H : Graph ℓ) (k p q : ℕ)
+    (a : Cell (Stage (HomGraph G H) k) p) (b : Cell (Stage G k) q)
+    → mapCells (stableEvaluation G H) (p + q)
+        (dayPair {A = N∞ (HomGraph G H)} {B = N∞ G} p q
+          (Stable.point (HomGraph G H) p (k , a)) (Stable.point G q (k , b)))
+      ≡ Stable.point H (p + q) (k , evaluateGridCells G H (suc k) p q a b)
+  stableEvaluation-on-stage {ℓ} G H k p q a b =
+    stableEvaluation-β G H p q
+      (Stable.point (HomGraph G H) p (k , a)) (Stable.point G q (k , b))
+    ∙ cong (mapCells {A = N∞ (HomGraph (liftPointGraph ℓ) H)} {B = N∞ H}
+        (N∞-map {G = HomGraph (liftPointGraph ℓ) H} {H = H} (evalPoint H)) (p + q))
+      (mergeN∞-same-stage-abstract (liftPointGraph ℓ) G H k p q a (constPoint G ∘g b))
+
+abstract
+  evaluateGrid-associativity : (G H K : Graph ℓ) (r p q s : ℕ)
+    (a : Cell (Nₘ r (HomGraph H K)) p)
+    (b : Cell (Nₘ r (HomGraph G H)) q)
+    (c : Cell (Nₘ r G) s)
+    → evaluateGridCells G K r (p + q) s
+        (composeGridCells r {p = p} {q = q} {G = G} {H = H} {K = K} a b) c
+      ≡ reindex (Nₘ r K) (cubeAssociator p q s)
+        (evaluateGridCells H K r p (q + s) a (evaluateGridCells G H r q s b c))
+  evaluateGrid-associativity G H K r p q s a b c = gridLeftTripleExt r p q s λ x y z →
+    evaluateGrid-on-append G K r (p + q) s
+      (composeGridCells r {p = p} {q = q} {G = G} {H = H} {K = K} a b)
+      c (appendGridPoint r p q x y) z
+    ∙ cong (λ (h : Hom G K) → onVertices {G = G} {H = K} h
+        (onVertices {G = Grid r s} {H = G} c z))
+      (composeGrid-on-append r {p = p} {q = q} {G = G} {H = H} {K = K} a b x y)
+    ∙ sym
+      (cong (onVertices {G = Grid r (p + (q + s))} {H = K}
+          (evaluateGridCells H K r p (q + s) a (evaluateGridCells G H r q s b c)))
+        (gridAction-associator-on-append r p q s x y z)
+      ∙ evaluateGrid-on-append H K r p (q + s)
+        a (evaluateGridCells G H r q s b c) x (appendGridPoint r q s y z)
+      ∙ cong (onVertices {G = H} {H = K}
+          (onVertices {G = Grid r p} {H = HomGraph H K} a x))
+        (evaluateGrid-on-append G H r q s b c y z))
+
+stableAction : (G H : Graph ℓ) (p q : ℕ)
+  → Cell (N∞ (HomGraph G H)) p → Cell (N∞ G) q → Cell (N∞ H) (p + q)
+stableAction G H p q a b = mapCells
+  {A = DayTensor (N∞ (HomGraph G H)) (N∞ G)} {B = N∞ H}
+  (stableEvaluation G H) (p + q)
+  (dayPair {A = N∞ (HomGraph G H)} {B = N∞ G} p q a b)
+
+module _ (G H K : Graph ℓ) where
+  private
+    A₀ B₀ : Graph ℓ
+    A₀ = HomGraph H K
+    B₀ = HomGraph G H
+    A B C D N M TLeft TRight : CubicalSet ℓ
+    A = N∞ A₀
+    B = N∞ B₀
+    C = N∞ G
+    D = N∞ K
+    N = N∞ (HomGraph G K)
+    M = N∞ H
+    TLeft = DayTensor (DayTensor A B) C
+    TRight = DayTensor A (DayTensor B C)
+    composeAB : CubicalNatural (DayTensor A B) N
+    composeAB = stableComposition G H K
+    evaluateNC : CubicalNatural (DayTensor N C) D
+    evaluateNC = stableEvaluation G K
+    evaluateBC : CubicalNatural (DayTensor B C) M
+    evaluateBC = stableEvaluation G H
+    evaluateAM : CubicalNatural (DayTensor A M) D
+    evaluateAM = stableEvaluation H K
+    leftActionRoute : CubicalNatural TLeft D
+    leftActionRoute = _⋆n_ {A = TLeft} {B = DayTensor N C} {C = D}
+      (dayMap {A = DayTensor A B} {A' = N} {B = C} {B' = C} composeAB (cubicalId C)) evaluateNC
+    afterActionRoute : CubicalNatural TRight D
+    afterActionRoute = _⋆n_ {A = TRight} {B = DayTensor A M} {C = D}
+      (dayMap {A = A} {A' = A} {B = DayTensor B C} {B' = M} (cubicalId A) evaluateBC) evaluateAM
+    rightActionRoute : CubicalNatural TLeft D
+    rightActionRoute = _⋆n_ {A = TLeft} {B = TRight} {C = D} (dayAssociator A B C) afterActionRoute
+    module AS = CommonStages (Stage A₀) (stageTransition A₀)
+    module BS = CommonStages (Stage B₀) (stageTransition B₀)
+    module CS = CommonStages (Stage G) (stageTransition G)
+
+    leftAction : (p q r : ℕ) → Cell A p → Cell B q → Cell C r → Cell D ((p + q) + r)
+    leftAction p q r a b c = stableAction G K (p + q) r (mergeN∞ G H K p q a b) c
+
+    rightAction : (p q r : ℕ) → Cell A p → Cell B q → Cell C r → Cell D ((p + q) + r)
+    rightAction p q r a b c = reindex D (cubeAssociator p q r)
+      (stableAction H K p (q + r) a (stableAction G H q r b c))
+
+  abstract
+    stableAction-associativity-same-stage : (k p q r : ℕ)
+      (a : Cell (Stage A₀ k) p) (b : Cell (Stage B₀ k) q) (c : Cell (Stage G k) r)
+      → leftAction p q r (Stable.point A₀ p (k , a))
+          (Stable.point B₀ q (k , b)) (Stable.point G r (k , c))
+        ≡ rightAction p q r (Stable.point A₀ p (k , a))
+          (Stable.point B₀ q (k , b)) (Stable.point G r (k , c))
+    stableAction-associativity-same-stage k p q r a b c =
+      cong (λ (ab : Cell N (p + q)) → stableAction G K (p + q) r ab (Stable.point G r (k , c)))
+        (mergeN∞-same-stage-abstract G H K k p q a b)
+      ∙ stableEvaluation-on-stage G K k (p + q) r (combineAt G H K k p q a b) c
+      ∙ cong (λ (z : Cell (Stage K k) ((p + q) + r)) → Stable.point K ((p + q) + r) (k , z))
+        (evaluateGrid-associativity G H K (suc k) p q r a b c)
+      ∙ natural {A = Stage K k} {B = D} (includeStage K k) (cubeAssociator p q r)
+        (evaluateGridCells H K (suc k) p (q + r) a (evaluateGridCells G H (suc k) q r b c))
+      ∙ sym (cong (reindex D (cubeAssociator p q r))
+        (cong (λ (bc : Cell M (q + r)) → stableAction H K p (q + r) (Stable.point A₀ p (k , a)) bc)
+          (stableEvaluation-on-stage G H k q r b c)
+        ∙ stableEvaluation-on-stage H K k p (q + r) a (evaluateGridCells G H (suc k) q r b c)))
+
+    stableAction-associativity : (p q r : ℕ)
+      (a : Cell A p) (b : Cell B q) (c : Cell C r)
+      → leftAction p q r a b c ≡ rightAction p q r a b c
+    stableAction-associativity p q r = SQ.elimProp3
+      {A = Stable.Tagged A₀ p} {R = Stable.Step A₀ p}
+      {B = Stable.Tagged B₀ q} {S = Stable.Step B₀ q}
+      {C = Stable.Tagged G r} {T = Stable.Step G r}
+      {P = λ a b c → leftAction p q r a b c ≡ rightAction p q r a b c}
+      (λ _ _ _ → snd (cells D ((p + q) + r)) _ _)
+      λ { (k , a) (l , b) (m , c) →
+        let commonStage = max k (max l m)
+            ha : k ≤ commonStage
+            ha = left-≤-max
+            hb : l ≤ commonStage
+            hb = ≤-trans left-≤-max right-≤-max
+            hc : m ≤ commonStage
+            hc = ≤-trans right-≤-max right-≤-max
+            ea = AS.point-advance ha p a
+            eb = BS.point-advance hb q b
+            ec = CS.point-advance hc r c
+        in cong₃ {A = Cell A p} {B = λ _ → Cell B q} {C = λ _ _ → Cell C r}
+            {D = λ _ _ _ → Cell D ((p + q) + r)} (leftAction p q r) ea eb ec
+          ∙ stableAction-associativity-same-stage commonStage p q r
+            (AS.advanceCell ha p a) (BS.advanceCell hb q b) (CS.advanceCell hc r c)
+          ∙ sym (cong₃ {A = Cell A p} {B = λ _ → Cell B q} {C = λ _ _ → Cell C r}
+            {D = λ _ _ _ → Cell D ((p + q) + r)} (rightAction p q r) ea eb ec) }
+
+  -- Actual Day associativity diagram for the nerve's evaluation action.
+  -- This is the uncurried composition compatibility, in every cell.
+  abstract
+    stableEvaluation-associativity :
+      dayMap (stableComposition G H K) (cubicalId C) ⋆n stableEvaluation G K
+        ≡ dayAssociator A B C
+          ⋆n dayMap (cubicalId A) (stableEvaluation G H)
+          ⋆n stableEvaluation H K
+    stableEvaluation-associativity = TripleExt.leftTripleExt A B C D
+      leftActionRoute rightActionRoute λ p q r a b c →
+      let abc : Cell TRight (p + (q + r))
+          abc = rightTripleCell A B C p q r a b c
+      in cong (mapCells {A = DayTensor N C} {B = D} evaluateNC ((p + q) + r))
+          (dayMap-β {A = DayTensor A B} {A' = N} {B = C} {B' = C}
+            composeAB (cubicalId C) (p + q) r
+            (dayPair {A = A} {B = B} p q a b) c
+          ∙ cong (λ (ab : Cell N (p + q)) → dayPair {A = N} {B = C} (p + q) r ab c)
+            (stableComposition-β G H K p q a b))
+        ∙ stableAction-associativity p q r a b c
+        ∙ sym
+          (cong (mapCells {A = TRight} {B = D} afterActionRoute ((p + q) + r))
+            (dayAssociator-β A B C p q r a b c)
+          ∙ natural {A = TRight} {B = D} afterActionRoute (cubeAssociator p q r) abc
+          ∙ cong (reindex D (cubeAssociator p q r))
+            (cong (mapCells {A = DayTensor A M} {B = D} evaluateAM (p + (q + r)))
+              (dayMap-β {A = A} {A' = A} {B = DayTensor B C} {B' = M}
+                (cubicalId A) evaluateBC p (q + r) a
+                (dayPair {A = B} {B = C} q r b c))))

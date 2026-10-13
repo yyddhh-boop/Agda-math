@@ -1,0 +1,7 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Enrichment.StableCompositionUnits where
+
+-- Public interface preserved; only cache boundaries are split.
+open import DHH.Enrichment.StableCompositionIdentity public
+open import DHH.Enrichment.StableCompositionMergeUnits public
+open import DHH.Enrichment.StableCompositionDayUnits public

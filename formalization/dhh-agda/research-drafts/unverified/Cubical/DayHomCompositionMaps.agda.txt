@@ -1,0 +1,123 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomCompositionMaps where
+
+open import Cubical.Foundations.Prelude
+open import Cubical.Data.Nat using (ℕ; _+_)
+open import DHH.CubeCategory
+open import DHH.CubicalNerve
+open import DHH.Cubical.TensorCoherence
+open import DHH.Cubical.DayTensor
+open import DHH.Cubical.DayAssociator
+open import DHH.Cubical.DayUnitLift
+open import DHH.Cubical.DayClosed
+open import DHH.Cubical.DayHomEvaluation
+open import DHH.Cubical.DayHomNestedEvaluation
+
+private variable ℓ : Level
+
+homIdentity : (A : CubicalSet ℓ) → CubicalNatural (DayUnitAt ℓ) (DayHom A A)
+homIdentity {ℓ} A = curryDay {C = DayUnitAt ℓ} {A = A} {B = A} (dayLeftUnitAt A)
+
+homCompositionEvaluation : (A B C : CubicalSet ℓ)
+  → CubicalNatural (DayTensor (DayTensor (DayHom B C) (DayHom A B)) A) C
+homCompositionEvaluation A B C = nestedEvaluation (DayHom B C) (DayHom A B) A B C
+  (dayEvaluation B C) (dayEvaluation A B)
+
+homComposition : (A B C : CubicalSet ℓ)
+  → CubicalNatural (DayTensor (DayHom B C) (DayHom A B)) (DayHom A C)
+homComposition A B C = curryDay
+  {C = DayTensor (DayHom B C) (DayHom A B)} {A = A} {B = C}
+  (homCompositionEvaluation A B C)
+
+abstract
+  homIdentity-uncurry : (A : CubicalSet ℓ)
+    → uncurryDay {C = DayUnitAt ℓ} {A = A} {B = A} (homIdentity A) ≡ dayLeftUnitAt A
+  homIdentity-uncurry {ℓ} A = uncurry-curryDay
+    {C = DayUnitAt ℓ} {A = A} {B = A} (dayLeftUnitAt A)
+
+abstract
+  homComposition-uncurry : (A B C : CubicalSet ℓ)
+    → uncurryDay {C = DayTensor (DayHom B C) (DayHom A B)} {A = A} {B = C}
+        (homComposition A B C) ≡ homCompositionEvaluation A B C
+  homComposition-uncurry A B C = uncurry-curryDay
+    {C = DayTensor (DayHom B C) (DayHom A B)} {A = A} {B = C}
+    (homCompositionEvaluation A B C)
+
+abstract
+  homCompositionEvaluation-β : (A B C : CubicalSet ℓ) (p q r : ℕ)
+    (h : Cell (DayHom B C) p) (k : Cell (DayHom A B) q) (a : Cell A r)
+    → mapCells {A = DayTensor (DayTensor (DayHom B C) (DayHom A B)) A} {B = C}
+        (homCompositionEvaluation A B C) ((p + q) + r)
+        (leftTripleCell (DayHom B C) (DayHom A B) A p q r h k a)
+      ≡ reindex C (cubeAssociator p q r)
+        (applyHom B C p (q + r) h (applyHom A B q r k a))
+  homCompositionEvaluation-β {ℓ} A B C p q r h k a =
+    let
+      L : CubicalSet ℓ
+      L = DayTensor (DayTensor (DayHom B C) (DayHom A B)) A
+      T : CubicalSet ℓ
+      T = DayTensor (DayHom B C) B
+      t : Cell L ((p + q) + r)
+      t = leftTripleCell (DayHom B C) (DayHom A B) A p q r h k a
+      u : CubicalMap ((p + q) + r) (p + (q + r))
+      u = cubeAssociator p q r
+      v : Cell B (q + r)
+      v = mapCells {A = DayTensor (DayHom A B) A} {B = B} (dayEvaluation A B) (q + r)
+        (dayPair {A = DayHom A B} {B = A} q r k a)
+      w : Cell B (q + r)
+      w = applyHom A B q r k a
+      evalH : Cell B (q + r) → Cell C (p + (q + r))
+      evalH b = mapCells {A = T} {B = C} (dayEvaluation B C) (p + (q + r))
+        (dayPair {A = DayHom B C} {B = B} p (q + r) h b)
+
+      e1 : mapCells {A = L} {B = C} (homCompositionEvaluation A B C) ((p + q) + r) t
+        ≡ reindex C u (evalH v)
+      e1 = nestedEvaluation-β (DayHom B C) (DayHom A B) A B C
+        (dayEvaluation B C) (dayEvaluation A B) p q r h k a
+
+      e2 : reindex C u (evalH v) ≡ reindex C u (evalH w)
+      e2 = cong (λ (b : Cell B (q + r)) → reindex C u (evalH b))
+        (evaluationHom-β A B q r k a)
+
+      e3 : reindex C u (evalH w)
+        ≡ reindex C u (applyHom B C p (q + r) h w)
+      e3 = cong (reindex C u) (evaluationHom-β B C p (q + r) h w)
+    in e1 ∙ e2 ∙ e3
+
+abstract
+  homComposition-β : (A B C : CubicalSet ℓ) (p q r : ℕ)
+    (h : Cell (DayHom B C) p) (k : Cell (DayHom A B) q) (a : Cell A r)
+    → applyHom A C (p + q) r
+        (mapCells {A = DayTensor (DayHom B C) (DayHom A B)} {B = DayHom A C}
+          (homComposition A B C) (p + q)
+          (dayPair {A = DayHom B C} {B = DayHom A B} p q h k)) a
+      ≡ reindex C (cubeAssociator p q r)
+        (applyHom B C p (q + r) h (applyHom A B q r k a))
+  homComposition-β {ℓ} A B C p q r h k a =
+    let
+      P : CubicalSet ℓ
+      P = DayTensor (DayHom B C) (DayHom A B)
+      L : CubicalSet ℓ
+      L = DayTensor P A
+      hk : Cell P (p + q)
+      hk = dayPair {A = DayHom B C} {B = DayHom A B} p q h k
+      t : Cell L ((p + q) + r)
+      t = leftTripleCell (DayHom B C) (DayHom A B) A p q r h k a
+      uncurried : CubicalNatural L C
+      uncurried = uncurryDay {C = P} {A = A} {B = C} (homComposition A B C)
+
+      e1 : applyHom A C (p + q) r
+          (mapCells {A = P} {B = DayHom A C} (homComposition A B C) (p + q) hk) a
+        ≡ mapCells {A = L} {B = C} uncurried ((p + q) + r) t
+      e1 = sym (uncurryDay-β {C = P} {A = A} {B = C}
+        (homComposition A B C) (p + q) r hk a)
+
+      e2 : mapCells {A = L} {B = C} uncurried ((p + q) + r) t
+        ≡ mapCells {A = L} {B = C} (homCompositionEvaluation A B C) ((p + q) + r) t
+      e2 = cong (λ (f : CubicalNatural L C) → mapCells {A = L} {B = C} f ((p + q) + r) t)
+        (homComposition-uncurry A B C)
+
+      e3 : mapCells {A = L} {B = C} (homCompositionEvaluation A B C) ((p + q) + r) t
+        ≡ reindex C (cubeAssociator p q r) (applyHom B C p (q + r) h (applyHom A B q r k a))
+      e3 = homCompositionEvaluation-β A B C p q r h k a
+    in e1 ∙ e2 ∙ e3

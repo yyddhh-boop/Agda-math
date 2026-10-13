@@ -1,0 +1,9 @@
+{-# OPTIONS --cubical --safe #-}
+module DHH.Cubical.DayHomComposition where
+
+-- Public re-export preserves all original maps and proof interfaces.
+-- Each actual proof component has an independent safe cache boundary.
+open import DHH.Cubical.DayHomEvaluation public
+open import DHH.Cubical.DayHomNestedEvaluation public
+open import DHH.Cubical.DayHomCompositionMaps public
+open import DHH.Cubical.DayHomCompositionNaturality public
